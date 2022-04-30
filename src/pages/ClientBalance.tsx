@@ -39,7 +39,7 @@ export const ClientBalance = () => {
 
     const inputAmount = e.currentTarget.inputAmount;
 
-    clientToUpdate && updateClient(clientToUpdate, parseInt(inputAmount.value));
+    clientToUpdate && updateClient(clientToUpdate, parseInt(inputAmount.value), isAdding ? "agregar-saldo" : "descontar-saldo");
 
     setIsModalActive(false);
   };

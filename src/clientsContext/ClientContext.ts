@@ -3,7 +3,7 @@ import {Client} from './types';
 
 type ClientContextProps = {
     addClient: (firstname: Client["nombre"], lastname:Client["apellido"], tel: Client["tel"]) => Promise<void>,
-    updateClient: (id: Client["clientid"], amount: number) => Promise<void>,
+    updateClient: (id: Client["clientid"], amount: number, operation: string) => Promise<void>,
     getClientList: () => Promise<void>,
     clientList: Client[];
 }

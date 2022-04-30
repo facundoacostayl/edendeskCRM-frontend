@@ -49,12 +49,12 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
-  const updateClient = async (id: Client["clientid"], amount: number) => {
+  const updateClient = async (id: Client["clientid"], amount: number, operation: string) => {
     try {
       const body = { amount };
 
       const response = await fetch(
-        `http://localhost:4000/cliente/${id}/nuevo-saldo`,
+        `http://localhost:4000/cliente/${id}/${operation}`,
         {
           method: "PUT",
           headers: {
