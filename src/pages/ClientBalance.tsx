@@ -23,7 +23,11 @@ export const ClientBalance = () => {
 
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [clientToUpdate, setClientToUpdate] = useState<Client['clientid']>();
+  const [clientToUpdate, setClientToUpdate] = useState({
+    id: 0,
+    nombre: "",
+    apellido: ""
+  });
 
 
   useEffect(() => {
@@ -39,7 +43,7 @@ export const ClientBalance = () => {
 
     const inputAmount = e.currentTarget.inputAmount;
 
-    clientToUpdate && updateClient(clientToUpdate, parseInt(inputAmount.value), isAdding ? "agregar-saldo" : "descontar-saldo");
+    clientToUpdate && updateClient(clientToUpdate.id, parseInt(inputAmount.value), isAdding ? "agregar-saldo" : "descontar-saldo");
 
     setIsModalActive(false);
   };
@@ -51,6 +55,7 @@ export const ClientBalance = () => {
           <h2 className="text-center text-gray-600 mb-2 font-semibold">
             {isAdding ? "Ingresa el monto a cargar" : "Ingresa ultimo consumo"}
           </h2>
+          <p>Cliente: {clientToUpdate.nombre} {clientToUpdate.apellido}</p>
           <TextField autoFocus type="number" placeholder="$" name="inputAmount" />
           <ModalFooter>
             <Button onClose={toggleModal} colorScheme="secondary">
@@ -68,7 +73,7 @@ export const ClientBalance = () => {
       <ul>
         {clientList.map((client)=> {
           return (
-            <Card onSetClientId={() => setClientToUpdate(client.clientid)} key={client.clientid} center="items-center">
+            <Card onSetClientId={() => setClientToUpdate({id: client.clientid, nombre: client.nombre, apellido: client.apellido})} key={client.clientid} center="items-center">
               <CardLeftContainer>
                 <h3 className="font-semibold text-gray-500">{client.nombre}</h3>
                 <p className={`text-center font-bold text-indigo-500 text-xl ${client.saldo < 0 && "text-red-500"}`}>
