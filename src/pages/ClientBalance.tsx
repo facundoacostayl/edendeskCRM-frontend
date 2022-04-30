@@ -71,7 +71,7 @@ export const ClientBalance = () => {
             <Card onSetClientId={() => setClientToUpdate(client.clientid)} key={client.clientid} center="items-center">
               <CardLeftContainer>
                 <h3 className="font-semibold text-gray-500">{client.nombre}</h3>
-                <p className="text-center font-bold text-indigo-500 text-xl">
+                <p className={`text-center font-bold text-indigo-500 text-xl ${client.saldo < 0 && "text-red-500"}`}>
                   {`$${client.saldo === null ? 0 : client.saldo }`}
                 </p>
               </CardLeftContainer>
