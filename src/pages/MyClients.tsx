@@ -13,6 +13,7 @@ export const MyClients = () => {
 
   const { clientList, getClientList, searchClient, orderClients } = useClient();
   const [searchField, setSearchField] = useState<string>("");
+  const [filterValue, setFilterValue] = useState<string>("");
 
   useEffect(() => {
     getClientList();
@@ -20,6 +21,7 @@ export const MyClients = () => {
 
   useEffect(() => {
     searchClient(searchField);
+    setFilterValue("");
   }, [searchField]);
 
 
@@ -31,6 +33,7 @@ export const MyClients = () => {
 
   const onFilterItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
     orderClients(e.target.value)
+    setFilterValue(e.target.value)
   }
 
   return (
@@ -48,7 +51,7 @@ export const MyClients = () => {
         <label className="font-light text-gray-600" htmlFor="">
           ordernar por:
         </label>
-        <select onChange={e => onFilterItems(e)} className="" name="filter" id="filter">
+        <select onChange={e => onFilterItems(e)} value={filterValue} className="" name="filter" id="filter">
           <option value="nombre-asc">A - Z</option>
           <option value="nombre-desc">Z - A</option>
           <option value="saldo-asc">Menor saldo</option>
