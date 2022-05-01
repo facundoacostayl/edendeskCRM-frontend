@@ -7,6 +7,7 @@ import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import {NewClient} from './pages/NewClient';
 import {ClientBalance} from './pages/ClientBalance';
+import {MyClients} from './pages/MyClients';
 
 //Hooks
 import { useAuth } from "./authContext/AuthProvider";
@@ -27,6 +28,7 @@ function App() {
         </Route>
         <Route path="/nuevo-cliente" element={<NewClient/>}></Route>
         <Route path="/nuevo-saldo" element={<ClientBalance/>}></Route>
+        <Route path="/mis-clientes" element={<MyClients/>}></Route>
       </Routes>
     </div>
   );

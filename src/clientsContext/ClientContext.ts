@@ -6,6 +6,7 @@ type ClientContextProps = {
     updateClient: (id: Client["clientid"], amount: number, operation: string) => Promise<void>,
     getClientList: () => Promise<void>,
     clientList: Client[];
+    searchClient: (name: Client["nombre"]) => Promise<void>
 }
 
 export const ClientContext = createContext<ClientContextProps>({} as ClientContextProps);

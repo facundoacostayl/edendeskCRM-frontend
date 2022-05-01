@@ -72,11 +72,24 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
+  const searchClient = async(name: Client["nombre"]) => {
+    try{
+      const response = await fetch(`http://localhost:4000/cliente/?name=${name}`)
+
+      const parseRes = await response.json();
+      setClientList(parseRes)
+      console.log(parseRes)
+    }catch(error){
+      error instanceof Error && console.error(error.message)
+    }
+  }
+
   const values = {
     addClient,
     updateClient,
     getClientList,
     clientList,
+    searchClient
   };
 
   return (
