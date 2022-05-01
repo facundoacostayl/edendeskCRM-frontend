@@ -10,7 +10,8 @@ import { ClientItem } from "../ui/clientItem";
 import { Button } from "../ui/controls/button";
 
 export const MyClients = () => {
-  const { clientList, getClientList, searchClient } = useClient();
+
+  const { clientList, getClientList, searchClient, orderClients } = useClient();
   const [searchField, setSearchField] = useState<string>("");
 
   useEffect(() => {
@@ -18,17 +19,19 @@ export const MyClients = () => {
   }, []);
 
   useEffect(() => {
-    searchClient(searchField)
-  }, [searchField])
+    searchClient(searchField);
+  }, [searchField]);
+
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {
-
       setSearchField(e.target.value);
-
     }, 800);
-
   };
+
+  const onFilterItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    orderClients(e.target.value)
+  }
 
   return (
     <>
@@ -45,11 +48,11 @@ export const MyClients = () => {
         <label className="font-light text-gray-600" htmlFor="">
           ordernar por:
         </label>
-        <select className="" name="" id="">
-          <option value="A - Z">A - Z</option>
-          <option value="Z - A">Z - A</option>
-          <option value="Menor saldo primero">Menor saldo</option>
-          <option value="Mayor saldo primero">Mayor saldo</option>
+        <select onChange={e => onFilterItems(e)} className="" name="filter" id="filter">
+          <option value="nombre-asc">A - Z</option>
+          <option value="nombre-desc">Z - A</option>
+          <option value="saldo-asc">Menor saldo</option>
+          <option value="saldo-desc">Mayor saldo</option>
         </select>
       </div>
       <ClientList>

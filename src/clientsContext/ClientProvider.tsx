@@ -84,12 +84,25 @@ export const ClientProvider = ({ children }: Props) => {
     }
   }
 
+  const orderClients = async(orderType: string) => {
+    try{
+      const response = await fetch(`http://localhost:4000/cliente/ordenar-por-${orderType}`);
+
+      const parseRes = await response.json();
+      setClientList(parseRes);
+      console.log(parseRes);
+    }catch(error){
+      error instanceof Error && console.error(error.message)
+    }
+  }
+
   const values = {
     addClient,
     updateClient,
     getClientList,
     clientList,
-    searchClient
+    searchClient,
+    orderClients
   };
 
   return (
