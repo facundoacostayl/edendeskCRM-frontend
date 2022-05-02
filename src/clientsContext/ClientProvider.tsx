@@ -13,6 +13,7 @@ type Props = {
 export const ClientProvider = ({ children }: Props) => {
 
   const [clientList, setClientList] = useState<Client[]>([]);
+  const [currentClient, setCurrentClient] = useState<Client>({} as Client);
 
   const getClientList = async () => {
     try {
@@ -25,6 +26,14 @@ export const ClientProvider = ({ children }: Props) => {
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
+  }
+
+  const getClient = async(id: Client["clientid"]) => {
+    const response = await fetch(`http://localhost:4000/cliente/${id}`);
+
+    const parseRes = await response.json();
+
+    setCurrentClient(parseRes);
   }
 
   const addClient = async (
@@ -101,6 +110,8 @@ export const ClientProvider = ({ children }: Props) => {
     updateClient,
     getClientList,
     clientList,
+    getClient,
+    currentClient,
     searchClient,
     orderClients
   };
