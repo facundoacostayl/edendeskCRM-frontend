@@ -5,14 +5,14 @@ type ACTION_TYPES = {
   payload: {
     firstname: Client["nombre"],
     lastname: Client["apellido"],
-    tel: Client["tel"]
+    tel: Client["telefono"]
   };
 } 
 |
  {
     type: "updateClient";
     payload: {
-        tel: Client["tel"],
+        tel: Client["telefono"],
         amount: Number
     }
 }

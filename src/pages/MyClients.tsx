@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { SectionBanner } from "../components";
 import { TextField } from "../ui/form/textField";
 import { ClientList } from "../ui/clientList";
-import { ClientItem } from "../ui/clientItem";
+import { ClientLi}  from "../ui/clientLi";
 import { Button } from "../ui/controls/button";
 
 export const MyClients = () => {
@@ -61,7 +61,7 @@ export const MyClients = () => {
       <ClientList>
         {clientList.map((client) => {
           return (
-            <ClientItem key={client.clientid}>
+            <ClientLi key={client.clientid}>
               <p className="w-full font-semibold text-gray-800">
                 {client.nombre} {client.apellido}
               </p>
@@ -71,7 +71,7 @@ export const MyClients = () => {
               <div className="w-1/3">
                 <Button colorScheme="primary">Editar</Button>
               </div>
-            </ClientItem>
+            </ClientLi>
           );
         })}
       </ClientList>

@@ -1,1 +1,0 @@
-export {ClientItem} from './ClientItem';

@@ -2,12 +2,12 @@ export interface Client {
     clientid: number,
     nombre: string,
     apellido: string,
-    tel: number,
+    telefono: number,
     saldo: number,
-    fechaultcarga: Date,
+    fechaultcarga: string,
     montoultcarga: number,
     tipodecarga: string,
-    fechaultretiro: Date,
+    fechaultretiro: string,
     montoultretiro: number,
     sucursal: string
 }

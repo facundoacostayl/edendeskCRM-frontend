@@ -30,7 +30,7 @@ function App() {
         <Route path="/nuevo-cliente" element={<NewClient/>}></Route>
         <Route path="/nuevo-saldo" element={<ClientBalance/>}></Route>
         <Route path="/mis-clientes" element={<MyClients/>}></Route>
-        <Route path="/cliente/:id" element={<ClientProfile/>}></Route>
+        <Route path="/mis-clientes/cliente/:id" element={<ClientProfile/>}></Route>
       </Routes>
     </div>
   );

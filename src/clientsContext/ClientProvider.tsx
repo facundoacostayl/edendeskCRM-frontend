@@ -39,9 +39,9 @@ export const ClientProvider = ({ children }: Props) => {
   const addClient = async (
     firstname: Client["nombre"],
     lastname: Client["apellido"],
-    tel: Client["tel"]
+    telefono: Client["telefono"]
   ) => {
-    const body = { nombre: firstname, apellido: lastname, telefono: tel };
+    const body = { nombre: firstname, apellido: lastname, telefono};
 
     try {
       const response = await fetch("http://localhost:4000/nuevo-cliente", {
@@ -81,6 +81,16 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
+  const deleteClient = async(id: Client["clientid"]) => {
+    try{
+      await fetch(`http://localhost:4000/cliente/${id}`, {
+        method: "DELETE"
+      })
+    }catch(error) {
+      error instanceof Error && console.error(error.message);
+    }
+  }
+
   const searchClient = async(name: Client["nombre"]) => {
     try{
       const response = await fetch(`http://localhost:4000/cliente/?name=${name}`)
@@ -108,6 +118,7 @@ export const ClientProvider = ({ children }: Props) => {
   const values = {
     addClient,
     updateClient,
+    deleteClient,
     getClientList,
     clientList,
     getClient,
