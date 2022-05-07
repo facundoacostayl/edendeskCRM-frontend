@@ -11,7 +11,6 @@ type Props = {
 };
 
 export const ClientProvider = ({ children }: Props) => {
-
   const [clientList, setClientList] = useState<Client[]>([]);
   const [currentClient, setCurrentClient] = useState<Client>({} as Client);
 
@@ -21,27 +20,27 @@ export const ClientProvider = ({ children }: Props) => {
 
       const parseRes = await response.json();
 
-      setClientList(parseRes)
-      console.log(parseRes)
+      setClientList(parseRes);
+      console.log(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
-  }
+  };
 
-  const getClient = async(id: Client["clientid"]) => {
+  const getClient = async (id: Client["clientid"]) => {
     const response = await fetch(`http://localhost:4000/cliente/${id}`);
 
     const parseRes = await response.json();
 
     setCurrentClient(parseRes);
-  }
+  };
 
   const addClient = async (
     firstname: Client["nombre"],
     lastname: Client["apellido"],
     telefono: Client["telefono"]
   ) => {
-    const body = { nombre: firstname, apellido: lastname, telefono};
+    const body = { nombre: firstname, apellido: lastname, telefono };
 
     try {
       const response = await fetch("http://localhost:4000/nuevo-cliente", {
@@ -58,7 +57,11 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
-  const updateClient = async (id: Client["clientid"], amount: number, operation: string) => {
+  const updateClient = async (
+    id: Client["clientid"],
+    amount: number,
+    operation: string
+  ) => {
     try {
       const body = { amount };
 
@@ -74,57 +77,82 @@ export const ClientProvider = ({ children }: Props) => {
       );
 
       const parseRes = await response.json();
-      setClientList(parseRes)
+      setClientList(parseRes);
       console.log(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
 
-  const deleteClient = async(id: Client["clientid"]) => {
-    try{
+  const updateClientInfo = async (
+    id: Client["clientid"],
+    clientValueToEdit: string,
+    newClientValue: string
+  ) => {
+    try {
+      const body = { [clientValueToEdit]: newClientValue };
+
+      const response = await fetch(`http://localhost:4000/cliente/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+    } catch (error) {
+      error instanceof Error && console.log(error.message);
+    }
+  };
+
+  const deleteClient = async (id: Client["clientid"]) => {
+    try {
       await fetch(`http://localhost:4000/cliente/${id}`, {
-        method: "DELETE"
-      })
-    }catch(error) {
+        method: "DELETE",
+      });
+    } catch (error) {
       error instanceof Error && console.error(error.message);
     }
-  }
+  };
 
-  const searchClient = async(name: Client["nombre"]) => {
-    try{
-      const response = await fetch(`http://localhost:4000/cliente/?name=${name}`)
-
-      const parseRes = await response.json();
-      setClientList(parseRes)
-      console.log(parseRes)
-    }catch(error){
-      error instanceof Error && console.error(error.message)
-    }
-  }
-
-  const orderClients = async(orderType: string) => {
-    try{
-      const response = await fetch(`http://localhost:4000/cliente/ordenar-por-${orderType}`);
+  const searchClient = async (name: Client["nombre"]) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/cliente/?name=${name}`
+      );
 
       const parseRes = await response.json();
       setClientList(parseRes);
       console.log(parseRes);
-    }catch(error){
-      error instanceof Error && console.error(error.message)
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
     }
-  }
+  };
+
+  const orderClients = async (orderType: string) => {
+    try {
+      const response = await fetch(
+        `http://localhost:4000/cliente/ordenar-por-${orderType}`
+      );
+
+      const parseRes = await response.json();
+      setClientList(parseRes);
+      console.log(parseRes);
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
+    }
+  };
 
   const values = {
     addClient,
     updateClient,
+    updateClientInfo,
     deleteClient,
     getClientList,
     clientList,
     getClient,
     currentClient,
     searchClient,
-    orderClients
+    orderClients,
   };
 
   return (

@@ -3,7 +3,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   colorScheme: "primary" | "secondary";
   onClose?: VoidFunction;
   onOpenModal?: VoidFunction;
-  onDeleteClient?: VoidFunction;
+  onConfirmModalSubmit?: VoidFunction;
 }
 
 export const Button: React.FC<Props> = ({
@@ -11,11 +11,11 @@ export const Button: React.FC<Props> = ({
   colorScheme = "secondary",
   onClose,
   onOpenModal,
-  onDeleteClient
+  onConfirmModalSubmit
 }) => {
   return (
     <button
-    onClick={onClose || onOpenModal || onDeleteClient}
+    onClick={onClose || onOpenModal || onConfirmModalSubmit}
       className={`" w-full py-1 px-2 text-white text-lg font-bold rounded-md duration-200 cursor-pointer ${
         colorScheme === "primary"
           ? "bg-indigo-600  hover:bg-indigo-500"
