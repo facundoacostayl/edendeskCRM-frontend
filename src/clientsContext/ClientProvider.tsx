@@ -13,6 +13,7 @@ type Props = {
 export const ClientProvider = ({ children }: Props) => {
   const [clientList, setClientList] = useState<Client[]>([]);
   const [currentClient, setCurrentClient] = useState<Client>({} as Client);
+  const [totalClientBalance, setTotalClientBalance] = useState<number>(0);
 
   const getClientList = async () => {
     try {
@@ -142,6 +143,18 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
+  const getFullClientBalance = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:4000/clientes/saldo-total"
+      );
+      const parseRes = await response.json();
+      setTotalClientBalance(parseRes as number);
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
+    }
+  };
+
   const values = {
     addClient,
     updateClient,
@@ -153,6 +166,8 @@ export const ClientProvider = ({ children }: Props) => {
     currentClient,
     searchClient,
     orderClients,
+    getFullClientBalance,
+    totalClientBalance,
   };
 
   return (

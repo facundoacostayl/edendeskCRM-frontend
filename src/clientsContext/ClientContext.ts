@@ -12,6 +12,8 @@ type ClientContextProps = {
     getClient: (id: Client["clientid"]) => Promise<void>,
     currentClient: Client,
     deleteClient: (id: Client["clientid"]) => Promise<void>,
+    getFullClientBalance: () => Promise<void>,
+    totalClientBalance: number
 }
 
 export const ClientContext = createContext<ClientContextProps>({} as ClientContextProps);
