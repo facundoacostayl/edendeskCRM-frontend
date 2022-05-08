@@ -6,7 +6,9 @@ import { Card, CardLeftContainer, CardRightContainer } from "../ui/card";
 
 export const Dashboard: React.FC = () => {
   const { clientList, getClientList, getFullClientBalance, totalClientBalance } = useClient();
-  
+
+  const today = new Date();
+  const currentDate = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 
   useEffect(() => {
     getClientList()
@@ -30,6 +32,10 @@ export const Dashboard: React.FC = () => {
           <h3 className="font-semibold text-gray-500">Saldo total</h3>
           <p className="text-center font-bold text-indigo-500 text-4xl">{totalClientBalance}</p>
         </CardLeftContainer>
+        <CardRightContainer>
+          <p>Fecha actual:</p>
+          <p>{currentDate}</p>
+        </CardRightContainer>
       </Card>
     </>
   );

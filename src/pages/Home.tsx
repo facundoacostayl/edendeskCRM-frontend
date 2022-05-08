@@ -2,7 +2,8 @@ import { Navbar } from "../ui/navbar";
 import { NavItem } from "../ui/navbar";
 import { Hero } from "../ui/hero";
 import { Button } from "../ui/controls/button";
-import {BrandSection} from '../ui/brandsSection';
+import {BrandSection} from '../components/brandsSection';
+import {InfoSection} from '../components/InfoSection';
 import {Footer} from '../ui/footer';
 
 export const Home = () => {
@@ -29,7 +30,7 @@ export const Home = () => {
         </h1>
         <p className="text-slate-200">de la manera más sencilla</p>
         <div className="mt-10">
-          <Button colorScheme="secondary">Inicia Sesión</Button>
+          <Button colorScheme="tertiary">Inicia Sesión</Button>
         </div>
       </Hero>
     <BrandSection>
@@ -42,6 +43,7 @@ export const Home = () => {
           <img className="w-[75px]" src={require('../img/almacen.png')} alt="almacen" />
       </div>
     </BrandSection>
+    <InfoSection/>
       <Footer>
       <img
             className="w-[70px]"
