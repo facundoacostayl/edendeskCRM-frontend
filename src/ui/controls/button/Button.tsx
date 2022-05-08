@@ -16,7 +16,7 @@ export const Button: React.FC<Props> = ({
   return (
     <button
     onClick={onClose || onOpenModal || onConfirmModalSubmit}
-      className={`" w-full py-1 px-2 text-white text-lg font-bold rounded-md duration-200 cursor-pointer ${
+      className={`"w-full py-1 lg:py-3 px-2 lg:px-3 text-white text-lg lg:text-2xl font-bold rounded-md duration-200 cursor-pointer ${
         colorScheme === "primary"
           && "bg-indigo-600  hover:bg-indigo-500"
       } ${colorScheme === "secondary" && "text-indigo-600 bg-white hover:bg-indigo-300"}

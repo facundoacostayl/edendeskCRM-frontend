@@ -2,9 +2,9 @@ import { Navbar } from "../ui/navbar";
 import { NavItem } from "../ui/navbar";
 import { Hero } from "../ui/hero";
 import { Button } from "../ui/controls/button";
-import {BrandSection} from '../components/brandsSection';
-import {InfoSection} from '../components/InfoSection';
-import {Footer} from '../ui/footer';
+import { BrandSection } from "../components/brandsSection";
+import { InfoSection } from "../components/InfoSection";
+import { Footer } from "../ui/footer";
 
 export const Home = () => {
   return (
@@ -18,39 +18,53 @@ export const Home = () => {
           />
         </div>
         <div className="">
-          <NavItem responsive="lg" type="normal">
-            Inicia Sesión
-          </NavItem>
-          <Button colorScheme="primary">Registrate</Button>
+          <Button colorScheme="primary">Registrate<span className="hidden lg:inline"> gratis</span></Button>
         </div>
       </Navbar>
       <Hero>
-        <h1 className="text-white text-center text-4xl font-bold p-2">
-          Administra a tus clientes
-        </h1>
-        <p className="text-slate-200">de la manera más sencilla</p>
-        <div className="mt-10">
-          <Button colorScheme="tertiary">Inicia Sesión</Button>
+        <img
+        className="absolute bottom-0 md:max-w-[350px] lg:max-w-[700px]"
+          src="https://www.pngplay.com/wp-content/uploads/7/Customer-PNG-Background.png"
+          alt=""
+        />
+        <div className="absolute top-[25%] lg:top-[18%]">
+          <h1 className="text-white text-center text-4xl lg:text-7xl font-bold p-2">
+            Administra a tus clientes
+          </h1>
+          <p className="text-slate-200 lg:text-2xl text-center">de la manera más sencilla</p>
+          <div className="w-full mt-5 flex justify-center">
+            <Button colorScheme="tertiary">Inicia Sesión</Button>
+          </div>
         </div>
       </Hero>
-    <BrandSection>
-      <div>
-          <h2 className="hidden md:block">Agilizando tareas de compañías como</h2>
-      </div>
-      <div className="flex items-center justify-center gap-4 py-2">
-          <img className="w-[75px]" src={require('../img/edenred.png')} alt="edenred" />
-          <img className="w-[75px]" src={require('../img/proviammo.png')} alt="proviamo" />
-          <img className="w-[75px]" src={require('../img/almacen.png')} alt="almacen" />
-      </div>
-    </BrandSection>
-    <InfoSection/>
-      <Footer>
-      <img
-            className="w-[70px]"
-            src={require("../img/logo.png")}
-            alt="logo"
+      <BrandSection>
+        <div>
+          <h2 className="hidden md:block text-gray-500 font-bold text-lg lg:text-2xl">
+            Agilizando tareas de compañías como
+          </h2>
+        </div>
+        <div className="flex items-center justify-center gap-4 py-2">
+          <img
+            className="w-[75px] lg:w-[100px]"
+            src={require("../img/edenred.png")}
+            alt="edenred"
           />
-        <p className="text-indigo-400">by Facundo Acosta :)</p>
+          <img
+            className="w-[75px] lg:w-[100px]"
+            src={require("../img/proviammo.png")}
+            alt="proviamo"
+          />
+          <img
+            className="w-[75px] lg:w-[100px]"
+            src={require("../img/almacen.png")}
+            alt="almacen"
+          />
+        </div>
+      </BrandSection>
+      <InfoSection />
+      <Footer>
+        <img className="w-[70px]" src={require("../img/logo.png")} alt="logo" />
+        <p className="text-indigo-900">by Facundo Acosta :)</p>
       </Footer>
     </>
   );
