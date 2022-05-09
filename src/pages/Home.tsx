@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { Navbar } from "../ui/navbar";
 import { NavItem } from "../ui/navbar";
 import { Hero } from "../ui/hero";
@@ -11,19 +13,25 @@ export const Home = () => {
     <>
       <Navbar>
         <div className="">
-          <img
-            className="w-[100px]"
-            src={require("../img/logo.png")}
-            alt="logo"
-          />
+          <Link to="/">
+            <img
+              className="w-[100px]"
+              src={require("../img/logo.png")}
+              alt="logo"
+            />
+          </Link>
         </div>
         <div className="">
-          <Button colorScheme="primary">Registrate<span className="hidden lg:inline"> gratis</span></Button>
+          <Link to="/registro">
+            <Button colorScheme="primary">
+              Registrate<span className="hidden lg:inline"> gratis</span>
+            </Button>
+          </Link>
         </div>
       </Navbar>
       <Hero>
         <img
-        className="absolute bottom-0 md:max-w-[350px] lg:max-w-[700px]"
+          className="absolute bottom-0 md:max-w-[350px] lg:max-w-[700px]"
           src="https://www.pngplay.com/wp-content/uploads/7/Customer-PNG-Background.png"
           alt=""
         />
@@ -31,9 +39,13 @@ export const Home = () => {
           <h1 className="text-white text-center text-4xl lg:text-7xl font-bold p-2">
             Administra a tus clientes
           </h1>
-          <p className="text-slate-200 lg:text-2xl text-center">de la manera más sencilla</p>
+          <p className="text-slate-200 lg:text-2xl text-center">
+            de la manera más sencilla
+          </p>
           <div className="w-full mt-5 flex justify-center">
-            <Button colorScheme="tertiary">Inicia Sesión</Button>
+            <Link to="/login">
+              <Button colorScheme="tertiary">Inicia Sesión</Button>
+            </Link>
           </div>
         </div>
       </Hero>
