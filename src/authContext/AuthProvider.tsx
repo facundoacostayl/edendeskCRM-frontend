@@ -1,6 +1,8 @@
 import { AuthContext } from "./AuthContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
+import { toast } from "react-toastify";
+
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -28,7 +30,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       const parseRes = await response.json();
 
-      parseRes === true ? setIsLoggedIn(true) : setIsLoggedIn(false)
+      parseRes === true ? setIsLoggedIn(true) : setIsLoggedIn(false);
 
       console.log(localStorage.token);
     } catch (error) {
@@ -61,6 +63,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       localStorage.setItem("token", parseRes);
 
       checkAuth();
+      toast;
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -82,10 +85,12 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       const parseRes = await response.json();
 
-      localStorage.setItem("token", parseRes);
-
-      checkAuth();
-
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        checkAuth();
+      }else {
+        toast.error(parseRes)
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -93,17 +98,16 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-
   useEffect(() => {
-    checkAuth()
-  }, [isLoggedIn])
+    checkAuth();
+  }, [isLoggedIn]);
 
   const value = {
     isLoggedIn,
     setIsLoggedIn,
     signUp,
     signIn,
-    checkAuth,
+    checkAuth
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
