@@ -58,12 +58,13 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       const parseRes = await response.json();
 
-      console.log(parseRes);
-
-      localStorage.setItem("token", parseRes);
+      if(parseRes.token){
+      localStorage.setItem("token", parseRes.token);
 
       checkAuth();
-      toast;
+      }else{
+        toast.error("Debes llenar todos los campos")
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);

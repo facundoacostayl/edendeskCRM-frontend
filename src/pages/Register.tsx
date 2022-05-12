@@ -45,7 +45,7 @@ export const Register = () => {
           </Link>
         </SwitchAuthNav>
 
-        <div className="w-full max-w-[1120px] md:min-h-[600px] p-2 md:mt-10 md:flex items-center md:gap-10 md:border md:border-gray-200 shadow-xl">
+        <div className="w-full max-w-[1120px] md:min-h-[600px] mx-auto p-2 md:mt-10 md:flex items-center md:gap-10 md:border md:border-gray-200 md:border-none shadow-xl xl:shadow-none">
           <div className="md:w-3/6">
             <AuthHero
               title="Crea tu cuenta"

@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
 
-//CARD COMPONENTS
+//COMPONENTS
 import { Card, CardLeftContainer, CardRightContainer } from "../ui/card";
+import { Sidebar } from "../components";
 
 export const Dashboard: React.FC = () => {
   const { clientList, getClientList, getFullClientBalance, totalClientBalance } = useClient();
@@ -17,6 +18,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <>
+    <Sidebar/>
       <Card margin="my-2">
         <CardLeftContainer>
           <h3 className="font-semibold text-gray-500">Transacciones del día</h3>

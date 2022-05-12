@@ -1,9 +1,10 @@
 //SIDEBAR COMPONENTS
 import { SidebarContainer } from "../ui/sidebar/SidebarContainer";
 import { MenuList } from "../ui/sidebar/MenuList";
+import { Hamburguer, Icon, UserIcon } from "../ui/icons";
 
 //ICONS
-import { Hamburguer, Icon, UserIcon } from "../ui/icons";
+import {DashboardIcon} from '../ui/icons';
 
 export const Sidebar = () => {
   return (
@@ -12,13 +13,11 @@ export const Sidebar = () => {
         <div className="">
         <img className="hidden md:block" src={require('../img/logo.png')} alt="" />
         <MenuList>
-          <Icon />
-          <Icon />
-          <Icon />
-          <Icon />
+          <Icon type={DashboardIcon}/>
+          
         </MenuList>
         </div>
-        <UserIcon/>
+        <UserIcon> </UserIcon>
       </SidebarContainer>
   )
 }
