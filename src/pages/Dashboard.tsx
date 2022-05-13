@@ -4,6 +4,7 @@ import { useClient } from "../clientsContext/ClientProvider";
 //COMPONENTS
 import { Card, CardLeftContainer, CardRightContainer } from "../ui/card";
 import { Sidebar } from "../components";
+import {SectionBanner} from '../components/SectionBanner';
 
 export const Dashboard: React.FC = () => {
   const { clientList, getClientList, getFullClientBalance, totalClientBalance } = useClient();
@@ -18,6 +19,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <>
+    <SectionBanner sectionName="Dashboard"/>
     <Sidebar/>
       <Card margin="my-2">
         <CardLeftContainer>
