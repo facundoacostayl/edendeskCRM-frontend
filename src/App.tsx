@@ -35,8 +35,6 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
         </Route>
         </Routes>
-        <div className="">
-          <Sidebar/>
         <Routes>
           <Route element={<PrivateLoggedRoutes authorize={isLoggedIn} />}>
             <Route path="/dashboard" element={<Dashboard />}></Route>
@@ -50,7 +48,6 @@ function App() {
           ></Route>
       </Routes>
       </div>
-    </div>
   );
 }
 
