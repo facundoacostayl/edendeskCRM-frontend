@@ -20,11 +20,12 @@ export const Sidebar = () => {
     <SidebarContainer>
       {/*<Hamburguer />*/}
       <div className="">
-        <img
-          className="hidden md:block"
-          src={require("../img/logo.png")}
-          alt=""
-        />
+          <img
+            className="hidden md:block"
+            src={require("../img/logo.png")}
+            alt="logo"
+          />
+
         <MenuList>
           <Link to="/dashboard" className="w-full">
             <Icon type={DashboardIcon} />

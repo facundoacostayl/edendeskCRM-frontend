@@ -3,7 +3,6 @@ import { useClient } from "../clientsContext/ClientProvider";
 
 //COMPONENTS
 import { Card, CardLeftContainer, CardRightContainer } from "../ui/card";
-import { Sidebar } from "../components";
 import {SectionBanner} from '../components/SectionBanner';
 
 export const Dashboard: React.FC = () => {
@@ -20,7 +19,6 @@ export const Dashboard: React.FC = () => {
   return (
     <>
     <SectionBanner sectionName="Dashboard"/>
-    <Sidebar/>
       <Card margin="my-2">
         <CardLeftContainer>
           <h3 className="font-semibold text-gray-500">Transacciones del día</h3>
