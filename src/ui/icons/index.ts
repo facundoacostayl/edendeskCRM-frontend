@@ -3,7 +3,7 @@ export { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export {
   faChartLine as DashboardIcon,
   faPeopleGroup as MyClientsIcon,
-  faUser as MyProfileIcon,
+  faCircleUser as MyProfileIcon,
   faPersonCirclePlus as NewClientIcon,
   faHandHoldingDollar as NewBalanceIcon,
   faBars as MenuIcon

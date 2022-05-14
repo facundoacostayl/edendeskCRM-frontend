@@ -7,8 +7,8 @@ type Props = {
 
 export const Icon: React.FC<Props> = ({type}) => {
   return (
-    <li className={`w-full flex items-center justify-center md:h-[70px] cursor-pointer hover:bg-gray-200`}>
-      <FontAwesomeIcon className="text-center text-gray-700 text-2xl font-semibold" icon={type}/>
+    <li className={`w-full flex items-center justify-center md:h-[70px] cursor-pointer md:hover:bg-gray-200`}>
+      <FontAwesomeIcon className="text-center text-gray-700 text-3xl md:text-2xl font-semibold" icon={type}/>
     </li>
   );
 };
