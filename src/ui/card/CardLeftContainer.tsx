@@ -4,7 +4,7 @@ type Props = {
 
 export const CardLeftContainer: React.FC<Props> = ({children}) => {
   return (
-    <header className="flex flex-col justify-center">
+    <header className="w-4/6 flex flex-col justify-center text-center">
         {children}
     </header>
   )

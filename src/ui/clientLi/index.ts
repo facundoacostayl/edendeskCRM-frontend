@@ -1,1 +1,1 @@
-export {ClientLi} from './ClientItem';
+export {ClientLi} from './ClientLi';

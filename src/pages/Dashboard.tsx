@@ -40,7 +40,7 @@ export const Dashboard: React.FC = () => {
             </CardLeftContainer>
             <CardRightContainer>
               <p>Total:</p>
-              <span>$500</span>
+              <span className="font-semibold">$500</span>
             </CardRightContainer>
           </Card>
           <Card>
@@ -52,7 +52,7 @@ export const Dashboard: React.FC = () => {
             </CardLeftContainer>
             <CardRightContainer>
               <p>Fecha actual:</p>
-              <p>{currentDate}</p>
+              <p className="font-semibold">{currentDate}</p>
             </CardRightContainer>
           </Card>
           <Card margin="my-2">

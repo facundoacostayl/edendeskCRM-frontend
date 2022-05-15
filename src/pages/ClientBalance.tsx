@@ -4,6 +4,7 @@ import { useClient } from "../clientsContext/ClientProvider";
 
 //COMPONENTS
 import { SectionBanner } from "../components";
+import {Sidebar} from '../components/Sidebar';
 import { TextField } from "../ui/form/textField";
 import { Card, CardLeftContainer } from "../ui/card";
 import { OperatorButtons } from "../components/operatorButtons";
@@ -49,7 +50,9 @@ export const ClientBalance = () => {
   };
 
   return (
-    <>
+    <div className="md:flex">
+    <Sidebar/>
+    <div className="w-full">
       {isModalActive && (
         <Modal onSubmit={onUpdateBalance} onClose={toggleModal}>
           <h2 className="text-center text-gray-600 mb-2 font-semibold">
@@ -88,6 +91,7 @@ export const ClientBalance = () => {
           );
         })}
       </ul>
-    </>
+    </div>
+    </div>
   );
 };

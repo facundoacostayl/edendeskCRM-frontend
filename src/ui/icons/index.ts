@@ -6,12 +6,12 @@ export {
   faCircleUser as MyProfileIcon,
   faPersonCirclePlus as NewClientIcon,
   faHandHoldingDollar as NewBalanceIcon,
-  faBars as MenuIcon
+  faBars as MenuIcon,
+  faMagnifyingGlass as SearchIcon
 } from "@fortawesome/free-solid-svg-icons";
 
 //ICON EXPORTS
 
 //COMPONENT EXPORTS
-export { Hamburguer } from "./Hamburguer";
 export { Icon } from "./Icon";
 export { UserIcon } from "./UserIcon";

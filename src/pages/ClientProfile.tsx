@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 //COMPONENTS
 import { SectionBanner } from "../components";
+import {Sidebar} from '../components/Sidebar';
 import { ClientCard } from "../ui/card";
 import { InfoLi } from "../ui/infoLi";
 import { Button } from "../ui/controls/button";
@@ -40,8 +41,10 @@ export const ClientProfile = () => {
   };
 
   return (
-    <>
+    <div className="md:flex">
       {/* DELETING MODAL */}
+      <Sidebar/>
+      <div className="w-full">
       <SectionBanner sectionName="Perfil de Cliente"></SectionBanner>
       {isDeletingModalActive && (
         <Modal onClose={() => setIsDeletingModalActive(!isDeletingModalActive)}>
@@ -172,6 +175,7 @@ export const ClientProfile = () => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
+    </div>
   );
 };

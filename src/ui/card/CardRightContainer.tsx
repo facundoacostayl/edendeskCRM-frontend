@@ -4,7 +4,7 @@ type Props = {
 
 export const CardRightContainer: React.FC<Props> = ({ children }) => {
   return (
-    <footer className="flex flex-col justify-end">
+    <footer className="w-2/6 flex flex-col items-end justify-end text-right text-sm">
         {children}
     </footer>
   )
