@@ -6,12 +6,11 @@ import { useEffect, useState } from "react";
 import { SectionBanner } from "../components";
 import { Sidebar } from "../components/Sidebar";
 import { TextField } from "../ui/form/textField";
+import {SearchField} from '../ui/form/searchField';
 import { ClientList } from "../ui/clientList";
 import { ClientLi } from "../ui/clientLi";
 import { Button } from "../ui/controls/button";
 
-//ICONS
-import {FontAwesomeIcon, SearchIcon} from '../ui/icons';
 
 export const MyClients = () => {
   const { clientList, getClientList, searchClient, orderClients } = useClient();
@@ -44,15 +43,7 @@ export const MyClients = () => {
       <div className="w-full">
         <SectionBanner sectionName="Mis Clientes"></SectionBanner>
         <div className="w-[90%] max-w-[1400px] mx-auto">
-          <div className="relative max-w-[700px] mx-auto my-4">
-            <TextField
-              onChange={(e) => getClientSearched(e)}
-              autoFocus
-              type="text"
-              placeholder="Buscar cliente..."
-            />
-            <FontAwesomeIcon icon={SearchIcon} className="absolute text-xl text-indigo-700 top-[25%] right-4"/>
-          </div>
+          <SearchField onSearch={(e) => getClientSearched(e)}/>
           <div className="flex justify-end mb-2 gap-2">
             <label className="font-light text-gray-600" htmlFor="">
               ordernar por:
