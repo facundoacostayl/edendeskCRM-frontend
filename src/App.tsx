@@ -7,6 +7,7 @@ import { NewClient } from "./pages/NewClient";
 import { ClientBalance } from "./pages/ClientBalance";
 import { MyClients } from "./pages/MyClients";
 import { ClientProfile } from "./pages/ClientProfile";
+import {MyProfile} from "./pages/MyProfile";
 
 //SIDEBAR
 import {Sidebar} from './components';
@@ -46,6 +47,7 @@ function App() {
             path="/mis-clientes/cliente/:id"
             element={<ClientProfile />}
           ></Route>
+          <Route path="/mi-perfil" element={<MyProfile/>}></Route>
       </Routes>
       </div>
   );

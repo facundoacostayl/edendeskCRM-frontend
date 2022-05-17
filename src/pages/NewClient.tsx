@@ -41,6 +41,7 @@ export const NewClient = () => {
       <div className="w-full">
         <SectionBanner sectionName="Añadir Cliente" />
         <AppContainer>
+          <h1 className="pt-3 pb-5 text-center text-2xl font-bold text-gray-700">Ingresa los datos del cliente:</h1>
           <AuthForm onSubmit={onSubmitHandler}>
             <label
               className="text-slate-500 font-semibold"
@@ -75,7 +76,7 @@ export const NewClient = () => {
               </label>
               <TextField type="tel" id="new-client-tel" name="clientTel" />
             </div>
-            <div className="my-3">
+            <div className="my-3 mx-auto">
               <Button colorScheme="primary">Añadir</Button>
             </div>
           </AuthForm>

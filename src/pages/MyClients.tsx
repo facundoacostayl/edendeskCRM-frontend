@@ -1,6 +1,7 @@
 //HOOKS
 import { useClient } from "../clientsContext/ClientProvider";
 import { useEffect, useState } from "react";
+import {Link} from 'react-router-dom';
 
 //COMPONENTS
 import { SectionBanner } from "../components";
@@ -72,7 +73,7 @@ export const MyClients = () => {
                     ${client.saldo}
                   </p>
                   <div className="mx-auto">
-                    <Button colorScheme="primary">Editar</Button>
+                    <Link to={`/mis-clientes/cliente/${client.clientid}`}><Button colorScheme="primary">Editar</Button></Link>
                   </div>
                 </ClientLi>
               );

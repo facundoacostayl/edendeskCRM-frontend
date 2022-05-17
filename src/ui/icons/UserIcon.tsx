@@ -19,7 +19,7 @@ export const UserIcon = () => {
           onClick={() => setIsMenuActive(false)}
           className="absolute top-0 left-0 w-screen h-screen"
         >
-          <div className="absolute xsm:top-0 right-0 md:bottom-0 md:left-0 w-[150px] h-[100px] flex items-center border border-gray-200 text-gray-700 bg-white rounded-md">
+          <div className="z-50 absolute xsm:top-0 right-0 md:bottom-0 md:left-0 w-[150px] h-[100px] flex items-center border border-gray-200 text-gray-700 bg-white rounded-md">
             <ul className="w-full">
               <Link to="/mi-perfil">
                 <li className="w-full py-1 px-2 text-lg font-medium hover:bg-gray-200">

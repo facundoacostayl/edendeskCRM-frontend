@@ -160,7 +160,7 @@ export const ClientProfile = () => {
             </InfoLi>
           </div>
         </ClientCard>
-        <div className="w-[95%] mt-3 flex gap-2">
+        <div className="w-[95%] my-5 flex gap-2 justify-center">
           <Button
             onOpenModal={() => setIsDeletingModalActive(true)}
             colorScheme="secondary"
