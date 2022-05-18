@@ -9,5 +9,6 @@ export interface Client {
     tipodecarga: string,
     fechaultretiro: string,
     montoultretiro: number,
-    sucursal: string
+    sucursal: string,
+    userId: number
 }

@@ -1,6 +1,7 @@
 //REACT HOOKS
 import React, { useState, useEffect } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
+import { useAuth } from '../authContext/AuthProvider';
 
 //COMPONENTS
 import { Sidebar } from "../components";
@@ -20,6 +21,7 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 
 export const NewClient = () => {
   const { addClient } = useClient();
+  const {userData} = useAuth();
 
   const onSubmitHandler = (e: Form) => {
     e.preventDefault();
@@ -28,7 +30,7 @@ export const NewClient = () => {
     const apellido = e.currentTarget.clientLastname;
     const tel = e.currentTarget.clientTel;
 
-    addClient(nombre.value, apellido.value, tel.value);
+    addClient(nombre.value, apellido.value, tel.value, userData.id);
 
     nombre.value = "";
     apellido.value = "";

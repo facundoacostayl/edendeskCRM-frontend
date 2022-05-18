@@ -1,5 +1,6 @@
 import React, {createContext} from 'react';
 import {ToastContainerProps} from 'react-toastify'
+import {User} from './types';
 
 type AuthContextProps = {
     signUp: (name: string, email: string, password: string) => Promise<void>,
@@ -7,6 +8,7 @@ type AuthContextProps = {
     checkAuth : () => Promise<void>,
     isLoggedIn: boolean,
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>,
+    userData: User
 }
 
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);

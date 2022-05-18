@@ -1,6 +1,7 @@
 import { ClientContext } from "./ClientContext";
 import { useContext, useState } from "react";
 import { Client } from "./types";
+import { User} from '../authContext/types';
 
 export const useClient = () => {
   return useContext(ClientContext);
@@ -15,9 +16,9 @@ export const ClientProvider = ({ children }: Props) => {
   const [currentClient, setCurrentClient] = useState<Client>({} as Client);
   const [totalClientBalance, setTotalClientBalance] = useState<number>(0);
 
-  const getClientList = async () => {
+  const getClientList = async (id: User["id"]) => {
     try {
-      const response = await fetch("http://localhost:4000/clientes");
+      const response = await fetch(`http://localhost:4000/user${id}/clientes`);
 
       const parseRes = await response.json();
 
@@ -39,9 +40,10 @@ export const ClientProvider = ({ children }: Props) => {
   const addClient = async (
     firstname: Client["nombre"],
     lastname: Client["apellido"],
-    telefono: Client["telefono"]
+    telefono: Client["telefono"],
+    userId: User["id"]
   ) => {
-    const body = { nombre: firstname, apellido: lastname, telefono };
+    const body = { nombre: firstname, apellido: lastname, telefono, userId };
 
     try {
       const response = await fetch("http://localhost:4000/nuevo-cliente", {
@@ -143,13 +145,13 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
-  const getFullClientBalance = async () => {
+  const getFullClientBalance = async (id: User["id"]) => {
     try {
       const response = await fetch(
-        "http://localhost:4000/clientes/saldo-total"
+        `http://localhost:4000/user:${id}/clientes/saldo-total`
       );
       const parseRes = await response.json();
-      setTotalClientBalance(parseRes as number);
+      setTotalClientBalance(parseRes.total);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }

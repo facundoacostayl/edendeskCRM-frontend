@@ -27,17 +27,17 @@ export const Sidebar = () => {
           />
 
         <MenuList>
-          <Link to="/dashboard" className="w-full">
-            <Icon type={DashboardIcon} />
+          <Link to="/dashboard" className="w-full text-center">
+            <Icon type={DashboardIcon} title="Dashboard" />  
           </Link>
-          <Link to="/mis-clientes" className="w-full">
-            <Icon type={MyClientsIcon} />
+          <Link to="/mis-clientes" className="w-full text-center">
+            <Icon type={MyClientsIcon} title="Mis Clientes" />
           </Link>
-          <Link to="/nuevo-saldo" className="w-full">
-            <Icon type={NewBalanceIcon} />
+          <Link to="/nuevo-saldo" className="w-full text-center">
+            <Icon type={NewBalanceIcon} title="Nuevo Saldo" />
           </Link>
-          <Link to="/nuevo-cliente" className="w-full">
-            <Icon type={NewClientIcon} />
+          <Link to="/nuevo-cliente" className="w-full text-center">
+            <Icon type={NewClientIcon} title="Nuevo Cliente"/>
           </Link>
         </MenuList>
       </div>

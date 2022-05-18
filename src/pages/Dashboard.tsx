@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
+import {useAuth} from '../authContext/AuthProvider';
 
 //COMPONENTS
 import { Sidebar } from "../components";
@@ -8,19 +9,17 @@ import { SectionBanner } from "../components/SectionBanner";
 
 export const Dashboard: React.FC = () => {
   const {
-    clientList,
-    getClientList,
     getFullClientBalance,
     totalClientBalance,
   } = useClient();
+  const {userData} = useAuth();
 
   const today = new Date();
   const currentDate =
     today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
 
   useEffect(() => {
-    getClientList();
-    getFullClientBalance();
+    getFullClientBalance(userData.id);
   }, []);
 
   return (

@@ -1,5 +1,6 @@
 //HOOKS
 import { useClient } from "../clientsContext/ClientProvider";
+import {useAuth} from '../authContext/AuthProvider';
 import { useEffect, useState } from "react";
 import {Link} from 'react-router-dom';
 
@@ -15,11 +16,12 @@ import { Button } from "../ui/controls/button";
 
 export const MyClients = () => {
   const { clientList, getClientList, searchClient, orderClients } = useClient();
+  const {userData} = useAuth();
   const [searchField, setSearchField] = useState<string>("");
   const [filterValue, setFilterValue] = useState<string>("");
 
   useEffect(() => {
-    getClientList();
+    getClientList(userData.id);
   }, []);
 
   useEffect(() => {

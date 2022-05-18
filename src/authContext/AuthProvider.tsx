@@ -2,7 +2,7 @@ import { AuthContext } from "./AuthContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-
+import { User } from './types';
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -20,6 +20,19 @@ export const useToken = () => {
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   //State for checking if the user is authenticated
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState<User>({} as User);
+
+  const getUserData = async(id: User["id"]) => {
+    try {
+      const response = await fetch(`http://localhost:4000/user/${id}`)
+      
+      const parseRes: User = await response.json();
+
+      setUserData(parseRes);
+    }catch(error){
+      error instanceof Error && console.error(error.message)
+    }
+  }
 
   const checkAuth = async () => {
     try {
@@ -88,6 +101,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
+        getUserData(parseRes.id)
         checkAuth();
       }else {
         toast.error(parseRes)
@@ -103,12 +117,17 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     checkAuth();
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    console.log(userData)
+  }, [userData])
+
   const value = {
     isLoggedIn,
     setIsLoggedIn,
     signUp,
     signIn,
-    checkAuth
+    checkAuth,
+    userData
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

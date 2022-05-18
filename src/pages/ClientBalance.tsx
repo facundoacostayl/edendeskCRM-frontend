@@ -1,6 +1,7 @@
 //HOOKS
 import { useState, useEffect } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
+import {useAuth} from '../authContext/AuthProvider';
 
 //COMPONENTS
 import { SectionBanner } from "../components";
@@ -23,6 +24,7 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 
 export const ClientBalance = () => {
   const { getClientList, clientList, updateClient, searchClient } = useClient();
+  const {userData} = useAuth();
 
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
@@ -34,7 +36,7 @@ export const ClientBalance = () => {
   });
 
   useEffect(() => {
-    getClientList();
+    getClientList(userData.id);
   }, []);
 
   useEffect(() => {
@@ -103,7 +105,8 @@ export const ClientBalance = () => {
           <ClientList>
             {clientList.map((client) => {
               return (
-                <ClientLi key={client.clientid}>
+                <div onClick={() => setClientToUpdate({id: client.clientid, nombre: client.nombre, apellido: client.apellido })}>
+                <ClientLi key={client.clientid} >
                   <p className="mx-auto font-semibold text-gray-800">
                     {client.nombre} {client.apellido}
                   </p>
@@ -117,6 +120,7 @@ export const ClientBalance = () => {
                     />
                   </div>
                 </ClientLi>
+                </div>
               );
             })}
           </ClientList>
