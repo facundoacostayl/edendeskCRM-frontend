@@ -17,7 +17,7 @@ export const SearchField = ({onSearch}: Props) => {
               type="text"
               placeholder="Buscar cliente..."
             />
-            <FontAwesomeIcon icon={SearchIcon} className="absolute text-xl text-indigo-700 top-[25%] right-4"/>
+            <FontAwesomeIcon icon={SearchIcon} className="absolute text-xl text-indigo-700 top-[25%] right-4 md:py-1"/>
           </div>
   )
 }
