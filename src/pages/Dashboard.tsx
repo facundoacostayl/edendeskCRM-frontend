@@ -30,34 +30,34 @@ export const Dashboard: React.FC = () => {
         <div className="w-[90%] max-w-[1440px] mx-auto md:flex justify-between items-center md:gap-5">
           <Card margin="my-2">
             <CardLeftContainer>
-              <h3 className="font-semibold text-gray-500">
+              <h3 className="font-semibold text-gray-500 text-xl">
                 Transacciones del día
               </h3>
-              <p className="text-center font-bold text-indigo-500 text-4xl">
+              <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
                 4
               </p>
             </CardLeftContainer>
             <CardRightContainer>
-              <p>Total:</p>
-              <span className="font-semibold">$500</span>
+              <p className="md:text-xl">Total:</p>
+              <span className="font-semibold md:text-xl">$500</span>
             </CardRightContainer>
           </Card>
           <Card>
             <CardLeftContainer>
-              <h3 className="font-semibold text-gray-500">Saldo total</h3>
-              <p className="text-center font-bold text-indigo-500 text-4xl">
-                {totalClientBalance}
+              <h3 className="font-semibold text-gray-500 md:text-xl">Saldo total</h3>
+              <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
+                ${totalClientBalance}
               </p>
             </CardLeftContainer>
             <CardRightContainer>
-              <p>Fecha actual:</p>
-              <p className="font-semibold">{currentDate}</p>
+              <p className="md:text-xl">Fecha actual:</p>
+              <p className="font-semibold md:text-xl">{currentDate}</p>
             </CardRightContainer>
           </Card>
           <Card margin="my-2">
             <CardLeftContainer>
-              <h3 className="font-semibold text-gray-500">Clientes Totales</h3>
-              <p className="text-center font-bold text-indigo-500 text-4xl">
+              <h3 className="font-semibold text-gray-500 md:text-xl">Clientes Totales</h3>
+              <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
                 4
               </p>
             </CardLeftContainer>

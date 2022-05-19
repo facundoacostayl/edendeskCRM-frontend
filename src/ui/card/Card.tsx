@@ -7,7 +7,7 @@ type Props = {
 
 export const Card: React.FC<Props> = ({ children, margin, center, onSetClientId }) => {
   return (
-    <article onClick={onSetClientId} className={`w-full flex justify-between ${center} max-w-lg h-[100px] mx-auto bg-white border border-gray-200 shadow-sm py-2 px-2
+    <article onClick={onSetClientId} className={`w-full flex justify-between ${center} py-4 px-4 md:py-10 mx-auto bg-white border border-gray-200 shadow-sm
     rounded-xl ${margin}`}>
       {children}
     </article>
