@@ -36,8 +36,8 @@ export const ClientBalance = () => {
   });
 
   useEffect(() => {
-    getClientList(userData.id);
-  }, []);
+    userData.id && getClientList(userData.id);
+  }, [clientList]);
 
   useEffect(() => {
     searchClient(searchField);

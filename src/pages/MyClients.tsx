@@ -21,8 +21,8 @@ export const MyClients = () => {
   const [filterValue, setFilterValue] = useState<string>("");
 
   useEffect(() => {
-    getClientList(userData.id);
-  }, []);
+    userData.id && getClientList(userData.id);
+  }, [clientList]);
 
   useEffect(() => {
     searchClient(searchField);
