@@ -74,13 +74,13 @@ export const ClientBalance = () => {
       <div className="w-full">
         {isModalActive && (
           <Modal onSubmit={onUpdateBalance} onClose={toggleModal}>
-            <h2 className="text-center text-gray-600 mb-2 font-semibold">
+            <h2 className="text-center text-gray-600 mb-2 md:mb-5 font-semibold md:text-2xl">
               {isAdding
                 ? "Ingresa el monto a cargar"
                 : "Ingresa ultimo consumo"}
             </h2>
-            <p>
-              Cliente: {clientToUpdate.nombre} {clientToUpdate.apellido}
+            <p className="text-lg font-semibold mb-5">
+            <span className="text-xl font-normal">Cliente:</span> {clientToUpdate.nombre} {clientToUpdate.apellido}
             </p>
             <TextField
               autoFocus

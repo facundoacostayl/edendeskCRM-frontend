@@ -4,7 +4,7 @@ type Props = {
 
 export const ModalFooter: React.FC<Props> = ({children}) => {
   return (
-    <footer className="flex gap-2 pt-3">
+    <footer className="flex justify-center gap-2 mt-5">
       {children}
     </footer>
   )

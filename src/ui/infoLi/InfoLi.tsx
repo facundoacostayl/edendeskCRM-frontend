@@ -1,11 +1,10 @@
 type Props = {
     children: React.ReactNode
     color: "primary" | "secondary"
-    border?: boolean
 }
 
-export const InfoLi: React.FC<Props> = ({children, color, border}) => {
+export const InfoLi: React.FC<Props> = ({children, color}) => {
   return (
-    <li className={`list-none text-lg font-semibold mx-2 my-5 ${border && "border-b border-gray-300"} ${color === "primary" ? "text-gray-500" : "text-black"}`}>{children}</li>
+    <li className={`list-none text-lg lg:text-xl xl:text-2xl font-semibold mx-2 my-5 md:my-6 xl:my-8 ${color === "primary" ? "text-gray-500" : "text-black"}`}>{children}</li>
   )
 }

@@ -43,10 +43,10 @@ export const NewClient = () => {
       <div className="w-full">
         <SectionBanner sectionName="Añadir Cliente" />
         <AppContainer>
-          <h1 className="pt-3 pb-5 text-center text-2xl font-bold text-gray-700">Ingresa los datos del cliente:</h1>
+          <h1 className="pt-3 pb-5 text-center text-2xl lg:text-3xl font-bold text-gray-700">Ingresa los datos del cliente:</h1>
           <AuthForm onSubmit={onSubmitHandler}>
             <label
-              className="text-slate-500 font-semibold"
+              className="text-slate-500 font-semibold lg:text-xl mb-1"
               htmlFor="new-client-firstname"
             >
               Nombre
@@ -55,10 +55,11 @@ export const NewClient = () => {
               type="text"
               id="new-client-firstname"
               name="clientFirstname"
+              placeholder="Juan"
             />
             <div className="my-3">
               <label
-                className="text-slate-500 font-semibold"
+                className="text-slate-500 font-semibold lg:text-xl mb-1"
                 htmlFor="new-client-lastname"
               >
                 Apellido
@@ -67,16 +68,17 @@ export const NewClient = () => {
                 type="text"
                 id="new-client-lastname"
                 name="clientLastname"
+                placeholder="Perez"
               />
             </div>
             <div className="my-3">
               <label
-                className="text-slate-500 font-semibold"
+                className="text-slate-500 font-semibold lg:text-xl mb-1"
                 htmlFor="new-client-tel"
               >
                 Telefono
               </label>
-              <TextField type="tel" id="new-client-tel" name="clientTel" />
+              <TextField type="tel" id="new-client-tel" name="clientTel" placeholder="01142567891" />
             </div>
             <div className="my-3 mx-auto">
               <Button colorScheme="primary">Añadir</Button>

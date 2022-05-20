@@ -78,7 +78,7 @@ export const ClientProfile = () => {
             onChange={(e) => setNewValueToEdit(e.currentTarget.value)}
             id="edit-select"
             name="edit-select"
-            className="w-full border border-gray-500 rounded-md font-semibold"
+            className="w-full border border-gray-500 rounded-md font-semibold xl:text-xl xl:p-2"
           >
             <option value="nombre">Nombre</option>
             <option value="apellido">Apellido</option>
@@ -118,11 +118,13 @@ export const ClientProfile = () => {
         </Modal>
       )}
       <div className="w-full my-10 flex flex-col items-center justify-center">
+        <h1 className="mb-5 text-xl md:text-4xl font-semibold">Datos del cliente</h1>
         <ClientCard>
           <div className="w-3/6">
             <InfoLi color="primary">Nombre:</InfoLi>
             <InfoLi color="primary">Apellido:</InfoLi>
             <InfoLi color="primary">Telefono:</InfoLi>
+            <InfoLi color="primary">Saldo:</InfoLi>
             <InfoLi color="primary">Fecha ult. carga:</InfoLi>
             <InfoLi color="primary">Monto ult. carga:</InfoLi>
             <InfoLi color="primary">Fecha ult. retiro:</InfoLi>
@@ -131,31 +133,34 @@ export const ClientProfile = () => {
             <InfoLi color="primary">Sucursal:</InfoLi>
           </div>
           <div className="w-3/6">
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.nombre}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.apellido}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.telefono}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
+              {currentClient.saldo}
+            </InfoLi>
+            <InfoLi color="secondary">
               {currentClient.fechaultcarga}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.montoultcarga}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.fechaultretiro}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.montoultretiro}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.tipodecarga}
             </InfoLi>
-            <InfoLi border={true} color="secondary">
+            <InfoLi color="secondary">
               {currentClient.sucursal}
             </InfoLi>
           </div>
