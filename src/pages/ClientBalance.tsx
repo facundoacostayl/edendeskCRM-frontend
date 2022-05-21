@@ -105,8 +105,8 @@ export const ClientBalance = () => {
           <ClientList>
             {clientList.map((client) => {
               return (
-                <div onClick={() => setClientToUpdate({id: client.clientid, nombre: client.nombre, apellido: client.apellido })}>
-                <ClientLi key={client.clientid} >
+                <div key={client.clientid} onClick={() => setClientToUpdate({id: client.clientid, nombre: client.nombre, apellido: client.apellido })}>
+                <ClientLi>
                   <p className="mx-auto font-semibold text-gray-800">
                     {client.nombre} {client.apellido}
                   </p>

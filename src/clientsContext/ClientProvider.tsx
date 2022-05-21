@@ -1,7 +1,10 @@
 import { ClientContext } from "./ClientContext";
 import { useContext, useState } from "react";
+
+//TYPES
 import { Client } from "./types";
 import { User} from '../authContext/types';
+import {Status} from '../types';
 
 export const useClient = () => {
   return useContext(ClientContext);
@@ -15,6 +18,7 @@ export const ClientProvider = ({ children }: Props) => {
   const [clientList, setClientList] = useState<Client[]>([]);
   const [currentClient, setCurrentClient] = useState<Client>({} as Client);
   const [totalClientBalance, setTotalClientBalance] = useState<number>(0);
+  const [status, setStatus] = useState<Status>(Status.init);
 
   const getClientList = async (id: User["id"]) => {
     try {
@@ -170,6 +174,7 @@ export const ClientProvider = ({ children }: Props) => {
     orderClients,
     getFullClientBalance,
     totalClientBalance,
+    status
   };
 
   return (

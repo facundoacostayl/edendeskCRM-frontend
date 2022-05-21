@@ -117,7 +117,7 @@ export const ClientProfile = () => {
           </ModalFooter>
         </Modal>
       )}
-      <div className="w-full my-10 flex flex-col items-center justify-center">
+      <div className="w-full my-5 lg:my-10 flex flex-col items-center justify-center">
         <h1 className="mb-5 text-xl md:text-4xl font-semibold">Datos del cliente</h1>
         <ClientCard>
           <div className="w-3/6">

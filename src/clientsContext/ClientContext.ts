@@ -1,6 +1,7 @@
 import {createContext} from 'react';
 import {Client} from './types';
 import {User} from '../authContext/types';
+import {Status} from '../types';
 
 type ClientContextProps = {
     addClient: (firstname: Client["nombre"], lastname:Client["apellido"], telefono: Client["telefono"], user: User["id"]) => Promise<void>,
@@ -14,7 +15,8 @@ type ClientContextProps = {
     currentClient: Client,
     deleteClient: (id: Client["clientid"]) => Promise<void>,
     getFullClientBalance: (id: User["id"]) => Promise<void>,
-    totalClientBalance: number
+    totalClientBalance: number,
+    status: Status
 }
 
 export const ClientContext = createContext<ClientContextProps>({} as ClientContextProps);
