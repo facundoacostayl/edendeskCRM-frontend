@@ -1,6 +1,7 @@
 //HOOKS
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {useAuth} from '../../authContext/AuthProvider';
 
 //COMPONENTS
 import { FontAwesomeIcon, MyProfileIcon } from "../icons";
@@ -11,6 +12,7 @@ type Props = {
 
 export const UserIcon = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const {logOut} = useAuth();
 
   return (
     <>
@@ -26,7 +28,7 @@ export const UserIcon = () => {
                   Mi Perfil
                 </li>
               </Link>
-              <li className="w-full py-1 px-2 text-lg font-medium cursor-pointer hover:bg-gray-200">
+              <li onClick={() => logOut()} className="w-full py-1 px-2 text-lg font-medium cursor-pointer hover:bg-gray-200">
                 Cerrar Sesión
               </li>
             </ul>

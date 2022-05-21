@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom';
 //COMPONENTS
 import { SectionBanner } from "../components";
 import { Sidebar } from "../components/Sidebar";
+import {PageContent} from '../ui/pageContent';
 import { TextField } from "../ui/form/textField";
 import {SearchField} from '../ui/form/searchField';
 import { ClientList } from "../ui/clientList";
@@ -15,14 +16,14 @@ import { Button } from "../ui/controls/button";
 
 
 export const MyClients = () => {
-  const { clientList, getClientList, searchClient, orderClients } = useClient();
+  const { clientList, getClientList, searchClient, orderClients, status } = useClient();
   const {userData} = useAuth();
   const [searchField, setSearchField] = useState<string>("");
   const [filterValue, setFilterValue] = useState<string>("");
 
   useEffect(() => {
     userData.id && getClientList(userData.id);
-  }, [clientList]);
+  }, []);
 
   useEffect(() => {
     searchClient(searchField);
@@ -45,7 +46,7 @@ export const MyClients = () => {
       <Sidebar />
       <div className="w-full">
         <SectionBanner sectionName="Mis Clientes"></SectionBanner>
-        <div className="w-[90%] max-w-[1400px] mx-auto">
+        <PageContent status={status}>
           <SearchField onSearch={(e) => getClientSearched(e)}/>
           <div className="flex justify-end mb-2 gap-2">
             <label className="font-light text-gray-600" htmlFor="">
@@ -81,7 +82,7 @@ export const MyClients = () => {
               );
             })}
           </ClientList>
-        </div>
+        </PageContent>
       </div>
     </div>
   );

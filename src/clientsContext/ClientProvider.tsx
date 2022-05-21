@@ -27,6 +27,7 @@ export const ClientProvider = ({ children }: Props) => {
       const parseRes = await response.json();
 
       setClientList(parseRes);
+      setStatus(Status.success);
       console.log(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);

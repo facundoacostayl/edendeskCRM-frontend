@@ -8,7 +8,8 @@ type AuthContextProps = {
     checkAuth : () => Promise<void>,
     isLoggedIn: boolean,
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>,
-    userData: User
+    userData: User,
+    logOut: VoidFunction
 }
 
 export const AuthContext = createContext<AuthContextProps>({} as AuthContextProps);
