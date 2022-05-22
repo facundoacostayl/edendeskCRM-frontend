@@ -27,22 +27,29 @@ function App() {
     <div className="App">
       <ToastContainer hideProgressBar={true} />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/registro" element={!isLoggedIn ? <Register /> : <Dashboard/>}></Route>
-        <Route path="/login" element={!isLoggedIn ? <Login /> : <Dashboard/>}></Route>
+        {!isLoggedIn && (
+          <>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/registro" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+          </>
+        )}
 
-        <Route element={<PrivateLoggedRoutes authorize={isLoggedIn} />}>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/nuevo-cliente" element={<NewClient />}></Route>
-          <Route path="/nuevo-saldo" element={<ClientBalance />}></Route>
-          <Route path="/mis-clientes" element={<MyClients />}></Route>
-          <Route
-            path="/mis-clientes/cliente/:id"
-            element={<ClientProfile />}
-          ></Route>
-          <Route path="/mi-perfil" element={<MyProfile />}></Route>
-        </Route>
-        <Route path="*" element={<Home />}></Route>
+        {isLoggedIn && (
+          <>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/nuevo-cliente" element={<NewClient />}></Route>
+            <Route path="/nuevo-saldo" element={<ClientBalance />}></Route>
+            <Route path="/mis-clientes" element={<MyClients />}></Route>
+            <Route
+              path="/mis-clientes/cliente/:id"
+              element={<ClientProfile />}
+            ></Route>
+            <Route path="/mi-perfil" element={<MyProfile />}></Route>
+          </>
+        )}
+
+        <Route path="*" element={isLoggedIn ? <Dashboard /> : <Login/>}></Route>
       </Routes>
     </div>
   );
