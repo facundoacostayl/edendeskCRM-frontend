@@ -1,10 +1,11 @@
 import { ClientContext } from "./ClientContext";
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 //TYPES
 import { Client } from "./types";
-import { User} from '../authContext/types';
-import {Status} from '../types';
+import { User } from "../authContext/types";
+import { Status } from "../types";
 
 export const useClient = () => {
   return useContext(ClientContext);
@@ -41,10 +42,15 @@ export const ClientProvider = ({ children }: Props) => {
   const addClient = async (
     firstname: Client["nombre"],
     lastname: Client["apellido"],
-    telefono: Client["telefono"],
+    telefono: Client["telefono"]
   ) => {
     const id = localStorage.getItem("userId");
-    const body = { nombre: firstname, apellido: lastname, telefono, userId: id };
+    const body = {
+      nombre: firstname,
+      apellido: lastname,
+      telefono,
+      userId: id,
+    };
 
     try {
       const response = await fetch("http://localhost:4000/nuevo-cliente", {
@@ -55,7 +61,7 @@ export const ClientProvider = ({ children }: Props) => {
         body: JSON.stringify(body),
       });
 
-      console.log(body)
+      toast.done("Cliente añadido con exito")
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -174,7 +180,7 @@ export const ClientProvider = ({ children }: Props) => {
     getFullClientBalance,
     totalClientBalance,
     status,
-    setStatus
+    setStatus,
   };
 
   return (

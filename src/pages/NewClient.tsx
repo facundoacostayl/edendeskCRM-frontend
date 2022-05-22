@@ -27,7 +27,7 @@ export const NewClient = () => {
     const apellido = e.currentTarget.clientLastname;
     const tel = e.currentTarget.clientTel;
 
-    addClient(nombre.value, apellido.value, tel.value);
+    addClient(nombre.value, apellido.value, tel.value.toString());
 
     nombre.value = "";
     apellido.value = "";
@@ -55,6 +55,7 @@ export const NewClient = () => {
               id="new-client-firstname"
               name="clientFirstname"
               placeholder="Juan"
+              maxLength={30}
             />
             <div className="my-3">
               <label
@@ -68,6 +69,7 @@ export const NewClient = () => {
                 id="new-client-lastname"
                 name="clientLastname"
                 placeholder="Perez"
+                maxLength={30}
               />
             </div>
             <div className="my-3">
@@ -78,7 +80,7 @@ export const NewClient = () => {
                 Telefono
               </label>
               <TextField
-                type="tel"
+                type="number"
                 id="new-client-tel"
                 name="clientTel"
                 placeholder="01142567891"

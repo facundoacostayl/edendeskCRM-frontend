@@ -39,16 +39,16 @@ function App() {
       <Routes>
         <Route element={<PrivateLoggedRoutes authorize={isLoggedIn} />}>
           <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/nuevo-cliente" element={<NewClient />}></Route>
+          <Route path="/nuevo-saldo" element={<ClientBalance />}></Route>
+          <Route path="/mis-clientes" element={<MyClients />}></Route>
+          <Route
+            path="/mis-clientes/cliente/:id"
+            element={<ClientProfile />}
+          ></Route>
+          <Route path="/mi-perfil" element={<MyProfile />}></Route>
+          <Route path="*" element={<Home />}></Route>
         </Route>
-        <Route path="/nuevo-cliente" element={<NewClient />}></Route>
-        <Route path="/nuevo-saldo" element={<ClientBalance />}></Route>
-        <Route path="/mis-clientes" element={<MyClients />}></Route>
-        <Route
-          path="/mis-clientes/cliente/:id"
-          element={<ClientProfile />}
-        ></Route>
-        <Route path="/mi-perfil" element={<MyProfile />}></Route>
-        <Route path="*" element={<Home/>}></Route>
       </Routes>
     </div>
   );

@@ -2,7 +2,7 @@ export interface Client {
     clientid: number,
     nombre: string,
     apellido: string,
-    telefono: number,
+    telefono: string,
     saldo: number,
     fechaultcarga: string,
     montoultcarga: number,
