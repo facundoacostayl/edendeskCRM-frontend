@@ -21,11 +21,12 @@ export const ClientProvider = ({ children }: Props) => {
   const [totalClientBalance, setTotalClientBalance] = useState<number>(0);
   const [status, setStatus] = useState<Status>(Status.init);
 
-  const getClientList = async (id: User["id"]) => {
+  const getClientList = async () => {
+    const id = localStorage.getItem("userId")
     try {
       const response = await fetch(`http://localhost:4000/user${id}/clientes`);
       const parseRes = await response.json();
-      setClientList(parseRes);
+      parseRes && setClientList(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
