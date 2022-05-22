@@ -6,12 +6,16 @@ import { useParams, useNavigate } from "react-router-dom";
 //COMPONENTS
 import { SectionBanner } from "../components";
 import {Sidebar} from '../components/Sidebar';
+import {PageContent} from '../ui/pageContent';
 import { ClientCard } from "../ui/card";
 import { InfoLi } from "../ui/infoLi";
 import { Button } from "../ui/controls/button";
 import { Modal } from "../ui/modal";
 import { ModalFooter } from "../ui/modal";
 import { TextField } from "../ui/form/textField";
+
+//TYPES
+import {Status} from '../types';
 
 export const ClientProfile = () => {
   const { currentClient, getClient, deleteClient, updateClientInfo } =
@@ -25,9 +29,11 @@ export const ClientProfile = () => {
     useState<boolean>(false);
   const [newValueToEdit, setNewValueToEdit] = useState<string>("");
   const [newEditingValue, setNewEditingValue] = useState<string>("");
+  const [status, setStatus] = useState<Status>(Status.init);
 
   useEffect(() => {
     getClient(id ? parseInt(id) : 0);
+    setStatus(Status.success)
   }, []);
 
   const onDeleteClient = () => {
@@ -117,8 +123,8 @@ export const ClientProfile = () => {
           </ModalFooter>
         </Modal>
       )}
-      <div className="w-full my-5 lg:my-10 flex flex-col items-center justify-center">
-        <h1 className="mb-5 text-xl md:text-4xl font-semibold">Datos del cliente</h1>
+      <PageContent status={status} direction="flex-col">
+        <h1 className="m-3 text-xl md:text-4xl font-semibold">Datos del cliente</h1>
         <ClientCard>
           <div className="w-3/6">
             <InfoLi color="primary">Nombre:</InfoLi>
@@ -179,7 +185,7 @@ export const ClientProfile = () => {
             Editar
           </Button>
         </div>
-      </div>
+      </PageContent>
     </div>
     </div>
   );

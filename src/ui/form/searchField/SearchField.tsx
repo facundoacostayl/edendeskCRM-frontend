@@ -10,7 +10,7 @@ type Props = {
 
 export const SearchField = ({onSearch}: Props) => {
   return (
-    <div className="relative max-w-[700px] mx-auto my-4">
+    <div className="relative w-full max-w-[700px] mx-auto my-4">
             <TextField
               onChange={onSearch}
               autoFocus

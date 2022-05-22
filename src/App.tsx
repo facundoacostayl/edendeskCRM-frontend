@@ -31,12 +31,9 @@ function App() {
       <ToastContainer hideProgressBar={true} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
-        <Route element={<PrivateNotLoggedRoutes authorize={isLoggedIn} />}>
-          <Route path="/registro" element={<Register />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-        </Route>
-      </Routes>
-      <Routes>
+        <Route path="/registro" element={!isLoggedIn ? <Register /> : <Dashboard/>}></Route>
+        <Route path="/login" element={!isLoggedIn ? <Login /> : <Dashboard/>}></Route>
+
         <Route element={<PrivateLoggedRoutes authorize={isLoggedIn} />}>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/nuevo-cliente" element={<NewClient />}></Route>
@@ -47,8 +44,8 @@ function App() {
             element={<ClientProfile />}
           ></Route>
           <Route path="/mi-perfil" element={<MyProfile />}></Route>
-          <Route path="*" element={<Home />}></Route>
         </Route>
+        <Route path="*" element={<Home />}></Route>
       </Routes>
     </div>
   );

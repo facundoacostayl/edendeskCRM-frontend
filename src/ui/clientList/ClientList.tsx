@@ -6,8 +6,8 @@ type Props = {
 
 export const ClientList: React.FC<Props> = ({children}) => {
   return (
-    <ul className="border border-gray-200 shadow-sm">
-        <div className="w-full grid grid-cols-3 grid-rows-1 items-center gap-7 p-4">
+    <ul className="w-full border border-gray-200 shadow-sm">
+        <div className="grid grid-cols-3 grid-rows-1 items-center gap-7 p-4">
           <p className="mx-auto text-lg md:text-2xl font-medium">Nombre</p>
           <p className="mx-auto text-lg md:text-2xl font-medium">Saldo</p>
           <div className="opacity-0">
