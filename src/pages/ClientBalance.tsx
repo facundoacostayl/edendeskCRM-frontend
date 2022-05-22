@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
 import {useAuth} from '../authContext/AuthProvider';
+import {Link} from 'react-router-dom';
 
 //COMPONENTS
 import { SectionBanner } from "../components";
@@ -102,28 +103,33 @@ export const ClientBalance = () => {
           <div className="py-4 px-2">
             <SearchField onSearch={(e) => getClientSearched(e)} />
           </div>
+          {clientList.length > 0 ? 
           <ClientList>
-            {clientList.map((client) => {
-              return (
-                <div key={client.clientid} onClick={() => setClientToUpdate({id: client.clientid, nombre: client.nombre, apellido: client.apellido })}>
-                <ClientLi>
-                  <p className="mx-auto font-semibold text-gray-800">
-                    {client.nombre} {client.apellido}
-                  </p>
-                  <p className="mx-auto font-semibold text-gray-500">
-                    ${client.saldo}
-                  </p>
-                  <div className="mx-auto">
-                    <OperatorButtons
-                      onOpenModal={toggleModal}
-                      onOperate={setIsAdding}
-                    />
-                  </div>
-                </ClientLi>
+          {clientList.map((client) => {
+            return (
+              <div key={client.clientid} onClick={() => setClientToUpdate({id: client.clientid, nombre: client.nombre, apellido: client.apellido })}>
+              <ClientLi>
+                <p className="mx-auto font-semibold text-gray-800">
+                  {client.nombre} {client.apellido}
+                </p>
+                <p className="mx-auto font-semibold text-gray-500">
+                  ${client.saldo}
+                </p>
+                <div className="mx-auto">
+                  <OperatorButtons
+                    onOpenModal={toggleModal}
+                    onOperate={setIsAdding}
+                  />
                 </div>
-              );
-            })}
-          </ClientList>
+              </ClientLi>
+              </div>
+            );
+          })}
+        </ClientList>
+        :
+        <p className="text-center text-base my-10 text-gray-500">Todavía no tienes clientes. Comienza a añadirlos <Link to="/nuevo-cliente" className="text-indigo-500">aquí</Link>!</p>
+        }
+          
         </div>
       </div>
     </div>

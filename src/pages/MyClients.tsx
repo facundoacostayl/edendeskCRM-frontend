@@ -75,6 +75,7 @@ export const MyClients = () => {
               <option value="saldo-desc">Mayor saldo</option>
             </select>
           </div>
+          {clientList.length > 0 ? 
           <ClientList>
             {clientList.map((client) => {
               return (
@@ -93,7 +94,10 @@ export const MyClients = () => {
                 </ClientLi>
               );
             })}
-          </ClientList>
+            </ClientList>
+            :
+            <p className="text-center text-base my-10 text-gray-500">Todavía no tienes clientes. Comienza a añadirlos <Link to="/nuevo-cliente" className="text-indigo-500">aquí</Link>!</p>
+          }
         </PageContent>
       </div>
     </div>
