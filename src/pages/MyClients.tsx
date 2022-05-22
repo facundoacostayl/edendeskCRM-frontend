@@ -1,7 +1,7 @@
 //HOOKS
 import { useAuth } from "../authContext/AuthProvider";
 import { useClient } from "../clientsContext/ClientProvider";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 
 //COMPONENTS
@@ -29,19 +29,22 @@ export const MyClients = () => {
   } = useClient();
   const [searchField, setSearchField] = useState<string>("");
   const [filterValue, setFilterValue] = useState<string>("");
+  const firstRun = useRef(true);
 
   useEffect(() => {
-    userData && getClientList(userData.id);
+    getClientList();
     setStatus(Status.success);
-  }, [userData]);
+  }, []);
 
   useEffect(() => {
-    searchField.length > 0 && searchClient(searchField);
-    setFilterValue("");
+    if(!firstRun.current) {
+    clientList.length > 0 ? searchClient(searchField) : getClientList()
+   setFilterValue("");
+    }
+    firstRun.current = false
   }, [searchField]);
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
-    clientList.length > 0 &&
     setTimeout(() => {
       setSearchField(e.target.value);
     }, 800);

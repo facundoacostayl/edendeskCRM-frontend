@@ -7,7 +7,7 @@ type ClientContextProps = {
     addClient: (firstname: Client["nombre"], lastname:Client["apellido"], telefono: Client["telefono"]) => Promise<void>,
     updateClient: (id: Client["clientid"], amount: number, operation: string) => Promise<void>,
     updateClientInfo: (id: Client["clientid"], clientValueToEdit: string, newClientValue: string) => Promise<void>
-    getClientList: (id: User["id"]) => Promise<void>,
+    getClientList: VoidFunction,
     clientList: Client[],
     searchClient: (name: Client["nombre"]) => Promise<void>,
     orderClients: (orderType: string) => Promise<void>,

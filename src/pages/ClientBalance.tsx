@@ -1,5 +1,5 @@
 //HOOKS
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
 import { useAuth } from "../authContext/AuthProvider";
 import { Link } from "react-router-dom";
@@ -35,17 +35,20 @@ export const ClientBalance = () => {
     nombre: "",
     apellido: "",
   });
+  const firstRun = useRef(true);
 
   useEffect(() => {
-    userData && getClientList(userData.id);
+    userData && getClientList();
   }, [userData]);
 
   useEffect(() => {
-    searchField.length > 0 && searchClient(searchField);
+    if(!firstRun.current){
+      searchField.length > 0 ? searchClient(searchField) : getClientList();
+    }
+    firstRun.current = false
   }, [searchField]);
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
-    clientList.length > 0 &&
       setTimeout(() => {
         setSearchField(e.target.value);
       }, 800);

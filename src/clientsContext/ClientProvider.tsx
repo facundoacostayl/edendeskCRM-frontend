@@ -128,9 +128,10 @@ export const ClientProvider = ({ children }: Props) => {
   };
 
   const searchClient = async (name: Client["nombre"]) => {
+    const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/cliente/?name=${name}`
+        `http://localhost:4000/user${id}/buscar-cliente/?name=${name}`
       );
 
       const parseRes = await response.json();
