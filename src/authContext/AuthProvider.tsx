@@ -120,8 +120,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const logOut = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("userId")
-    navigate(0)
+    localStorage.removeItem("userId");
+    checkAuth();
   }
 
   useEffect(() => {
