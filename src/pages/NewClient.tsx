@@ -1,7 +1,5 @@
 //REACT HOOKS
-import React, { useState, useEffect } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
-import { useAuth } from '../authContext/AuthProvider';
 
 //COMPONENTS
 import { Sidebar } from "../components";
@@ -21,7 +19,6 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 
 export const NewClient = () => {
   const { addClient } = useClient();
-  const {userData} = useAuth();
 
   const onSubmitHandler = (e: Form) => {
     e.preventDefault();
@@ -30,7 +27,7 @@ export const NewClient = () => {
     const apellido = e.currentTarget.clientLastname;
     const tel = e.currentTarget.clientTel;
 
-    addClient(nombre.value, apellido.value, tel.value, userData.id);
+    addClient(nombre.value, apellido.value, tel.value);
 
     nombre.value = "";
     apellido.value = "";
@@ -43,7 +40,9 @@ export const NewClient = () => {
       <div className="w-full">
         <SectionBanner sectionName="Añadir Cliente" />
         <AppContainer>
-          <h1 className="pt-3 pb-5 text-center text-2xl lg:text-3xl font-bold text-gray-700">Ingresa los datos del cliente:</h1>
+          <h1 className="pt-3 pb-5 text-center text-2xl lg:text-3xl font-bold text-gray-700">
+            Ingresa los datos del cliente:
+          </h1>
           <AuthForm onSubmit={onSubmitHandler}>
             <label
               className="text-slate-500 font-semibold lg:text-xl mb-1"
@@ -78,7 +77,12 @@ export const NewClient = () => {
               >
                 Telefono
               </label>
-              <TextField type="tel" id="new-client-tel" name="clientTel" placeholder="01142567891" />
+              <TextField
+                type="tel"
+                id="new-client-tel"
+                name="clientTel"
+                placeholder="01142567891"
+              />
             </div>
             <div className="my-3 mx-auto">
               <Button colorScheme="primary">Añadir</Button>

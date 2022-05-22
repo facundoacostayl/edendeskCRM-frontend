@@ -25,12 +25,14 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const navigate = useNavigate();
 
-  const getUserData = async(id: User["id"]) => {
+  const getUserData = async() => {
+    const id = localStorage.getItem("userId");
     try {
       const response = await fetch(`http://localhost:4000/user/${id}`)
       
       const parseRes: User = await response.json();
 
+      console.log(parseRes)
       setUserData(parseRes);
     }catch(error){
       error instanceof Error && console.error(error.message)
@@ -76,7 +78,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       if(parseRes.token){
       localStorage.setItem("token", parseRes.token);
-
+      localStorage.setItem("userId", parseRes.id)
       checkAuth();
       }else{
         toast.error("Debes llenar todos los campos")
@@ -104,7 +106,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
-        getUserData(parseRes.id)
+        localStorage.setItem("userId", parseRes.id)
         checkAuth();
       }else {
         toast.error(parseRes)
@@ -126,8 +128,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    console.log(userData)
-  }, [userData])
+    getUserData()
+  }, [])
 
   const value = {
     isLoggedIn,

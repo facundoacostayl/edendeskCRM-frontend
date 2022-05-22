@@ -7,10 +7,10 @@ import { NewClient } from "./pages/NewClient";
 import { ClientBalance } from "./pages/ClientBalance";
 import { MyClients } from "./pages/MyClients";
 import { ClientProfile } from "./pages/ClientProfile";
-import {MyProfile} from "./pages/MyProfile";
+import { MyProfile } from "./pages/MyProfile";
 
 //SIDEBAR
-import {Sidebar} from './components';
+import { Sidebar } from "./components";
 
 //ROUTER
 import { Routes, Route } from "react-router-dom";
@@ -35,21 +35,22 @@ function App() {
           <Route path="/registro" element={<Register />}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Route>
-        </Routes>
-        <Routes>
-          <Route element={<PrivateLoggedRoutes authorize={isLoggedIn} />}>
-            <Route path="/dashboard" element={<Dashboard />}></Route>
-          </Route>
-          <Route path="/nuevo-cliente" element={<NewClient />}></Route>
-          <Route path="/nuevo-saldo" element={<ClientBalance />}></Route>
-          <Route path="/mis-clientes" element={<MyClients />}></Route>
-          <Route
-            path="/mis-clientes/cliente/:id"
-            element={<ClientProfile />}
-          ></Route>
-          <Route path="/mi-perfil" element={<MyProfile/>}></Route>
       </Routes>
-      </div>
+      <Routes>
+        <Route element={<PrivateLoggedRoutes authorize={isLoggedIn} />}>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+        </Route>
+        <Route path="/nuevo-cliente" element={<NewClient />}></Route>
+        <Route path="/nuevo-saldo" element={<ClientBalance />}></Route>
+        <Route path="/mis-clientes" element={<MyClients />}></Route>
+        <Route
+          path="/mis-clientes/cliente/:id"
+          element={<ClientProfile />}
+        ></Route>
+        <Route path="/mi-perfil" element={<MyProfile />}></Route>
+        <Route path="*" element={<Home/>}></Route>
+      </Routes>
+    </div>
   );
 }
 

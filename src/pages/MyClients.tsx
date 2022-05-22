@@ -1,32 +1,42 @@
 //HOOKS
+import { useAuth } from "../authContext/AuthProvider";
 import { useClient } from "../clientsContext/ClientProvider";
-import {useAuth} from '../authContext/AuthProvider';
 import { useEffect, useState } from "react";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 //COMPONENTS
 import { SectionBanner } from "../components";
 import { Sidebar } from "../components/Sidebar";
-import {PageContent} from '../ui/pageContent';
+import { PageContent } from "../ui/pageContent";
 import { TextField } from "../ui/form/textField";
-import {SearchField} from '../ui/form/searchField';
+import { SearchField } from "../ui/form/searchField";
 import { ClientList } from "../ui/clientList";
 import { ClientLi } from "../ui/clientLi";
 import { Button } from "../ui/controls/button";
 
+//TYPES
+import { Status } from "../types";
 
 export const MyClients = () => {
-  const { clientList, getClientList, searchClient, orderClients, status } = useClient();
-  const {userData} = useAuth();
+  const { userData } = useAuth();
+  const {
+    clientList,
+    getClientList,
+    searchClient,
+    orderClients,
+    status,
+    setStatus,
+  } = useClient();
   const [searchField, setSearchField] = useState<string>("");
   const [filterValue, setFilterValue] = useState<string>("");
 
   useEffect(() => {
-    userData.id && getClientList(userData.id);
-  }, []);
+    userData && getClientList(userData.id);
+    setStatus(Status.success);
+  }, [userData]);
 
   useEffect(() => {
-    searchClient(searchField);
+    searchField.length > 0 && searchClient(searchField);
     setFilterValue("");
   }, [searchField]);
 
@@ -46,9 +56,9 @@ export const MyClients = () => {
       <Sidebar />
       <div className="w-full">
         <SectionBanner sectionName="Mis Clientes"></SectionBanner>
-        <PageContent status={status}>
-          <SearchField onSearch={(e) => getClientSearched(e)}/>
-          <div className="flex justify-end mb-2 gap-2">
+        <PageContent status={status} direction="flex-col">
+          <SearchField onSearch={(e) => getClientSearched(e)} />
+          <div className="w-full flex justify-end mb-2 gap-2">
             <label className="font-light text-gray-600" htmlFor="">
               ordernar por:
             </label>
@@ -76,7 +86,9 @@ export const MyClients = () => {
                     ${client.saldo}
                   </p>
                   <div className="mx-auto">
-                    <Link to={`/mis-clientes/cliente/${client.clientid}`}><Button colorScheme="primary">Editar</Button></Link>
+                    <Link to={`/mis-clientes/cliente/${client.clientid}`}>
+                      <Button colorScheme="primary">Editar</Button>
+                    </Link>
                   </div>
                 </ClientLi>
               );

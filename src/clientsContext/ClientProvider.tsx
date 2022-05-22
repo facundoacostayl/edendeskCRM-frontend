@@ -23,12 +23,8 @@ export const ClientProvider = ({ children }: Props) => {
   const getClientList = async (id: User["id"]) => {
     try {
       const response = await fetch(`http://localhost:4000/user${id}/clientes`);
-
       const parseRes = await response.json();
-
       setClientList(parseRes);
-      setStatus(Status.success);
-      console.log(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -46,9 +42,9 @@ export const ClientProvider = ({ children }: Props) => {
     firstname: Client["nombre"],
     lastname: Client["apellido"],
     telefono: Client["telefono"],
-    userId: User["id"]
   ) => {
-    const body = { nombre: firstname, apellido: lastname, telefono, userId };
+    const id = localStorage.getItem("userId");
+    const body = { nombre: firstname, apellido: lastname, telefono, userId: id };
 
     try {
       const response = await fetch("http://localhost:4000/nuevo-cliente", {
@@ -58,6 +54,8 @@ export const ClientProvider = ({ children }: Props) => {
         },
         body: JSON.stringify(body),
       });
+
+      console.log(body)
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -175,7 +173,8 @@ export const ClientProvider = ({ children }: Props) => {
     orderClients,
     getFullClientBalance,
     totalClientBalance,
-    status
+    status,
+    setStatus
   };
 
   return (

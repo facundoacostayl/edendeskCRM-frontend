@@ -21,6 +21,7 @@ export const Dashboard: React.FC = () => {
     getFullClientBalance(userData.id);
   }, []);
 
+  
   return (
     <div className="md:flex">
       <Sidebar />

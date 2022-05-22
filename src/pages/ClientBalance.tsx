@@ -36,11 +36,11 @@ export const ClientBalance = () => {
   });
 
   useEffect(() => {
-    userData.id && getClientList(userData.id);
-  }, []);
+    userData && getClientList(userData.id);
+  }, [userData]);
 
   useEffect(() => {
-    searchClient(searchField);
+    searchField.length > 0 && searchClient(searchField);
   }, [searchField]);
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
