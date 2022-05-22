@@ -41,6 +41,7 @@ export const MyClients = () => {
   }, [searchField]);
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clientList.length > 0 &&
     setTimeout(() => {
       setSearchField(e.target.value);
     }, 800);

@@ -1,8 +1,8 @@
 //HOOKS
 import { useState, useEffect } from "react";
 import { useClient } from "../clientsContext/ClientProvider";
-import {useAuth} from '../authContext/AuthProvider';
-import {Link} from 'react-router-dom';
+import { useAuth } from "../authContext/AuthProvider";
+import { Link } from "react-router-dom";
 
 //COMPONENTS
 import { SectionBanner } from "../components";
@@ -25,7 +25,7 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 
 export const ClientBalance = () => {
   const { getClientList, clientList, updateClient, searchClient } = useClient();
-  const {userData} = useAuth();
+  const { userData } = useAuth();
 
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
@@ -45,9 +45,10 @@ export const ClientBalance = () => {
   }, [searchField]);
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setSearchField(e.target.value);
-    }, 800);
+    clientList.length > 0 &&
+      setTimeout(() => {
+        setSearchField(e.target.value);
+      }, 800);
   };
 
   const toggleModal = () => {
@@ -81,7 +82,8 @@ export const ClientBalance = () => {
                 : "Ingresa ultimo consumo"}
             </h2>
             <p className="text-lg font-semibold mb-5">
-            <span className="text-xl font-normal">Cliente:</span> {clientToUpdate.nombre} {clientToUpdate.apellido}
+              <span className="text-xl font-normal">Cliente:</span>{" "}
+              {clientToUpdate.nombre} {clientToUpdate.apellido}
             </p>
             <TextField
               autoFocus
@@ -100,36 +102,49 @@ export const ClientBalance = () => {
 
         <SectionBanner sectionName="Nuevo Saldo" />
         <div className="w-[90%] max-w-[1400px] mx-auto">
-          <div className="py-4 px-2">
-            <SearchField onSearch={(e) => getClientSearched(e)} />
-          </div>
-          {clientList.length > 0 ? 
-          <ClientList>
-          {clientList.map((client) => {
-            return (
-              <div key={client.clientid} onClick={() => setClientToUpdate({id: client.clientid, nombre: client.nombre, apellido: client.apellido })}>
-              <ClientLi>
-                <p className="mx-auto font-semibold text-gray-800">
-                  {client.nombre} {client.apellido}
-                </p>
-                <p className="mx-auto font-semibold text-gray-500">
-                  ${client.saldo}
-                </p>
-                <div className="mx-auto">
-                  <OperatorButtons
-                    onOpenModal={toggleModal}
-                    onOperate={setIsAdding}
-                  />
-                </div>
-              </ClientLi>
-              </div>
-            );
-          })}
-        </ClientList>
-        :
-        <p className="text-center text-base my-10 text-gray-500">Todavía no tienes clientes. Comienza a añadirlos <Link to="/nuevo-cliente" className="text-indigo-500">aquí</Link>!</p>
-        }
-          
+          <SearchField onSearch={(e) => getClientSearched(e)} />
+
+          {clientList.length > 0 ? (
+            <ClientList>
+              {clientList.map((client) => {
+                return (
+                  <div
+                    key={client.clientid}
+                    onClick={() =>
+                      setClientToUpdate({
+                        id: client.clientid,
+                        nombre: client.nombre,
+                        apellido: client.apellido,
+                      })
+                    }
+                  >
+                    <ClientLi>
+                      <p className="mx-auto font-semibold text-gray-800">
+                        {client.nombre} {client.apellido}
+                      </p>
+                      <p className="mx-auto font-semibold text-gray-500">
+                        ${client.saldo}
+                      </p>
+                      <div className="mx-auto">
+                        <OperatorButtons
+                          onOpenModal={toggleModal}
+                          onOperate={setIsAdding}
+                        />
+                      </div>
+                    </ClientLi>
+                  </div>
+                );
+              })}
+            </ClientList>
+          ) : (
+            <p className="text-center text-base my-10 text-gray-500">
+              Todavía no tienes clientes. Comienza a añadirlos{" "}
+              <Link to="/nuevo-cliente" className="text-indigo-500">
+                aquí
+              </Link>
+              !
+            </p>
+          )}
         </div>
       </div>
     </div>
