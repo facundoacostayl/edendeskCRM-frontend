@@ -8,8 +8,11 @@ import { PageContent } from "../ui/pageContent";
 import { Card, CardLeftContainer, CardRightContainer } from "../ui/card";
 import { SectionBanner } from "../components/SectionBanner";
 
+//TYPES
+import {Status} from '../types';
+
 export const Dashboard: React.FC = () => {
-  const { getFullClientBalance, totalClientBalance, status } = useClient();
+  const { getFullClientBalance, totalClientBalance, status, setStatus } = useClient();
 
   const { userData } = useAuth();
 
@@ -19,6 +22,7 @@ export const Dashboard: React.FC = () => {
 
   useEffect(() => {
     getFullClientBalance(userData.id);
+    setStatus(Status.success)
   }, []);
 
   
