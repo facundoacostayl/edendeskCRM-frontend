@@ -1,7 +1,6 @@
 import { AuthContext } from "./AuthContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
-import {useNavigate} from 'react-router-dom';
 import { toast } from "react-toastify";
 import { User } from './types';
 
@@ -22,8 +21,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   //State for checking if the user is authenticated
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState<User>({} as User);
-
-  const navigate = useNavigate();
 
   const getUserData = async() => {
     const id = localStorage.getItem("userId");
