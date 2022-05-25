@@ -29,7 +29,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       
       const parseRes: User = await response.json();
 
-      console.log(parseRes)
       setUserData(parseRes);
     }catch(error){
       error instanceof Error && console.error(error.message)
@@ -123,12 +122,11 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     checkAuth();
-    console.log(isLoggedIn)
   }, [isLoggedIn]);
 
   useEffect(() => {
     isLoggedIn && getUserData()
-  }, [])
+  }, [isLoggedIn])
 
   const value = {
     isLoggedIn,

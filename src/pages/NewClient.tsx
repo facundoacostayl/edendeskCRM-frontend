@@ -40,7 +40,7 @@ export const NewClient = () => {
       <div className="w-full">
         <SectionBanner sectionName="Añadir Cliente" />
         <AppContainer>
-          <h1 className="pt-3 pb-5 text-center text-2xl lg:text-3xl font-bold text-gray-700">
+          <h1 className="pt-3 pb-4 px-2 text-center text-xl lg:text-3xl font-semibold text-gray-600">
             Ingresa los datos del cliente:
           </h1>
           <AuthForm onSubmit={onSubmitHandler}>

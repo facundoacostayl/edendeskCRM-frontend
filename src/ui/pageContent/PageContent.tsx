@@ -12,7 +12,7 @@ type Props = {
 
 export const PageContent = ({children, status, direction}: Props) => {
   return (
-    <div className={`w-[90%] max-w-[1440px] mx-auto md:flex md:${direction} justify-between items-center md:gap-5`}>
+    <div className={`w-[90%] max-w-[1440px] mx-auto md:flex md:${direction} items-center`}>
       {status === Status.init ? <Spinner/> : children}
     </div>
   );

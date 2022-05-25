@@ -37,7 +37,7 @@ export const Sidebar = () => {
             <Icon type={NewBalanceIcon} title="Nuevo Saldo" />
           </Link>
           <Link to="/nuevo-cliente" className="w-full text-center">
-            <Icon type={NewClientIcon} title="Nuevo Cliente"/>
+            <Icon type={NewClientIcon} title="Nuevo"/>
           </Link>
         </MenuList>
       </div>
