@@ -17,6 +17,9 @@ import { Button } from "../ui/controls/button";
 //TYPES
 import { Status } from "../types";
 
+//Paginate
+import ReactPaginate from 'react-paginate';
+
 export const MyClients = () => {
   const { userData } = useAuth();
   const {
@@ -29,7 +32,36 @@ export const MyClients = () => {
   } = useClient();
   const [searchField, setSearchField] = useState<string>("");
   const [filterValue, setFilterValue] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const firstRun = useRef(true);
+
+  const usersPerPage = 5;
+  const pagesVisited = usersPerPage * currentPage;
+  const usersDisplayed = clientList
+  .slice(pagesVisited, pagesVisited + usersPerPage)
+  .map(client => {
+    return (
+      <ClientLi key={client.clientid}>
+        <p className="mx-auto font-semibold text-gray-800">
+          {client.nombre} {client.apellido}
+        </p>
+        <p className="mx-auto font-semibold text-gray-500">
+          ${client.saldo}
+        </p>
+        <div className="mx-auto">
+          <Link to={`/mis-clientes/cliente/${client.clientid}`}>
+            <Button colorScheme="primary">Editar</Button>
+          </Link>
+        </div>
+      </ClientLi>
+    );
+  })
+
+  const pageCount = Math.ceil(clientList.length / usersPerPage);
+
+  const changePage = (selectedItem: {selected:number}) => {
+    setCurrentPage(selectedItem.selected);
+  }
 
   useEffect(() => {
     getClientList();
@@ -81,27 +113,17 @@ export const MyClients = () => {
           </div>
           {clientList.length > 0 ? 
           <ClientList>
-            {clientList.map((client) => {
-              return (
-                <ClientLi key={client.clientid}>
-                  <p className="mx-auto font-semibold text-gray-800">
-                    {client.nombre} {client.apellido}
-                  </p>
-                  <p className="mx-auto font-semibold text-gray-500">
-                    ${client.saldo}
-                  </p>
-                  <div className="mx-auto">
-                    <Link to={`/mis-clientes/cliente/${client.clientid}`}>
-                      <Button colorScheme="primary">Editar</Button>
-                    </Link>
-                  </div>
-                </ClientLi>
-              );
-            })}
+            {usersDisplayed}
             </ClientList>
             :
             <p className="text-center text-base my-10 text-gray-500">Todavía no tienes clientes. Comienza a añadirlos <Link to="/nuevo-cliente" className="text-indigo-500">aquí</Link>!</p>
           }
+          <ReactPaginate
+            previousLabel={"<"}
+            nextLabel={">"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+          />
         </PageContent>
       </div>
     </div>
