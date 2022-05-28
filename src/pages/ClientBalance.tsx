@@ -25,7 +25,6 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 
 export const ClientBalance = () => {
   const { getClientList, clientList, updateClient, searchClient } = useClient();
-  const { userData } = useAuth();
 
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
@@ -38,8 +37,8 @@ export const ClientBalance = () => {
   const firstRun = useRef(true);
 
   useEffect(() => {
-    userData && getClientList();
-  }, [userData]);
+    getClientList();
+  }, []);
 
   useEffect(() => {
     if(!firstRun.current){
