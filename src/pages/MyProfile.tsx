@@ -85,7 +85,7 @@ export const MyProfile = () => {
               <p className="mb-1 text-lg font-semibold text-gray-700">
                 {userData.firstname}
               </p>
-              <p className="mb-1 text-lg font-semibold text-indigo-500">
+              <p className="mb-1 md:text-lg font-semibold text-indigo-500">
                 {userData.loginemail}
               </p>
             </div>

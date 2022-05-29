@@ -7,7 +7,9 @@ export {
   faPersonCirclePlus as NewClientIcon,
   faHandHoldingDollar as NewBalanceIcon,
   faBars as MenuIcon,
-  faMagnifyingGlass as SearchIcon
+  faMagnifyingGlass as SearchIcon,
+  faPenToSquare as EditIcon,
+  faPersonCircleMinus as RemoveIcon
 } from "@fortawesome/free-solid-svg-icons";
 
 //ICON EXPORTS
