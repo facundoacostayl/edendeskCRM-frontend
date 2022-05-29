@@ -19,6 +19,9 @@ import { Button } from "../ui/controls/button";
 //TYPES
 import { Client } from "../clientsContext/types";
 
+//Paginate
+import ReactPaginate from "react-paginate";
+
 interface Form extends React.FormEvent<HTMLFormElement> {
   amount: HTMLInputElement;
 }
@@ -29,6 +32,7 @@ export const ClientBalance = () => {
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
   const [searchField, setSearchField] = useState("");
+  const [currentPage, setCurrentPage] = useState<number>(0);
   const [clientToUpdate, setClientToUpdate] = useState({
     id: 0,
     nombre: "",
@@ -41,16 +45,16 @@ export const ClientBalance = () => {
   }, []);
 
   useEffect(() => {
-    if(!firstRun.current){
+    if (!firstRun.current) {
       searchField.length > 0 ? searchClient(searchField) : getClientList();
     }
-    firstRun.current = false
+    firstRun.current = false;
   }, [searchField]);
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setTimeout(() => {
-        setSearchField(e.target.value);
-      }, 800);
+    setTimeout(() => {
+      setSearchField(e.target.value);
+    }, 800);
   };
 
   const toggleModal = () => {
@@ -70,6 +74,47 @@ export const ClientBalance = () => {
       );
 
     setIsModalActive(false);
+  };
+
+  const clientsPerPage = 5;
+  const pagesVisited = clientsPerPage * currentPage;
+  const clients = [...clientList];
+  const clientsDisplayed = clients
+    .slice(pagesVisited, pagesVisited + clientsPerPage)
+    .map((client) => {
+      return (
+        <div
+          key={client.clientid}
+          onClick={() =>
+            setClientToUpdate({
+              id: client.clientid,
+              nombre: client.nombre,
+              apellido: client.apellido,
+            })
+          }
+        >
+          <ClientLi>
+            <p className="mx-auto font-semibold text-gray-800">
+              {client.nombre} {client.apellido}
+            </p>
+            <p className="mx-auto font-semibold text-gray-500">
+              ${client.saldo}
+            </p>
+            <div className="mx-auto">
+              <OperatorButtons
+                onOpenModal={toggleModal}
+                onOperate={setIsAdding}
+              />
+            </div>
+          </ClientLi>
+        </div>
+      );
+    });
+
+  const pageCount = Math.ceil(clientList.length / clientsPerPage);
+
+  const changePage = (selectedItem: { selected: number }) => {
+    setCurrentPage(selectedItem.selected);
   };
 
   return (
@@ -107,37 +152,7 @@ export const ClientBalance = () => {
           <SearchField onSearch={(e) => getClientSearched(e)} />
 
           {clientList.length > 0 ? (
-            <ClientList>
-              {clientList.map((client) => {
-                return (
-                  <div
-                    key={client.clientid}
-                    onClick={() =>
-                      setClientToUpdate({
-                        id: client.clientid,
-                        nombre: client.nombre,
-                        apellido: client.apellido,
-                      })
-                    }
-                  >
-                    <ClientLi>
-                      <p className="mx-auto font-semibold text-gray-800">
-                        {client.nombre} {client.apellido}
-                      </p>
-                      <p className="mx-auto font-semibold text-gray-500">
-                        ${client.saldo}
-                      </p>
-                      <div className="mx-auto">
-                        <OperatorButtons
-                          onOpenModal={toggleModal}
-                          onOperate={setIsAdding}
-                        />
-                      </div>
-                    </ClientLi>
-                  </div>
-                );
-              })}
-            </ClientList>
+            <ClientList>{clientsDisplayed}</ClientList>
           ) : (
             <p className="text-center text-base my-10 text-gray-500">
               Todavía no tienes clientes. Comienza a añadirlos{" "}
@@ -147,6 +162,19 @@ export const ClientBalance = () => {
               !
             </p>
           )}
+          <ReactPaginate
+            breakLabel="..."
+            pageRangeDisplayed={5}
+            previousLabel={"<"}
+            nextLabel={">"}
+            pageCount={pageCount}
+            onPageChange={changePage}
+            containerClassName="flex gap-5 justify-center items-center py-5"
+            previousLinkClassName="text-lg font-semibold text-indigo-500 border border-gray-200 shadow-md p-2 rounded-full"
+            nextLinkClassName="text-lg font-semibold text-indigo-500 border border-gray-200 shadow-md p-2 rounded-full"
+            disabledClassName="hidden"
+            activeClassName="text-lg font-semibold text-white bg-indigo-500 p-1 px-3 rounded-full"
+          />
         </div>
       </div>
     </div>
