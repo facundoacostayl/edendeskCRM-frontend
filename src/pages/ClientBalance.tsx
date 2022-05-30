@@ -22,6 +22,9 @@ import { Client } from "../clientsContext/types";
 //Paginate
 import ReactPaginate from "react-paginate";
 
+//Toast
+import {toast} from 'react-toastify';
+
 interface Form extends React.FormEvent<HTMLFormElement> {
   amount: HTMLInputElement;
 }
@@ -116,6 +119,10 @@ export const ClientBalance = () => {
   const changePage = (selectedItem: { selected: number }) => {
     setCurrentPage(selectedItem.selected);
   };
+
+  useEffect(() => {
+    toast.done("Funca")
+  }, []);
 
   return (
     <div className="md:flex">

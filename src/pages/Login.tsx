@@ -81,8 +81,8 @@ export const Login = () => {
             </div>
             <div className="text-center my-5">
               <p className="text-gray-800">Todavía no estas registrado?</p>
-              <Link className="text-indigo-500 font-semibold" to="/login">
-                Regístrate gratis ahora
+              <Link className="text-indigo-500 font-semibold" to="/registro">
+                Registrate gratis ahora
               </Link>
             </div>
           </div>

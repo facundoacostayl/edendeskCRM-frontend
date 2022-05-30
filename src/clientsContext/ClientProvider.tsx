@@ -1,5 +1,5 @@
 import { ClientContext } from "./ClientContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 //TYPES
@@ -110,6 +110,8 @@ export const ClientProvider = ({ children }: Props) => {
         },
         body: JSON.stringify(body),
       });
+
+      toast.done("Información actualizada con exito")
     } catch (error) {
       error instanceof Error && console.log(error.message);
     }
