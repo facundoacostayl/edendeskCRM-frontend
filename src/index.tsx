@@ -6,7 +6,6 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./authContext/AuthProvider";
 import { ClientProvider } from "./clientsContext/ClientProvider";
-import { ChartProvider } from "./chartContext/ChartProvider";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,9 +15,7 @@ root.render(
     <Router>
       <AuthProvider>
         <ClientProvider>
-          <ChartProvider>
-            <App />
-          </ChartProvider>
+          <App />
         </ClientProvider>
       </AuthProvider>
     </Router>
