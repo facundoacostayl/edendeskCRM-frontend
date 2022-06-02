@@ -12,36 +12,23 @@ import { BarChart } from "../components/barChart";
 //TYPES
 import { Status } from "../types";
 import { User } from "../authContext/types";
+import { ChartData } from "chart.js";
+
 
 export const Dashboard: React.FC = () => {
   const { userData } = useAuth();
   const { getFullClientBalance, totalClientBalance, status, setStatus } =
     useClient();
-  const [operationData, setOperationData] = useState();
 
   const today = new Date();
   const currentDate =
     today.getDate() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear();
 
-  const getOperationData = async (id: User["id"]) => {
-    try {
-      const response = await fetch(`http://localhost:4000/user${id}/operation`);
-      const parseRes = await response.json();
-      setOperationData(parseRes);
-    } catch (error) {
-      error instanceof Error && console.error(error.message);
-    }
-  };
-
   useEffect(() => {
-    getFullClientBalance(userData.id);
+    getFullClientBalance();
     setStatus(Status.success);
   }, []);
-
-  useEffect(() => {
-    getOperationData(userData.id);
-    console.log(operationData)
-  }, [userData]);
+  
 
   return (
     <div className="md:flex">
@@ -69,7 +56,7 @@ export const Dashboard: React.FC = () => {
                 Saldo total
               </h3>
               <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
-                ${totalClientBalance}
+                ${totalClientBalance ? totalClientBalance : 0}
               </p>
             </CardLeftContainer>
             <CardRightContainer>
@@ -87,6 +74,7 @@ export const Dashboard: React.FC = () => {
               </p>
             </CardLeftContainer>
           </Card>
+          <BarChart/>
         </PageContent>
       </div>
     </div>

@@ -156,7 +156,8 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
-  const getFullClientBalance = async (id: User["id"]) => {
+  const getFullClientBalance = async () => {
+    const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
         `http://localhost:4000/user:${id}/clientes/saldo-total`
