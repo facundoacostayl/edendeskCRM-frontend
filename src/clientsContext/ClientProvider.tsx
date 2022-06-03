@@ -144,9 +144,10 @@ export const ClientProvider = ({ children }: Props) => {
   };
 
   const orderClients = async (orderType: string) => {
+    const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/cliente/ordenar-por-${orderType}`
+        `http://localhost:4000/user${id}/clientes/ordenar-por-${orderType}`
       );
 
       const parseRes = await response.json();
