@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Client } from "./types";
 import { User } from "../authContext/types";
 import { Status } from "../types";
+import { json } from "node:stream/consumers";
 
 export const useClient = () => {
   return useContext(ClientContext);
@@ -160,7 +161,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/user:${id}/clientes/saldo-total`
+        `http://localhost:4000/user${id}/clientes/saldo-total`
       );
       const parseRes = await response.json();
       setTotalClientBalance(parseRes.total);
