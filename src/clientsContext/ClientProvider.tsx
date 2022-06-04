@@ -72,7 +72,7 @@ export const ClientProvider = ({ children }: Props) => {
   };
 
   const updateClient = async (
-    id: Client["clientid"],
+    clientId: Client["clientid"],
     amount: number,
     operation: string
   ) => {
@@ -81,7 +81,7 @@ export const ClientProvider = ({ children }: Props) => {
       const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `http://localhost:4000/user${userId}/cliente${id}/${operation}`,
+        `http://localhost:4000/user${userId}/cliente${clientId}/${operation}`,
         {
           method: "PUT",
           headers: {
@@ -119,9 +119,10 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
-  const deleteClient = async (id: Client["clientid"]) => {
+  const deleteClient = async (clientId: Client["clientid"]) => {
+    const userId = localStorage.getItem("userId");
     try {
-      await fetch(`http://localhost:4000/cliente/${id}`, {
+      await fetch(`http://localhost:4000/user${userId}/cliente${clientId}`, {
         method: "DELETE",
       });
     } catch (error) {
