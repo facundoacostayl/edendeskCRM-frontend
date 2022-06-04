@@ -64,7 +64,8 @@ export const BarChart = () => {
   const [operationData, setOperationData] =
     useState<Operation[]>(operationDataValues);
 
-  const getOperationData = async (id: User["id"]) => {
+  const getOperationData = async () => {
+    const id = localStorage.getItem("userId")
     try {
       if (!userData) return;
       const response = await fetch(`http://localhost:4000/user${id}/operation`);
@@ -76,8 +77,8 @@ export const BarChart = () => {
   };
 
   useEffect(() => {
-    getOperationData(userData.id);
-  }, [userData]);
+    getOperationData();
+  }, []);
 
   useEffect(() => {
     setChartData({

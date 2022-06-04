@@ -78,9 +78,10 @@ export const ClientProvider = ({ children }: Props) => {
   ) => {
     try {
       const body = { amount };
+      const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `http://localhost:4000/cliente/${id}/${operation}`,
+        `http://localhost:4000/user${userId}/cliente${id}/${operation}`,
         {
           method: "PUT",
           headers: {
