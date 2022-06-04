@@ -20,6 +20,7 @@ export const ClientProvider = ({ children }: Props) => {
   const [clientList, setClientList] = useState<Client[]>([]);
   const [currentClient, setCurrentClient] = useState<Client>({} as Client);
   const [totalClientBalance, setTotalClientBalance] = useState<number>(0);
+  const [clientsQuantity, setClientsQuantity] = useState<number>(0);
   const [status, setStatus] = useState<Status>(Status.init);
 
   const getClientList = async () => {
@@ -173,6 +174,18 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
+  const getClientsQuantity = async() => {
+    const userId = localStorage.getItem("userId")
+    try {
+      const response = await fetch(`http://localhost:4000/user${userId}/clientes/cantidad-clientes`)
+      const parseRes = await response.json();
+
+      setClientsQuantity(parseRes);
+    }catch(error){
+      error instanceof Error && console.error(error.message);
+    }
+  }
+
   const values = {
     addClient,
     updateClient,
@@ -186,6 +199,8 @@ export const ClientProvider = ({ children }: Props) => {
     orderClients,
     getFullClientBalance,
     totalClientBalance,
+    getClientsQuantity,
+    clientsQuantity,
     status,
     setStatus,
   };

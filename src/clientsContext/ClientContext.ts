@@ -16,6 +16,8 @@ type ClientContextProps = {
     deleteClient: (id: Client["clientid"]) => Promise<void>,
     getFullClientBalance: () => Promise<void>,
     totalClientBalance: number,
+    getClientsQuantity: VoidFunction,
+    clientsQuantity: number,
     status: Status,
     setStatus: React.Dispatch<React.SetStateAction<Status>>
 }

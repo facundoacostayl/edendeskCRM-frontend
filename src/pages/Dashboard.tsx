@@ -14,10 +14,52 @@ import { Status } from "../types";
 import { User } from "../authContext/types";
 import { ChartData } from "chart.js";
 
+export type Operation = {
+  id: number;
+  year: number;
+  month: number;
+  userGain: number;
+  userLost: number;
+  dayTransactions?: number
+};
+
+const operationDataValues: Operation[] = [
+  {
+    id: 0,
+    year: 0,
+    month: 0,
+    userGain: 0,
+    userLost: 0,
+  },
+];
+
 export const Dashboard: React.FC = () => {
   const { userData } = useAuth();
-  const { getFullClientBalance, totalClientBalance, status, setStatus } =
+  const { getFullClientBalance, totalClientBalance, status, setStatus, clientsQuantity, getClientsQuantity } =
     useClient();
+
+    const [operationData, setOperationData] =
+    useState<Operation[]>(operationDataValues);
+
+  const getOperationData = async () => {
+    const id = localStorage.getItem("userId")
+    try {
+      if (!userData) return;
+      const response = await fetch(`http://localhost:4000/user${id}/operation`);
+      const parseRes = await response.json();
+      setOperationData([parseRes]);
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getOperationData();
+  }, []);
+
+  useEffect(() => {
+    getClientsQuantity();
+  }, [])
 
   const today = new Date();
   const currentDate =
@@ -41,12 +83,14 @@ export const Dashboard: React.FC = () => {
                   Transacciones del día
                 </h3>
                 <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
-                  4
+                  {operationData[0].dayTransactions}
                 </p>
               </CardLeftContainer>
               <CardRightContainer>
-                <p className="md:text-xl">Total:</p>
-                <span className="font-semibold md:text-xl">$500</span>
+                <p className="md:text-xl">Ingresos:</p>
+                <span className="font-semibold md:text-xl">${operationData[0].userGain}</span>
+                <p className="md:text-xl">Consumos:</p>
+                <span className="font-semibold md:text-xl">${operationData[0].userLost}</span>
               </CardRightContainer>
             </Card>
             <Card>
@@ -69,12 +113,12 @@ export const Dashboard: React.FC = () => {
                   Clientes Totales
                 </h3>
                 <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
-                  4
+                  {clientsQuantity}
                 </p>
               </CardLeftContainer>
             </Card>
           </div>
-          <BarChart />
+          <BarChart operationData={operationData}/>
         </PageContent>
       </div>
     </div>
