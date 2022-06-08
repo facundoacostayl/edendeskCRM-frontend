@@ -10,18 +10,17 @@ import {
   Title,
   Tooltip,
   Legend,
-  ChartData
+  ChartData,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
 //Types
 import { User } from "../../authContext/types";
-import {Operation} from '../../pages/Dashboard';
+import { Operation } from "../../types/operation";
 
 type Props = {
-  operationData: Operation[]
+  operationData: Operation[];
 };
-
 
 ChartJS.register(
   CategoryScale,
@@ -30,30 +29,37 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend
-)
+);
 
-export const BarChart = ({operationData}: Props) => {
+export const BarChart = ({ operationData }: Props) => {
   const { userData } = useAuth();
+  const [chartOptions, setChartOptions] = useState({});
   const [chartData, setChartData] = useState({
-    labels: [0],
+    labels: [""],
     datasets: [
       {
         label: "",
-        data: [0]
-      }
-    ]
+        data: [0],
+        backgroundColor: [""],
+      },
+    ],
   });
-  const [chartOptions, setChartOptions] = useState({})
-
-  
 
   useEffect(() => {
     setChartData({
-      labels: operationData.map(data => data.year),
+      labels: operationData.map(
+        (data) => data.createdAt + "/" + (new Date().getMonth() + 1)
+      ),
       datasets: [
         {
           label: "Ingresos",
-          data: operationData.map(data => data.userGain)
+          data: operationData.map((data) => data.userGain),
+          backgroundColor: ["#4f46e5", "#6366f1", "#818cf8", "#a5b4fc"],
+        },
+        {
+          label: "Consumos",
+          data: operationData.map((data) => data.userLost),
+          backgroundColor: ["#ef4444", "#f87171", "#fca5a5", "#fecaca"],
         },
       ],
     });
@@ -61,17 +67,23 @@ export const BarChart = ({operationData}: Props) => {
       responsive: true,
       plugins: {
         legend: {
-          position: "top"
+          position: "top",
         },
         title: {
           display: "true",
-          text: "Ganancias"
-        }
-      }
-    })
-  }, [operationData])
+          text: "Ganancias",
+        },
+      },
+    });
+  }, [operationData]);
 
-  return <>
-    <Bar options={chartOptions} data={chartData}></Bar>
-  </>;
+  useEffect(() => {
+    console.log(chartData);
+  }, [chartData]);
+
+  return (
+    <>
+      <Bar options={chartOptions} data={chartData}></Bar>
+    </>
+  );
 };
