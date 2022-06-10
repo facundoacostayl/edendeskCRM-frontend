@@ -16,6 +16,7 @@ import { Status } from "../types";
 import { User } from "../authContext/types";
 import { ChartData } from "chart.js";
 import { Operation } from "../types/operation";
+import {ChartDate} from '../types/chartDate';
 
 const operationDataValues: Operation[] = [
   {
@@ -27,6 +28,11 @@ const operationDataValues: Operation[] = [
     userLost: 0,
   },
 ];
+
+const monthOperationDataValues = {
+  userGain: 0,
+  userLost: 0
+}
 
 //GET FULL OPERATION DATA <-----------
 
@@ -44,8 +50,12 @@ export const Dashboard: React.FC = () => {
   const [todayOperationData, setTodayOperationData] =
     useState<Operation[]>(operationDataValues);
 
+  const [monthOperationData, setMonthOperationData] = useState(monthOperationDataValues);
+
   const [operationData, setOperationData] =
     useState<Operation[]>(operationDataValues);
+
+  const [chartDateType, setChartDateType] = useState<string>("");
 
   const id = localStorage.getItem("userId");
 
@@ -60,6 +70,24 @@ export const Dashboard: React.FC = () => {
     }
   };
 
+  const getMonthOperationData = async() => {
+    const body = {month: new Date().getMonth() + 1, year: new Date().getFullYear()};
+    try {
+      const response = await fetch("http://localhost:4000/user${id}/month-operation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      })
+
+      const parseRes = await response.json();
+      setMonthOperationData(parseRes);
+    }catch(error){
+      error instanceof Error && console.error(error.message);
+    }
+  }
+
   const getFullOperationData = async () => {
     try {
       const response = await fetch(
@@ -69,11 +97,11 @@ export const Dashboard: React.FC = () => {
       const parseRes = await response.json();
 
       setOperationData(parseRes);
-      console.log(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
+
 
   useEffect(() => {
     getTodayOperationData();
@@ -86,6 +114,10 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     getClientsQuantity();
   }, []);
+
+  useEffect(() => {
+    operationData && setStatus(Status.success);
+  }, [operationData]);
 
   const today = new Date();
   const currentDate =
@@ -153,7 +185,7 @@ export const Dashboard: React.FC = () => {
           </div>
           <div className="md:w-5/6 flex items-center justify-end gap-2 mt-5">
             <p className="text-gray-500">Ver por</p>
-            <ChartDateSelect/>
+            <ChartDateSelect onChangeDate={setChartDateType}/>
           </div>
           <div className="md:w-5/6 mt-5">
             <BarChart operationData={operationData} />
