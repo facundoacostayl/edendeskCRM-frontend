@@ -62,7 +62,7 @@ export const Dashboard: React.FC = () => {
   const getTodayOperationData = async () => {
     try {
       if (!userData) return;
-      const response = await fetch(`http://localhost:4000/user${id}/operation`);
+      const response = await fetch(`https://edendeskcrm.herokuapp.com/user${id}/operation`);
       const parseRes = await response.json();
       setTodayOperationData([parseRes]);
     } catch (error) {
@@ -73,7 +73,7 @@ export const Dashboard: React.FC = () => {
   const getMonthOperationData = async() => {
     const body = {month: new Date().getMonth() + 1, year: new Date().getFullYear()};
     try {
-      const response = await fetch("http://localhost:4000/user${id}/month-operation", {
+      const response = await fetch("https://edendeskcrm.herokuapp.com/user${id}/month-operation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -91,7 +91,7 @@ export const Dashboard: React.FC = () => {
   const getFullOperationData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:4000/user${id}/total-operation`
+        `https://edendeskcrm.herokuapp.com/user${id}/total-operation`
       );
 
       const parseRes = await response.json();

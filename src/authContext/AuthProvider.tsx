@@ -25,7 +25,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const getUserData = async() => {
     const id = localStorage.getItem("userId");
     try {
-      const response = await fetch(`http://localhost:4000/user/${id}`)
+      const response = await fetch(`https://edendeskcrm.herokuapp.com/user/${id}`)
       
       const parseRes: User = await response.json();
 
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("http://localhost:4000/verificar", {
+      const response = await fetch("https://edendeskcrm.herokuapp.com/verificar", {
         method: "GET",
         headers: { token: localStorage.token },
       });
@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const body = { firstname, loginemail, password };
 
     try {
-      const response = await fetch("http://localhost:4000/registro", {
+      const response = await fetch("https://edendeskcrm.herokuapp.com/registro", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const body = { loginemail, password };
 
     try {
-      const response = await fetch("http://localhost:4000/login", {
+      const response = await fetch("https://edendeskcrm.herokuapp.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
