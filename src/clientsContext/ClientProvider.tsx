@@ -26,7 +26,7 @@ export const ClientProvider = ({ children }: Props) => {
   const getClientList = async () => {
     const id = localStorage.getItem("userId")
     try {
-      const response = await fetch(`https://edendeskcrm.herokuapp.com/clientes`);
+      const response = await fetch(`https://edendeskcrm.herokuapp.com/user${id}/clientes`);
       const parseRes = await response.json();
       parseRes && setClientList(parseRes);
     } catch (error) {
