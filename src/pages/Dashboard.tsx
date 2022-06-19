@@ -40,7 +40,6 @@ export const Dashboard: React.FC = () => {
   const { userData } = useAuth();
   const {
     getFullClientBalance,
-    totalClientBalance,
     status,
     setStatus,
     clientsQuantity,
@@ -56,6 +55,7 @@ export const Dashboard: React.FC = () => {
     useState<Operation[]>(operationDataValues);
 
   const [chartDateType, setChartDateType] = useState<string>("");
+  const [clientTotalBalance, setClientTotalBalance] = useState<Operation["userTotalBalance"]>(0);
 
   const id = localStorage.getItem("userId");
 
@@ -97,6 +97,9 @@ export const Dashboard: React.FC = () => {
       const parseRes = await response.json();
 
       setOperationData(parseRes);
+      const lastElement = parseRes.slice(-1);
+      setClientTotalBalance(lastElement[0].userTotalBalance)
+
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -164,7 +167,7 @@ export const Dashboard: React.FC = () => {
                   Saldo total
                 </h3>
                 <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
-                  ${totalClientBalance > 0 ? totalClientBalance : 0}
+                  ${clientTotalBalance ? clientTotalBalance : 0}
                 </p>
               </CardLeftContainer>
               <CardRightContainer>

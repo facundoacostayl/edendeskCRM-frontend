@@ -168,6 +168,7 @@ export const ClientProvider = ({ children }: Props) => {
         `https://edendeskcrm.herokuapp.com/user${id}/clientes/saldo-total`
       );
       const parseRes = await response.json();
+      console.log(parseRes.total)
       setTotalClientBalance(parseRes.total);
     } catch (error) {
       error instanceof Error && console.error(error.message);
