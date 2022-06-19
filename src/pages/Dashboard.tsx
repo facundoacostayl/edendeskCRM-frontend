@@ -164,7 +164,7 @@ export const Dashboard: React.FC = () => {
                   Saldo total
                 </h3>
                 <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
-                  ${totalClientBalance ? totalClientBalance : 0}
+                  ${totalClientBalance > 0 ? totalClientBalance : 0}
                 </p>
               </CardLeftContainer>
               <CardRightContainer>
