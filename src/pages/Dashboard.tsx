@@ -90,6 +90,7 @@ export const Dashboard: React.FC = () => {
 
   const getFullOperationData = async () => {
     try {
+      if (!userData) return;
       const response = await fetch(
         `https://edendeskcrm.herokuapp.com/user${id}/total-operation`
       );
@@ -97,6 +98,7 @@ export const Dashboard: React.FC = () => {
       const parseRes = await response.json();
 
       setOperationData(parseRes);
+      console.log(parseRes);
       const lastElement = parseRes.slice(-1);
       setClientTotalBalance(lastElement[0].userTotalBalance)
 
@@ -186,10 +188,10 @@ export const Dashboard: React.FC = () => {
               </CardLeftContainer>
             </Card>
           </div>
-          <div className="md:w-5/6 flex items-center justify-end gap-2 mt-5">
+          {/*<div className="md:w-5/6 flex items-center justify-end gap-2 mt-5">
             <p className="text-gray-500">Ver por</p>
             <ChartDateSelect onChangeDate={setChartDateType}/>
-          </div>
+          </div>*/}
           <div className="md:w-5/6 mt-5">
             <BarChart operationData={operationData} />
           </div>
