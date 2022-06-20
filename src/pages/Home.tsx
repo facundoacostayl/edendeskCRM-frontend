@@ -32,7 +32,7 @@ export const Home = () => {
       <Hero>
         <img
           className="absolute bottom-0 md:max-w-[350px] lg:max-w-[700px]"
-          src="https://storage.cloudconvert.com/tasks/0957ccbc-0482-4d24-8c53-d4424af664de/Customer-PNG-Background.webp?AWSAccessKeyId=cloudconvert-production&Expires=1655722650&Signature=ENXqNI%2B2zpKLAN0%2BePK4XF5FaHU%3D&response-content-disposition=inline%3B%20filename%3D%22Customer-PNG-Background.webp%22&response-content-type=image%2Fwebp"
+          src="https://i.ibb.co/L9QTDy7/Customer-PNG-Background.webp"
           alt=""
         />
         <div className="absolute top-[25%] lg:top-[18%]">
