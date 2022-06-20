@@ -13,7 +13,6 @@ export const SearchField = ({onSearch}: Props) => {
     <div className="relative w-full max-w-[700px] mx-auto my-4">
             <TextField
               onChange={onSearch}
-              autoFocus
               type="text"
               placeholder="Buscar cliente..."
             />

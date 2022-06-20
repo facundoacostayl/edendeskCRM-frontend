@@ -1,6 +1,6 @@
 //HOOKS
 import { useClient } from "../clientsContext/ClientProvider";
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 //COMPONENTS
@@ -45,8 +45,10 @@ export const ClientProfile = () => {
     navigate("/mis-clientes");
   };
 
-  const onConfirmEditClient = () => {
+  const onConfirmEditClient = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     updateClientInfo(currentClient.clientid, newValueToEdit, newEditingValue);
+    setIsEditingModalActive(false);
   };
 
   return (
@@ -81,7 +83,10 @@ export const ClientProfile = () => {
 
         {/* EDITING MODAL */}
         {isEditingModalActive && (
-          <Modal onClose={() => setIsEditingModalActive(!isEditingModalActive)}>
+          <Modal
+            onSubmit={(e) => onConfirmEditClient(e)}
+            onClose={() => setIsEditingModalActive(!isEditingModalActive)}
+          >
             <h2 className="text-center my-2 text-gray-600 text-lg font-semibold">
               Editar
             </h2>
@@ -119,10 +124,7 @@ export const ClientProfile = () => {
               >
                 Cancelar
               </Button>
-              <Button
-                onConfirmModalSubmit={() => onConfirmEditClient()}
-                colorScheme="primary"
-              >
+              <Button type="submit" colorScheme="primary">
                 Confirmar
               </Button>
             </ModalFooter>

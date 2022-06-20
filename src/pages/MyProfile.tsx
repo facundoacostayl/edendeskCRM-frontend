@@ -11,6 +11,7 @@ import { Button } from "../ui/controls/button";
 //TYPES
 import { Status } from "../types";
 import { User } from "../authContext/types";
+import { toast } from "react-toastify";
 
 interface Form extends React.FormEvent<HTMLFormElement> {
   loginemail: HTMLInputElement;
@@ -32,15 +33,16 @@ export const MyProfile = () => {
       const body = newUserData;
       const id = userData.id;
 
-      const response = await fetch(`http://localhost:4000/user/${id}`, {
+      const response = await fetch(`https://edendeskcrm.herokuapp.com/user/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUserData),
       });
 
       const parseRes = await response.json();
-      console.log(parseRes);
+      toast.success("Información actualizada con éxito");
     } catch (error) {
+      toast.error("Ha habido un error");
       error instanceof Error && console.error(error);
     }
   };
@@ -70,7 +72,6 @@ export const MyProfile = () => {
 
   useEffect(() => {
     setStatus(Status.success);
-    console.log(userData);
   }, [userData]);
 
   return (

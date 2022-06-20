@@ -45,8 +45,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const parseRes = await response.json();
 
       parseRes === true ? setIsLoggedIn(true) : setIsLoggedIn(false);
-
-      console.log(localStorage.token);
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);

@@ -64,10 +64,11 @@ export const ClientProvider = ({ children }: Props) => {
         body: JSON.stringify(body),
       });
 
-      toast.done("Cliente añadido con exito")
+      toast.success("Cliente añadido con exito")
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        toast.error(error.message)
       }
     }
   };
@@ -93,6 +94,7 @@ export const ClientProvider = ({ children }: Props) => {
       );
 
       getClientList();
+      toast.success("Información actualizada con exito")  
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -107,14 +109,17 @@ export const ClientProvider = ({ children }: Props) => {
       const body = { [clientValueToEdit]: newClientValue };
 
       const response = await fetch(`https://edendeskcrm.herokuapp.com/cliente/${id}`, {
-        method: "PATCH",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(body),
       });
 
-      toast.done("Información actualizada con exito")
+      const parseRes = await response.json();
+      setCurrentClient(parseRes);
+
+      toast.success("Información actualizada con exito")
     } catch (error) {
       error instanceof Error && console.log(error.message);
     }
@@ -126,6 +131,7 @@ export const ClientProvider = ({ children }: Props) => {
       await fetch(`https://edendeskcrm.herokuapp.com/user${userId}/cliente${clientId}`, {
         method: "DELETE",
       });
+      toast.success("Cliente eliminado con exito")
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -140,7 +146,6 @@ export const ClientProvider = ({ children }: Props) => {
 
       const parseRes = await response.json();
       setClientList(parseRes);
-      console.log(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -155,7 +160,6 @@ export const ClientProvider = ({ children }: Props) => {
 
       const parseRes = await response.json();
       setClientList(parseRes);
-      console.log(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -168,7 +172,6 @@ export const ClientProvider = ({ children }: Props) => {
         `https://edendeskcrm.herokuapp.com/user${id}/clientes/saldo-total`
       );
       const parseRes = await response.json();
-      console.log(parseRes.total)
       setTotalClientBalance(parseRes.total);
     } catch (error) {
       error instanceof Error && console.error(error.message);

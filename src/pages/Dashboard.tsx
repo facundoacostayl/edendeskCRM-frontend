@@ -98,7 +98,6 @@ export const Dashboard: React.FC = () => {
       const parseRes = await response.json();
 
       setOperationData(parseRes);
-      console.log(parseRes);
       const lastElement = parseRes.slice(-1);
       setClientTotalBalance(lastElement[0].userTotalBalance)
 
