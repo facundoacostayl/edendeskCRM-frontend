@@ -77,10 +77,6 @@ export const BarChart = ({ operationData }: Props) => {
     });
   }, [operationData]);
 
-  useEffect(() => {
-    console.log(chartData);
-  }, [chartData]);
-
   return (
     <>
       <Bar options={chartOptions} data={chartData}></Bar>
