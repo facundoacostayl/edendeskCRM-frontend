@@ -44,7 +44,7 @@ export const Home = () => {
             alt="heroimage"
           />
           <img
-          className="absolute bottom-0 right-0"
+          className="hidden lg:block absolute bottom-0 right-0"
             src="https://i.ibb.co/dfWyb5q/handsphone.webp"
             alt="handsphone"
           />
