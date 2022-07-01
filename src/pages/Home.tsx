@@ -31,15 +31,15 @@ export const Home = () => {
       </Navbar>
       <Hero>
         <img
-          className="absolute bottom-0 md:max-w-[350px] lg:max-w-[700px]"
-          src="https://i.ibb.co/L9QTDy7/Customer-PNG-Background.webp"
+          className="absolute bottom-0 md:max-w-[400px] lg:max-w-[800px]"
+          src="https://i.ibb.co/N9nL6GT/edendeskhomewallpaper.webp"
           alt=""
         />
         <div className="absolute top-[25%] lg:top-[18%]">
-          <h1 className="text-white text-center text-4xl lg:text-7xl font-bold p-2">
+          <h1 className="text-indigo-500 text-center text-4xl lg:text-7xl font-bold p-2">
             Administra a tus clientes
           </h1>
-          <p className="text-slate-200 lg:text-2xl text-center">
+          <p className="text-slate-400 lg:text-2xl text-center">
             de la manera más sencilla
           </p>
           <div className="w-full mt-5 flex justify-center">
