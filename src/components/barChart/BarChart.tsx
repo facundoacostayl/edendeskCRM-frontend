@@ -48,7 +48,7 @@ export const BarChart = ({ operationData }: Props) => {
   useEffect(() => {
     setChartData({
       labels: operationData.map(
-        (data) => data.createdAt + "/" + (new Date().getMonth() + 1)
+        (data) => data.createdAt + "/" + data.month
       ),
       datasets: [
         {

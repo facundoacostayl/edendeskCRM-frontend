@@ -100,7 +100,6 @@ export const Dashboard: React.FC = () => {
       setOperationData(parseRes);
       const lastElement = parseRes.slice(-1);
       setClientTotalBalance(lastElement[0].userTotalBalance)
-
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
