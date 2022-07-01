@@ -9,7 +9,7 @@ import { InfoSection } from "../components/InfoSection";
 import { Footer } from "../ui/footer";
 
 //ICONS
-import {FontAwesomeIcon, RegisterIcon} from '../ui/icons';
+import { FontAwesomeIcon, RegisterIcon } from "../ui/icons";
 
 export const Home = () => {
   return (
@@ -28,27 +28,37 @@ export const Home = () => {
           <Link to="/registro">
             <Button colorScheme="borders">
               Registrate<span className="hidden lg:inline"> gratis</span>
-              <FontAwesomeIcon icon={RegisterIcon} className="ml-2"></FontAwesomeIcon>
+              <FontAwesomeIcon
+                icon={RegisterIcon}
+                className="ml-2"
+              ></FontAwesomeIcon>
             </Button>
           </Link>
         </div>
       </Navbar>
       <Hero>
-        <img
-          className="absolute bottom-0 md:max-w-[400px] lg:max-w-[800px]"
-          src="https://i.ibb.co/N9nL6GT/edendeskhomewallpaper.webp"
-          alt=""
-        />
-        <div className="absolute top-[25%] lg:top-[18%]">
-          <h1 className="text-indigo-500 text-center text-4xl lg:text-7xl font-bold p-2">
+        <div className="w-[80%] flex justify-center">
+          <img
+            className="absolute bottom-0 md:max-w-[400px] lg:max-w-[800px]"
+            src="https://i.ibb.co/N9nL6GT/edendeskhomewallpaper.webp"
+            alt="heroimage"
+          />
+          <img
+          className="absolute bottom-0 right-0"
+            src="https://i.ibb.co/dfWyb5q/handsphone.webp"
+            alt="handsphone"
+          />
+        </div>
+        <div className="absolute top-[15%] lg:top-[5%]">
+          <h1 className="text-indigo-500 text-center text-4xl md:text-5xl lg:text-7xl font-bold p-2">
             Administra a tus clientes
           </h1>
-          <p className="text-slate-400 lg:text-2xl text-center">
+          <p className="text-slate-400 md:text-xl lg:text-2xl text-center">
             de la manera más sencilla
           </p>
-          <div className="w-full mt-5 flex justify-center">
+          <div className="w-full mt-5 lg:mt-14 flex justify-center">
             <Link to="/login">
-              <Button colorScheme="tertiary">Inicia Sesión</Button>
+              <Button colorScheme="primary">Inicia Sesión</Button>
             </Link>
           </div>
         </div>
