@@ -9,7 +9,8 @@ export {
   faBars as MenuIcon,
   faMagnifyingGlass as SearchIcon,
   faPenToSquare as EditIcon,
-  faPersonCircleMinus as RemoveIcon
+  faPersonCircleMinus as RemoveIcon,
+  faArrowRightFromBracket as RegisterIcon
 } from "@fortawesome/free-solid-svg-icons";
 
 //ICON EXPORTS

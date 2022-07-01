@@ -8,6 +8,9 @@ import { BrandSection } from "../components/brandsSection";
 import { InfoSection } from "../components/InfoSection";
 import { Footer } from "../ui/footer";
 
+//ICONS
+import {FontAwesomeIcon, RegisterIcon} from '../ui/icons';
+
 export const Home = () => {
   return (
     <>
@@ -16,15 +19,16 @@ export const Home = () => {
           <Link to="/">
             <img
               className="w-[100px]"
-              src={require("../img/logo.png")}
+              src={require("../img/edendesklogohome.png")}
               alt="logo"
             />
           </Link>
         </div>
         <div className="">
           <Link to="/registro">
-            <Button colorScheme="primary">
+            <Button colorScheme="borders">
               Registrate<span className="hidden lg:inline"> gratis</span>
+              <FontAwesomeIcon icon={RegisterIcon} className="ml-2"></FontAwesomeIcon>
             </Button>
           </Link>
         </div>
