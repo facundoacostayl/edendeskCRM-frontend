@@ -133,6 +133,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     signIn,
     checkAuth,
     userData,
+    setUserData,
     logOut
   };
 

@@ -9,6 +9,7 @@ type AuthContextProps = {
     isLoggedIn: boolean,
     setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>,
     userData: User,
+    setUserData: React.Dispatch<React.SetStateAction<User>>
     logOut: VoidFunction
 }
 

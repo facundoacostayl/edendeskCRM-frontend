@@ -24,7 +24,7 @@ type UserData = {
 };
 
 export const MyProfile = () => {
-  const { userData } = useAuth();
+  const { userData, setUserData } = useAuth();
   const [status, setStatus] = useState<Status>(Status.init);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -50,23 +50,48 @@ export const MyProfile = () => {
   const onUpdateValue = (e: Form) => {
     e.preventDefault();
 
+    const validEmail = (loginemail: string) => {
+      return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginemail);
+    }
+
     const email = e.currentTarget.loginemail;
     const password = e.currentTarget.password;
     const rPassword = e.currentTarget.rPassword;
 
-    if (!email.value && !password.value) return;
+    if (!email.value && !password.value) {
+      toast.error("No hay datos a editar")
+      return;
+    } 
 
     if (email.value && !password.value) {
+      if(!validEmail(email.value)) {
+        toast.error("Escriba un email valido")
+        return;
+      }
       updateUser({ loginemail: email.value });
-      email.value = "";
-      return;
+      setUserData({...userData, loginemail: email.value})
     }
 
-    if (password.value && !email.value && password.value === rPassword.value) {
+    if (password.value && !email.value) {
+      if(password.value !== rPassword.value) {
+        toast.error("Las contraseñas no coinciden")
+        return;
+      }
       updateUser({password: password.value});
-      password.value = "";
-      rPassword.value = "";
-      return;
+    }
+
+    if(email.value && password.value && password.value === rPassword.value) {
+      if(!validEmail(email.value)) {
+        toast.error("Escriba un email valido")
+        return;
+      }
+      if(password.value !== rPassword.value) {
+        toast.error("Las contraseñas no coinciden")
+        return;
+      }
+
+      updateUser({loginemail: email.value, password: password.value})
+      setUserData({...userData, loginemail: email.value})
     }
   };
 
