@@ -2,7 +2,7 @@ import { AuthContext } from "./AuthContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { User } from './types';
+import { User } from "./types";
 
 type Props = {
   children: JSX.Element | JSX.Element[];
@@ -22,25 +22,28 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState<User>({} as User);
 
-  const getUserData = async() => {
+  const getUserData = async () => {
     const id = localStorage.getItem("userId");
     try {
-      const response = await fetch(`https://edendeskcrm.herokuapp.com/user/${id}`)
-      
+      const response = await fetch(`http://localhost:4000/api/2.0/user/${id}`);
+
       const parseRes: User = await response.json();
 
       setUserData(parseRes);
-    }catch(error){
-      error instanceof Error && console.error(error.message)
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
     }
-  }
+  };
 
   const checkAuth = async () => {
     try {
-      const response = await fetch("https://edendeskcrm.herokuapp.com/verificar", {
-        method: "GET",
-        headers: { token: localStorage.token },
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/2.0/user/verify",
+        {
+          method: "GET",
+          headers: { token: localStorage.token },
+        }
+      );
 
       const parseRes = await response.json();
 
@@ -53,29 +56,32 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   const signUp = async (
-    firstname: string,
-    loginemail: string,
+    firstName: string,
+    loginEmail: string,
     password: string
   ) => {
-    const body = { firstname, loginemail, password };
+    const body = { firstName, loginEmail, password };
 
     try {
-      const response = await fetch("https://edendeskcrm.herokuapp.com/registro", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        "http://localhost:4000/api/2.0/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       const parseRes = await response.json();
 
-      if(parseRes.token){
-      localStorage.setItem("token", parseRes.token);
-      localStorage.setItem("userId", parseRes.id)
-      checkAuth();
-      }else{
-        toast.error("Debes llenar todos los campos")
+      if (parseRes.token) {
+        localStorage.setItem("token", parseRes.token);
+        localStorage.setItem("userId", parseRes.data.id);
+        checkAuth();
+      } else {
+        toast.error("Debes llenar todos los campos");
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -84,11 +90,11 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-  const signIn = async (loginemail: string, password: string) => {
-    const body = { loginemail, password };
+  const signIn = async (loginEmail: string, password: string) => {
+    const body = { loginEmail, password };
 
     try {
-      const response = await fetch("https://edendeskcrm.herokuapp.com/login", {
+      const response = await fetch("http://localhost:4000/api/2.0/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -100,10 +106,10 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
-        localStorage.setItem("userId", parseRes.id)
+        localStorage.setItem("userId", parseRes.data.id);
         checkAuth();
-      }else {
-        toast.error(parseRes)
+      } else {
+        toast.error(parseRes.message);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -116,15 +122,15 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     checkAuth();
-  }
+  };
 
   useEffect(() => {
     checkAuth();
   }, [isLoggedIn]);
 
   useEffect(() => {
-    isLoggedIn && getUserData()
-  }, [isLoggedIn])
+    isLoggedIn && getUserData();
+  }, [isLoggedIn]);
 
   const value = {
     isLoggedIn,
@@ -134,7 +140,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     checkAuth,
     userData,
     setUserData,
-    logOut
+    logOut,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

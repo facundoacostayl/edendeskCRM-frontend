@@ -26,7 +26,7 @@ export const ClientProvider = ({ children }: Props) => {
   const getClientList = async () => {
     const id = localStorage.getItem("userId")
     try {
-      const response = await fetch(`https://edendeskcrm.herokuapp.com/user${id}/clientes`);
+      const response = await fetch(`https://localhost:4000/user${id}/clientes`);
       const parseRes = await response.json();
       parseRes && setClientList(parseRes);
     } catch (error) {
@@ -35,7 +35,7 @@ export const ClientProvider = ({ children }: Props) => {
   };
 
   const getClient = async (id: Client["clientid"]) => {
-    const response = await fetch(`https://edendeskcrm.herokuapp.com/cliente/${id}`);
+    const response = await fetch(`https://localhost:4000/cliente/${id}`);
 
     const parseRes = await response.json();
 
@@ -56,7 +56,7 @@ export const ClientProvider = ({ children }: Props) => {
     };
 
     try {
-      const response = await fetch("https://edendeskcrm.herokuapp.com/nuevo-cliente", {
+      const response = await fetch("https://localhost:4000/nuevo-cliente", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -83,7 +83,7 @@ export const ClientProvider = ({ children }: Props) => {
       const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `https://edendeskcrm.herokuapp.com/user${userId}/cliente${clientId}/${operation}`,
+        `https://localhost:4000/user${userId}/cliente${clientId}/${operation}`,
         {
           method: "PUT",
           headers: {
@@ -108,7 +108,7 @@ export const ClientProvider = ({ children }: Props) => {
     try {
       const body = { [clientValueToEdit]: newClientValue };
 
-      const response = await fetch(`https://edendeskcrm.herokuapp.com/cliente/${id}`, {
+      const response = await fetch(`https://localhost:4000/cliente/${id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -128,7 +128,7 @@ export const ClientProvider = ({ children }: Props) => {
   const deleteClient = async (clientId: Client["clientid"]) => {
     const userId = localStorage.getItem("userId");
     try {
-      await fetch(`https://edendeskcrm.herokuapp.com/user${userId}/cliente${clientId}`, {
+      await fetch(`https://localhost:4000/user${userId}/cliente${clientId}`, {
         method: "DELETE",
       });
       toast.success("Cliente eliminado con exito")
@@ -141,7 +141,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://edendeskcrm.herokuapp.com/user${id}/buscar-cliente/?name=${name}`
+        `https://localhost:4000/user${id}/buscar-cliente/?name=${name}`
       );
 
       const parseRes = await response.json();
@@ -155,7 +155,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://edendeskcrm.herokuapp.com/user${id}/clientes/ordenar-por-${orderType}`
+        `https://localhost:4000/user${id}/clientes/ordenar-por-${orderType}`
       );
 
       const parseRes = await response.json();
@@ -169,7 +169,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://edendeskcrm.herokuapp.com/user${id}/clientes/saldo-total`
+        `https://localhost:4000/user${id}/clientes/saldo-total`
       );
       const parseRes = await response.json();
       setTotalClientBalance(parseRes.total);
@@ -181,7 +181,7 @@ export const ClientProvider = ({ children }: Props) => {
   const getClientsQuantity = async() => {
     const userId = localStorage.getItem("userId")
     try {
-      const response = await fetch(`https://edendeskcrm.herokuapp.com/user${userId}/clientes/cantidad-clientes`)
+      const response = await fetch(`https://localhost:4000/user${userId}/clientes/cantidad-clientes`)
       const parseRes = await response.json();
 
       setClientsQuantity(parseRes);
