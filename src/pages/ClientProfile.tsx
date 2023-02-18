@@ -100,21 +100,21 @@ export const ClientProfile = () => {
               name="edit-select"
               className="w-full border border-gray-500 rounded-md font-semibold xl:text-xl xl:p-2"
             >
-              <option value="nombre">Nombre</option>
-              <option value="apellido">Apellido</option>
-              <option value="telefono">Telefono</option>
-              <option value="fechaultcarga">Fecha ult. carga</option>
-              <option value="montoultcarga">Monto ult. carga</option>
-              <option value="fechaultretiro">Fecha ult. retiro</option>
-              <option value="montoultretiro">Monto ult. retiro</option>
-              <option value="tipodecarga">Tipo de carga</option>
-              <option value="sucursal">Sucursal</option>
+              <option value="firstName">Nombre</option>
+              <option value="lastName">Apellido</option>
+              <option value="tel">Telefono</option>
+              <option value="lastAddDate">Fecha ult. carga</option>
+              <option value="lastAddAmount">Monto ult. carga</option>
+              <option value="lastWithdrawDate">Fecha ult. retiro</option>
+              <option value="lastWithdrawAmount">Monto ult. retiro</option>
+              <option value="addType">Tipo de carga</option>
+              <option value="branch">Sucursal</option>
             </select>
             <div className="p-2 my-2">
               <label htmlFor="new-value-input">Nuevo valor</label>
               <TextField
                 onFocus={() =>
-                  newValueToEdit.length === 0 && setNewValueToEdit("nombre")
+                  newValueToEdit.length === 0 && setNewValueToEdit("firstName")
                 }
                 onChange={(e) => setNewEditingValue(e.target.value)}
                 id="new-value-input"

@@ -89,7 +89,7 @@ export const ClientProvider = ({ children }: Props) => {
       const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `https://localhost:4000/api/2.0/client/user${userId}/cliente${clientId}/${operation}`,
+        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}/${operation}`,
         {
           method: "PUT",
           headers: {
@@ -114,16 +114,19 @@ export const ClientProvider = ({ children }: Props) => {
     try {
       const body = { [clientValueToEdit]: newClientValue };
 
-      const response = await fetch(`https://localhost:4000/cliente/${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/client/user${4}/client${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       const parseRes = await response.json();
-      setCurrentClient(parseRes);
+      setCurrentClient(parseRes.data);
 
       toast.success("Información actualizada con exito");
     } catch (error) {
@@ -134,9 +137,12 @@ export const ClientProvider = ({ children }: Props) => {
   const deleteClient = async (clientId: Client["clientId"]) => {
     const userId = localStorage.getItem("userId");
     try {
-      await fetch(`https://localhost:4000/user${userId}/cliente${clientId}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`,
+        {
+          method: "DELETE",
+        }
+      );
       toast.success("Cliente eliminado con exito");
     } catch (error) {
       error instanceof Error && console.error(error.message);
@@ -147,11 +153,11 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://localhost:4000/user${id}/buscar-cliente/?name=${name}`
+        `http://localhost:4000/api/2.0/client/user${id}/search-client/?nameSearch=${name}`
       );
 
       const parseRes = await response.json();
-      setClientList(parseRes);
+      setClientList(parseRes.data);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -161,7 +167,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://localhost:4000/user${id}/clientes/ordenar-por-${orderType}`
+        `http://localhost:4000/user${id}/clientes/ordenar-por-${orderType}`
       );
 
       const parseRes = await response.json();
@@ -175,10 +181,10 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://localhost:4000/user${id}/clientes/saldo-total`
+        `http://localhost:4000/api/2.0/operation/user${id}/user-total-balance`
       );
       const parseRes = await response.json();
-      setTotalClientBalance(parseRes.total);
+      setTotalClientBalance(parseRes.data);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -188,11 +194,11 @@ export const ClientProvider = ({ children }: Props) => {
     const userId = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `https://localhost:4000/user${userId}/clientes/cantidad-clientes`
+        `http://localhost:4000/api/2.0/client/user${userId}/all-clients`
       );
       const parseRes = await response.json();
 
-      setClientsQuantity(parseRes);
+      setClientsQuantity(parseRes.data.length);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }

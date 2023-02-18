@@ -19,7 +19,7 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 }
 
 type UserData = {
-  loginemail?: User["loginemail"];
+  loginEmail?: User["loginEmail"];
   password?: User["password"];
 };
 
@@ -33,8 +33,8 @@ export const MyProfile = () => {
       const body = newUserData;
       const id = userData.id;
 
-      const response = await fetch(`https://edendeskcrm.herokuapp.com/user/${id}`, {
-        method: "PATCH",
+      const response = await fetch(`http://localhost:4000/api/2.0/user/${4}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUserData),
       });
@@ -50,48 +50,48 @@ export const MyProfile = () => {
   const onUpdateValue = (e: Form) => {
     e.preventDefault();
 
-    const validEmail = (loginemail: string) => {
-      return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginemail);
-    }
+    const validEmail = (loginEmail: string) => {
+      return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginEmail);
+    };
 
-    const email = e.currentTarget.loginemail;
+    const email = e.currentTarget.loginEmail;
     const password = e.currentTarget.password;
     const rPassword = e.currentTarget.rPassword;
 
     if (!email.value && !password.value) {
-      toast.error("No hay datos a editar")
+      toast.error("No hay datos a editar");
       return;
-    } 
+    }
 
     if (email.value && !password.value) {
-      if(!validEmail(email.value)) {
-        toast.error("Escriba un email valido")
+      if (!validEmail(email.value)) {
+        toast.error("Escriba un email valido");
         return;
       }
-      updateUser({ loginemail: email.value });
-      setUserData({...userData, loginemail: email.value})
+      updateUser({ loginEmail: email.value });
+      setUserData({ ...userData, loginEmail: email.value });
     }
 
     if (password.value && !email.value) {
-      if(password.value !== rPassword.value) {
-        toast.error("Las contraseñas no coinciden")
+      if (password.value !== rPassword.value) {
+        toast.error("Las contraseñas no coinciden");
         return;
       }
-      updateUser({password: password.value});
+      updateUser({ password: password.value });
     }
 
-    if(email.value && password.value && password.value === rPassword.value) {
-      if(!validEmail(email.value)) {
-        toast.error("Escriba un email valido")
+    if (email.value && password.value && password.value === rPassword.value) {
+      if (!validEmail(email.value)) {
+        toast.error("Escriba un email valido");
         return;
       }
-      if(password.value !== rPassword.value) {
-        toast.error("Las contraseñas no coinciden")
+      if (password.value !== rPassword.value) {
+        toast.error("Las contraseñas no coinciden");
         return;
       }
 
-      updateUser({loginemail: email.value, password: password.value})
-      setUserData({...userData, loginemail: email.value})
+      updateUser({ loginEmail: email.value, password: password.value });
+      setUserData({ ...userData, loginEmail: email.value });
     }
   };
 
@@ -109,18 +109,18 @@ export const MyProfile = () => {
           <div className="w-full my-1 py-1 px-1">
             <div className="py-2">
               <p className="mb-1 text-lg font-semibold text-gray-700">
-                {userData.firstname}
+                {userData.firstName}
               </p>
               <p className="mb-1 md:text-lg font-semibold text-indigo-500">
-                {userData.loginemail}
+                {userData.loginEmail}
               </p>
             </div>
             <form onSubmit={onUpdateValue}>
               <div className="mb-5">
                 <label htmlFor="userName-info">Nuevo correo</label>
                 <TextField
-                  name="loginemail"
-                  placeholder={userData.loginemail}
+                  name="loginEmail"
+                  placeholder={userData.loginEmail}
                 />
               </div>
 

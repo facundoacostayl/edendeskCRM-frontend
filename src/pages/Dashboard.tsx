@@ -8,15 +8,14 @@ import { PageContent } from "../ui/pageContent";
 import { Card, CardLeftContainer, CardRightContainer } from "../ui/card";
 import { SectionBanner } from "../components/SectionBanner";
 import { BarChart } from "../components/barChart";
-import { ChartDateSelect } from '../components/chartDateSelect';
-
+import { ChartDateSelect } from "../components/chartDateSelect";
 
 //TYPES
 import { Status } from "../types";
 import { User } from "../authContext/types";
 import { ChartData } from "chart.js";
 import { Operation } from "../types/operation";
-import {ChartDate} from '../types/chartDate';
+import { ChartDate } from "../types/chartDate";
 
 const operationDataValues: Operation[] = [
   {
@@ -31,8 +30,8 @@ const operationDataValues: Operation[] = [
 
 const monthOperationDataValues = {
   userGain: 0,
-  userLost: 0
-}
+  userLost: 0,
+};
 
 //GET FULL OPERATION DATA <-----------
 
@@ -49,62 +48,65 @@ export const Dashboard: React.FC = () => {
   const [todayOperationData, setTodayOperationData] =
     useState<Operation[]>(operationDataValues);
 
-  const [monthOperationData, setMonthOperationData] = useState(monthOperationDataValues);
+  const [monthOperationData, setMonthOperationData] = useState(
+    monthOperationDataValues
+  );
 
   const [operationData, setOperationData] =
     useState<Operation[]>(operationDataValues);
 
   const [chartDateType, setChartDateType] = useState<string>("");
-  const [clientTotalBalance, setClientTotalBalance] = useState<Operation["userTotalBalance"]>(0);
+  const [clientTotalBalance, setClientTotalBalance] =
+    useState<Operation["userTotalBalance"]>(0);
 
   const id = localStorage.getItem("userId");
 
   const getTodayOperationData = async () => {
     try {
       if (!userData) return;
-      const response = await fetch(`https://edendeskcrm.herokuapp.com/user${id}/operation`);
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/operation/user${4}/today-operation-data`
+      );
       const parseRes = await response.json();
-      setTodayOperationData([parseRes]);
+      setTodayOperationData([parseRes.data]);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
 
-  const getMonthOperationData = async() => {
-    const body = {month: new Date().getMonth() + 1, year: new Date().getFullYear()};
+  const getMonthOperationData = async () => {
+    const body = {
+      month: new Date().getMonth() + 1,
+      year: new Date().getFullYear(),
+    };
     try {
-      const response = await fetch("https://edendeskcrm.herokuapp.com/user${id}/month-operation", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-      })
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/operation/month${body.month}/year${body.year}/month-operation`
+      );
 
       const parseRes = await response.json();
-      setMonthOperationData(parseRes);
-    }catch(error){
+      setMonthOperationData(parseRes.data);
+    } catch (error) {
       error instanceof Error && console.error(error.message);
     }
-  }
+  };
 
   const getFullOperationData = async () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `https://edendeskcrm.herokuapp.com/user${id}/total-operation`
+        `http://localhost:4000/api/2.0/operation/user${4}/total-operation-data`
       );
 
       const parseRes = await response.json();
 
-      setOperationData(parseRes);
-      const lastElement = parseRes.slice(-1);
-      setClientTotalBalance(lastElement[0].userTotalBalance)
+      setOperationData(parseRes.data);
+      /*const lastElement = parseRes.data.slice(-1);
+      setClientTotalBalance(lastElement[0].userTotalBalance);*/
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
-
 
   useEffect(() => {
     getTodayOperationData();
