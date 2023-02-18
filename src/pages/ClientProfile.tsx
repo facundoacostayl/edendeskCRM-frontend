@@ -40,19 +40,19 @@ export const ClientProfile = () => {
   }, []);
 
   const onDeleteClient = () => {
-    deleteClient(currentClient.clientid);
+    deleteClient(currentClient.clientId);
     setIsDeletingModalActive(false);
     navigate("/mis-clientes");
   };
 
   const onConfirmEditClient = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateClientInfo(currentClient.clientid, newValueToEdit, newEditingValue);
+    updateClientInfo(currentClient.clientId, newValueToEdit, newEditingValue);
     setIsEditingModalActive(false);
   };
 
   useEffect(() => {
-    console.log(currentClient.clientid)
+    console.log(currentClient.clientId);
   }, [currentClient]);
 
   return (
@@ -172,16 +172,20 @@ export const ClientProfile = () => {
               <InfoLi color="primary">Sucursal:</InfoLi>
             </div>
             <div className="w-3/6">
-              <InfoLi color="secondary">{currentClient.nombre}</InfoLi>
-              <InfoLi color="secondary">{currentClient.apellido}</InfoLi>
-              <InfoLi color="secondary">{currentClient.telefono}</InfoLi>
-              <InfoLi color="secondary">{currentClient.saldo}</InfoLi>
-              <InfoLi color="secondary">{currentClient.fechaultcarga}</InfoLi>
-              <InfoLi color="secondary">{currentClient.montoultcarga}</InfoLi>
-              <InfoLi color="secondary">{currentClient.fechaultretiro}</InfoLi>
-              <InfoLi color="secondary">{currentClient.montoultretiro}</InfoLi>
-              <InfoLi color="secondary">{currentClient.tipodecarga}</InfoLi>
-              <InfoLi color="secondary">{currentClient.sucursal}</InfoLi>
+              <InfoLi color="secondary">{currentClient.firstName}</InfoLi>
+              <InfoLi color="secondary">{currentClient.lastName}</InfoLi>
+              <InfoLi color="secondary">{currentClient.tel}</InfoLi>
+              <InfoLi color="secondary">{currentClient.balance}</InfoLi>
+              <InfoLi color="secondary">{currentClient.lastAddDate}</InfoLi>
+              <InfoLi color="secondary">{currentClient.lastAddAmount}</InfoLi>
+              <InfoLi color="secondary">
+                {currentClient.lastWithdrawDate}
+              </InfoLi>
+              <InfoLi color="secondary">
+                {currentClient.lastWithdrawAmount}
+              </InfoLi>
+              <InfoLi color="secondary">{currentClient.addType}</InfoLi>
+              <InfoLi color="secondary">{currentClient.branch}</InfoLi>
             </div>
           </ClientCard>
         </PageContent>

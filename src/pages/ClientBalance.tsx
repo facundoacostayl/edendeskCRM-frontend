@@ -23,7 +23,7 @@ import { Client } from "../clientsContext/types";
 import ReactPaginate from "react-paginate";
 
 //Toast
-import {toast} from 'react-toastify';
+import { toast } from "react-toastify";
 
 interface Form extends React.FormEvent<HTMLFormElement> {
   amount: HTMLInputElement;
@@ -73,7 +73,7 @@ export const ClientBalance = () => {
       updateClient(
         clientToUpdate.id,
         parseInt(inputAmount.value),
-        isAdding ? "agregar-saldo" : "descontar-saldo"
+        isAdding ? "add-balance" : "deduct-balance"
       );
 
     setIsModalActive(false);
@@ -87,21 +87,21 @@ export const ClientBalance = () => {
     .map((client) => {
       return (
         <div
-          key={client.clientid}
+          key={client.clientId}
           onClick={() =>
             setClientToUpdate({
-              id: client.clientid,
-              nombre: client.nombre,
-              apellido: client.apellido,
+              id: client.clientId,
+              nombre: client.firstName,
+              apellido: client.lastName,
             })
           }
         >
           <ClientLi>
             <p className="mx-auto font-semibold text-gray-800">
-              {client.nombre} {client.apellido}
+              {client.firstName} {client.lastName}
             </p>
             <p className="mx-auto font-semibold text-gray-500">
-              ${client.saldo}
+              ${client.balance}
             </p>
             <div className="mx-auto">
               <OperatorButtons
@@ -121,7 +121,7 @@ export const ClientBalance = () => {
   };
 
   useEffect(() => {
-    toast.done("Funca")
+    toast.done("Funca");
   }, []);
 
   return (

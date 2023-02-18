@@ -42,13 +42,15 @@ export const MyClients = () => {
     .slice(pagesVisited, pagesVisited + clientsPerPage)
     .map((client) => {
       return (
-        <ClientLi key={client.clientid}>
+        <ClientLi key={client.clientId}>
           <p className="mx-auto font-semibold text-gray-800">
-            {client.nombre} {client.apellido}
+            {client.firstName} {client.lastName}
           </p>
-          <p className="mx-auto font-semibold text-gray-500">${client.saldo}</p>
+          <p className="mx-auto font-semibold text-gray-500">
+            ${client.balance}
+          </p>
           <div className="mx-auto">
-            <Link to={`/mis-clientes/cliente/${client.clientid}`}>
+            <Link to={`/mis-clientes/cliente/${client.clientId}`}>
               <Button colorScheme="primary">Editar</Button>
             </Link>
           </div>
@@ -110,17 +112,17 @@ export const MyClients = () => {
               <option value="saldo-desc">Mayor saldo</option>
             </select>
           </div>
-            {clientList.length > 0 ? (
-              <ClientList>{clientsDisplayed}</ClientList>
-            ) : (
-              <p className="text-center text-base my-10 text-gray-500">
-                Todavía no tienes clientes. Comienza a añadirlos{" "}
-                <Link to="/nuevo-cliente" className="text-indigo-500">
-                  aquí
-                </Link>
-                !
-              </p>
-            )}
+          {clientList.length > 0 ? (
+            <ClientList>{clientsDisplayed}</ClientList>
+          ) : (
+            <p className="text-center text-base my-10 text-gray-500">
+              Todavía no tienes clientes. Comienza a añadirlos{" "}
+              <Link to="/nuevo-cliente" className="text-indigo-500">
+                aquí
+              </Link>
+              !
+            </p>
+          )}
           <ReactPaginate
             breakLabel="..."
             pageRangeDisplayed={5}

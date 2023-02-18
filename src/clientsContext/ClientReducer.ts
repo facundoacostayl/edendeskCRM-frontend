@@ -1,30 +1,30 @@
 import { Client } from "./types";
 
-type ACTION_TYPES = {
-  type: "addClient";
-  payload: {
-    firstname: Client["nombre"],
-    lastname: Client["apellido"],
-    tel: Client["telefono"]
-  };
-} 
-|
- {
-    type: "updateClient";
-    payload: {
-        tel: Client["telefono"],
-        amount: Number
+type ACTION_TYPES =
+  | {
+      type: "addClient";
+      payload: {
+        firstname: Client["firstName"];
+        lastname: Client["lastName"];
+        tel: Client["tel"];
+      };
     }
-}
+  | {
+      type: "updateClient";
+      payload: {
+        tel: Client["tel"];
+        amount: Number;
+      };
+    };
 
 export const clientReducer = (clientState: Client, action: ACTION_TYPES) => {
   switch (action.type) {
     case "addClient":
       async () => {
         const body = {
-          nombre: action.payload.firstname,
-          apellido: action.payload.lastname,
-          telefono: action.payload.tel,
+          firstName: action.payload.firstname,
+          lastName: action.payload.lastname,
+          tel: action.payload.tel,
         };
         try {
           const response = await fetch("http://localhost:4000/nuevo-cliente", {
@@ -41,8 +41,7 @@ export const clientReducer = (clientState: Client, action: ACTION_TYPES) => {
         }
       };
       break;
-      case "updateClient": {
-
-      }
+    case "updateClient": {
+    }
   }
 };

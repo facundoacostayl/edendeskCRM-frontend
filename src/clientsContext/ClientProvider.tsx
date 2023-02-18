@@ -24,57 +24,63 @@ export const ClientProvider = ({ children }: Props) => {
   const [status, setStatus] = useState<Status>(Status.init);
 
   const getClientList = async () => {
-    const id = localStorage.getItem("userId")
+    const id = localStorage.getItem("userId");
     try {
-      const response = await fetch(`https://localhost:4000/user${id}/clientes`);
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/client/user${id}/all-clients`
+      );
       const parseRes = await response.json();
-      parseRes && setClientList(parseRes);
+      parseRes && setClientList(parseRes.data);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
 
-  const getClient = async (id: Client["clientid"]) => {
-    const response = await fetch(`https://localhost:4000/cliente/${id}`);
+  const getClient = async (id: Client["clientId"]) => {
+    const response = await fetch(
+      `http://localhost:4000/api/2.0/client/user${4}/client${id}`
+    );
 
     const parseRes = await response.json();
 
-    setCurrentClient(parseRes);
+    setCurrentClient(parseRes.data);
   };
 
   const addClient = async (
-    firstname: Client["nombre"],
-    lastname: Client["apellido"],
-    telefono: Client["telefono"]
+    firstName: Client["firstName"],
+    lastName: Client["lastName"],
+    tel: Client["tel"]
   ) => {
     const id = localStorage.getItem("userId");
     const body = {
-      nombre: firstname,
-      apellido: lastname,
-      telefono,
-      userId: id,
+      firstName,
+      lastName,
+      tel,
     };
 
     try {
-      const response = await fetch("https://localhost:4000/nuevo-cliente", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/client/user${id}/new-client`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
-      toast.success("Cliente añadido con exito")
+      toast.success("Cliente añadido con exito");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
-        toast.error(error.message)
+        toast.error(error.message);
       }
     }
   };
 
   const updateClient = async (
-    clientId: Client["clientid"],
+    clientId: Client["clientId"],
     amount: number,
     operation: string
   ) => {
@@ -83,7 +89,7 @@ export const ClientProvider = ({ children }: Props) => {
       const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `https://localhost:4000/user${userId}/cliente${clientId}/${operation}`,
+        `https://localhost:4000/api/2.0/client/user${userId}/cliente${clientId}/${operation}`,
         {
           method: "PUT",
           headers: {
@@ -94,14 +100,14 @@ export const ClientProvider = ({ children }: Props) => {
       );
 
       getClientList();
-      toast.success("Información actualizada con exito")  
+      toast.success("Información actualizada con exito");
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
 
   const updateClientInfo = async (
-    id: Client["clientid"],
+    id: Client["clientId"],
     clientValueToEdit: string,
     newClientValue: string
   ) => {
@@ -119,25 +125,25 @@ export const ClientProvider = ({ children }: Props) => {
       const parseRes = await response.json();
       setCurrentClient(parseRes);
 
-      toast.success("Información actualizada con exito")
+      toast.success("Información actualizada con exito");
     } catch (error) {
       error instanceof Error && console.log(error.message);
     }
   };
 
-  const deleteClient = async (clientId: Client["clientid"]) => {
+  const deleteClient = async (clientId: Client["clientId"]) => {
     const userId = localStorage.getItem("userId");
     try {
       await fetch(`https://localhost:4000/user${userId}/cliente${clientId}`, {
         method: "DELETE",
       });
-      toast.success("Cliente eliminado con exito")
+      toast.success("Cliente eliminado con exito");
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
 
-  const searchClient = async (name: Client["nombre"]) => {
+  const searchClient = async (name: Client["firstName"]) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
@@ -178,17 +184,19 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
-  const getClientsQuantity = async() => {
-    const userId = localStorage.getItem("userId")
+  const getClientsQuantity = async () => {
+    const userId = localStorage.getItem("userId");
     try {
-      const response = await fetch(`https://localhost:4000/user${userId}/clientes/cantidad-clientes`)
+      const response = await fetch(
+        `https://localhost:4000/user${userId}/clientes/cantidad-clientes`
+      );
       const parseRes = await response.json();
 
       setClientsQuantity(parseRes);
-    }catch(error){
+    } catch (error) {
       error instanceof Error && console.error(error.message);
     }
-  }
+  };
 
   const values = {
     addClient,
