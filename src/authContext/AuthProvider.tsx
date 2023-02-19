@@ -107,12 +107,15 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       const parseRes = await response.json();
 
+      if (!parseRes.data) {
+        toast.error("No existe el usuario");
+        return;
+      }
+
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         localStorage.setItem("userId", parseRes.data.id);
         checkAuth();
-      } else {
-        toast.error(parseRes.message);
       }
     } catch (error) {
       if (error instanceof Error) {
