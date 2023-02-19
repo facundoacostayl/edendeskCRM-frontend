@@ -30,7 +30,11 @@ export const NewClient = () => {
     const apellido = e.currentTarget.clientLastname;
     const tel = e.currentTarget.clientTel;
 
-    if (nombre.length <= 0 && apellido.length <= 0 && tel.length <= 0) {
+    if (
+      nombre.value.length <= 0 ||
+      apellido.value.length <= 0 ||
+      tel.value.length <= 0
+    ) {
       toast.error("Completa todos los campos");
       return;
     }

@@ -71,7 +71,9 @@ export const ClientProvider = ({ children }: Props) => {
       );
 
       const parseRes = await response.json();
-      parseRes && toast.success("Cliente añadido con exito");
+      parseRes && parseRes.data
+        ? toast.success("Cliente añadido con exito")
+        : toast.error("El cliente ya existe");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
