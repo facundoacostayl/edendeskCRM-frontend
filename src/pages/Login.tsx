@@ -12,6 +12,9 @@ import { useToken } from "../authContext/AuthProvider";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
+//Utils
+import { toast } from "react-toastify";
+
 export const Login = () => {
   const { signIn, isLoggedIn, setIsLoggedIn, checkAuth } = useAuth();
   const navigate = useNavigate();
@@ -29,6 +32,11 @@ export const Login = () => {
 
     const email = userData.loginemail;
     const password = userData.password;
+
+    if (!email || !password) {
+      toast.error("Completa todos los campos");
+      return;
+    }
 
     signIn(email, password);
   };
@@ -50,7 +58,6 @@ export const Login = () => {
                 <TextField
                   onChange={(e) => onChangeHandler(e)}
                   autoFocus
-                  required
                   type="email"
                   id="login-email"
                   name="loginemail"
@@ -60,7 +67,6 @@ export const Login = () => {
                 <label htmlFor="login-password">Contraseña</label>
                 <TextField
                   onChange={(e) => onChangeHandler(e)}
-                  required
                   type="password"
                   id="login-password"
                   name="password"

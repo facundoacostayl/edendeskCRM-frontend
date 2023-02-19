@@ -76,12 +76,15 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       const parseRes = await response.json();
 
+      if (!parseRes.data) {
+        toast.error("Ya existe un usuario con ese email");
+        return;
+      }
+
       if (parseRes.token) {
         localStorage.setItem("token", parseRes.token);
         localStorage.setItem("userId", parseRes.data.id);
         checkAuth();
-      } else {
-        toast.error("Debes llenar todos los campos");
       }
     } catch (error) {
       if (error instanceof Error) {

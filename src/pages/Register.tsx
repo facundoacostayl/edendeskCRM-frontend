@@ -11,6 +11,9 @@ import { TextField } from "../ui/form/textField";
 import { AuthHero } from "../components/AuthHero";
 import { Footer } from "../ui/footer";
 
+//Utils
+import { toast } from "react-toastify";
+
 export const Register = () => {
   const { isLoggedIn, setIsLoggedIn, signUp, checkAuth } = useAuth();
 
@@ -32,6 +35,11 @@ export const Register = () => {
     const user = userData.userName;
     const email = userData.email;
     const password = userData.password;
+
+    if (!user || !email || !password) {
+      toast.error("Completa todos los campos");
+      return;
+    }
 
     signUp(user, email, password);
   };
@@ -107,7 +115,9 @@ export const Register = () => {
             </div>
             <div className="text-center my-5">
               <p className="text-gray-800">Ya eres parte del equipo?</p>
-              <Link className="text-indigo-500 font-semibold" to="/login">Inicia Sesión</Link>
+              <Link className="text-indigo-500 font-semibold" to="/login">
+                Inicia Sesión
+              </Link>
             </div>
           </div>
         </div>

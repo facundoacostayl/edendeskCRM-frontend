@@ -140,13 +140,17 @@ export const ClientProvider = ({ children }: Props) => {
   const deleteClient = async (clientId: Client["clientId"]) => {
     const userId = localStorage.getItem("userId");
     try {
-      await fetch(
+      const response = await fetch(
         `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`,
         {
           method: "DELETE",
         }
       );
-      toast.success("Cliente eliminado con exito");
+
+      const parseRes = await response.json();
+      parseRes && parseRes.responseType === "Success"
+        ? toast.success("Cliente eliminado con exito")
+        : toast.error("Denegado. Contacta a un administrador");
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
