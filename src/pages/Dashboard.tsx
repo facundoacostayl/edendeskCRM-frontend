@@ -101,8 +101,21 @@ export const Dashboard: React.FC = () => {
       const parseRes = await response.json();
 
       setOperationData(parseRes.data);
-      /*const lastElement = parseRes.data.slice(-1);
-      setClientTotalBalance(lastElement[0].totalSumOfBalances);*/
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
+    }
+  };
+
+  const getUserTotalBalance = async () => {
+    try {
+      if (!userData) return;
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/operation/user${8}/user-total-balance`
+      );
+
+      const parseRes = await response.json();
+
+      setClientTotalBalance(parseRes.data);
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -114,6 +127,10 @@ export const Dashboard: React.FC = () => {
 
   useEffect(() => {
     getFullOperationData();
+  }, []);
+
+  useEffect(() => {
+    getUserTotalBalance();
   }, []);
 
   useEffect(() => {
