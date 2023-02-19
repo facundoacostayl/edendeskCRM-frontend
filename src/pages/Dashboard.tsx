@@ -65,7 +65,7 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${4}/today-operation-data`
+        `http://localhost:4000/api/2.0/operation/user${5}/today-operation-data`
       );
       const parseRes = await response.json();
       setTodayOperationData([parseRes.data]);
@@ -95,7 +95,7 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${4}/total-operation-data`
+        `http://localhost:4000/api/2.0/operation/user${5}/total-operation-data`
       );
 
       const parseRes = await response.json();

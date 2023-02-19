@@ -33,7 +33,7 @@ export const MyProfile = () => {
       const body = newUserData;
       const id = userData.id;
 
-      const response = await fetch(`http://localhost:4000/api/2.0/user/${4}`, {
+      const response = await fetch(`http://localhost:4000/api/2.0/user/${5}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUserData),

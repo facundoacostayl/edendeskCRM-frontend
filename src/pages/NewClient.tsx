@@ -11,6 +11,9 @@ import { Button } from "../ui/controls/button";
 //CONTAINER COMPONENT
 import { AppContainer } from "../ui/layout/AppContainer";
 
+//UTILS
+import { toast } from "react-toastify";
+
 interface Form extends React.FormEvent<HTMLFormElement> {
   firstname: HTMLInputElement;
   lastname: HTMLInputElement;
@@ -26,6 +29,11 @@ export const NewClient = () => {
     const nombre = e.currentTarget.clientFirstname;
     const apellido = e.currentTarget.clientLastname;
     const tel = e.currentTarget.clientTel;
+
+    if (!nombre.length && !apellido.length && !tel.length) {
+      toast.error("Completa todos los campos");
+      return;
+    }
 
     addClient(nombre.value, apellido.value, tel.value.toString());
 
