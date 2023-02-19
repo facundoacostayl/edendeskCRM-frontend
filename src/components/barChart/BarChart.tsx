@@ -48,17 +48,17 @@ export const BarChart = ({ operationData }: Props) => {
   useEffect(() => {
     setChartData({
       labels: operationData.map(
-        (data) => data.createdAt + "/" + data.month
+        (data) => data.creationDay + "/" + data.creationMonth
       ),
       datasets: [
         {
           label: "Ingresos",
-          data: operationData.map((data) => data.userGain),
+          data: operationData.map((data) => data.userEarnings),
           backgroundColor: ["#4f46e5", "#6366f1", "#818cf8", "#a5b4fc"],
         },
         {
           label: "Consumos",
-          data: operationData.map((data) => data.userLost),
+          data: operationData.map((data) => data.userLosses),
           backgroundColor: ["#ef4444", "#f87171", "#fca5a5", "#fecaca"],
         },
       ],

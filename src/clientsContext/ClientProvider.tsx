@@ -38,7 +38,7 @@ export const ClientProvider = ({ children }: Props) => {
 
   const getClient = async (id: Client["clientId"]) => {
     const response = await fetch(
-      `http://localhost:4000/api/2.0/client/user${5}/client${id}`
+      `http://localhost:4000/api/2.0/client/user${8}/client${id}`
     );
 
     const parseRes = await response.json();
@@ -116,7 +116,7 @@ export const ClientProvider = ({ children }: Props) => {
       const body = { [clientValueToEdit]: newClientValue };
 
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${5}/client${id}`,
+        `http://localhost:4000/api/2.0/client/user${8}/client${id}`,
         {
           method: "PUT",
           headers: {

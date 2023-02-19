@@ -19,18 +19,18 @@ import { ChartDate } from "../types/chartDate";
 
 const operationDataValues: Operation[] = [
   {
-    id: 0,
-    year: 0,
-    month: 0,
-    createdAt: 0,
-    userGain: 0,
-    userLost: 0,
+    operationId: 0,
+    creationYear: 0,
+    creationMonth: 0,
+    creationDay: 0,
+    userEarnings: 0,
+    userLosses: 0,
   },
 ];
 
 const monthOperationDataValues = {
-  userGain: 0,
-  userLost: 0,
+  userEarnings: 0,
+  userLosses: 0,
 };
 
 //GET FULL OPERATION DATA <-----------
@@ -57,7 +57,7 @@ export const Dashboard: React.FC = () => {
 
   const [chartDateType, setChartDateType] = useState<string>("");
   const [clientTotalBalance, setClientTotalBalance] =
-    useState<Operation["userTotalBalance"]>(0);
+    useState<Operation["totalSumOfBalances"]>(0);
 
   const id = localStorage.getItem("userId");
 
@@ -65,7 +65,7 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${5}/today-operation-data`
+        `http://localhost:4000/api/2.0/operation/user${8}/today-operation-data`
       );
       const parseRes = await response.json();
       setTodayOperationData([parseRes.data]);
@@ -95,14 +95,14 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${5}/total-operation-data`
+        `http://localhost:4000/api/2.0/operation/user${8}/total-operation-data`
       );
 
       const parseRes = await response.json();
 
       setOperationData(parseRes.data);
       /*const lastElement = parseRes.data.slice(-1);
-      setClientTotalBalance(lastElement[0].userTotalBalance);*/
+      setClientTotalBalance(lastElement[0].totalSumOfBalances);*/
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -150,15 +150,15 @@ export const Dashboard: React.FC = () => {
                 <p className="md:text-xl">Ingresos:</p>
                 <span className="font-semibold md:text-xl">
                   $
-                  {todayOperationData[0].userGain
-                    ? todayOperationData[0].userGain
+                  {todayOperationData[0].userEarnings
+                    ? todayOperationData[0].userEarnings
                     : 0}
                 </span>
                 <p className="md:text-xl">Consumos:</p>
                 <span className="font-semibold md:text-xl">
                   $
-                  {todayOperationData[0].userLost
-                    ? todayOperationData[0].userLost
+                  {todayOperationData[0].userLosses
+                    ? todayOperationData[0].userLosses
                     : 0}
                 </span>
               </CardRightContainer>

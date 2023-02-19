@@ -1,11 +1,11 @@
-export type Operation = {
-    id: number;
-    year: number;
-    month: number;
-    userGain: number;
-    userLost: number;
-    userTotalBalance?: number;
-    dayTransactions?: number;
-    createdAt: number;
-    userId?: number;
-  };
+export interface Operation {
+  operationId: number;
+  creationDay: number;
+  creationMonth: number;
+  creationYear: number;
+  userEarnings: number;
+  userLosses: number;
+  totalSumOfBalances?: number;
+  dayTransactions?: number;
+  user?: number;
+}
