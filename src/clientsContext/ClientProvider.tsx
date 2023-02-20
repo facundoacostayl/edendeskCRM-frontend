@@ -48,10 +48,14 @@ export const ClientProvider = ({ children }: Props) => {
       const response = await fetch(
         `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
       );
+      console.log(
+        `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
+      );
       const parseRes = await response.json();
       if (parseRes) {
         setClientList(parseRes.data.paginatedValues);
         setClientsQuantity(parseRes.data.allValues);
+        console.log(parseRes);
       }
     } catch (error) {
       error instanceof Error && console.error(error.message);

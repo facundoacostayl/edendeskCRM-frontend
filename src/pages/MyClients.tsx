@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { SectionBanner } from "../components";
 import { Sidebar } from "../components/Sidebar";
 import { PageContent } from "../ui/pageContent";
-import { TextField } from "../ui/form/textField";
 import { SearchField } from "../ui/form/searchField";
 import { ClientList } from "../ui/clientList";
 import { ClientLi } from "../ui/clientLi";
@@ -28,7 +27,6 @@ export const MyClients = () => {
     getPaginatedClientList,
     clientsQuantity,
     searchClient,
-    orderClients,
     status,
     setStatus,
   } = useClient();
@@ -45,25 +43,21 @@ export const MyClients = () => {
   const clientsPerPage = 5;
   const pagesVisited = clientsPerPage * currentPage;
   const clients = [...clientList];
-  const clientsDisplayed = clients
-    //.slice(pagesVisited, pagesVisited + clientsPerPage)
-    .map((client) => {
-      return (
-        <ClientLi key={client.clientId}>
-          <p className="mx-auto font-semibold text-gray-800">
-            {client.firstName} {client.lastName}
-          </p>
-          <p className="mx-auto font-semibold text-gray-500">
-            ${client.balance}
-          </p>
-          <div className="mx-auto">
-            <Link to={`/mis-clientes/cliente/${client.clientId}`}>
-              <Button colorScheme="primary">Editar</Button>
-            </Link>
-          </div>
-        </ClientLi>
-      );
-    });
+  const clientsDisplayed = clients.map((client) => {
+    return (
+      <ClientLi key={client.clientId}>
+        <p className="mx-auto font-semibold text-gray-800">
+          {client.firstName} {client.lastName}
+        </p>
+        <p className="mx-auto font-semibold text-gray-500">${client.balance}</p>
+        <div className="mx-auto">
+          <Link to={`/mis-clientes/cliente/${client.clientId}`}>
+            <Button colorScheme="primary">Editar</Button>
+          </Link>
+        </div>
+      </ClientLi>
+    );
+  });
 
   const pageCount = Math.ceil(clientsQuantity / clientsPerPage);
 
@@ -72,7 +66,6 @@ export const MyClients = () => {
   };
 
   useEffect(() => {
-    console.log(`Sort = ${sortByValue} and Order = ${orderByValue}`);
     getPaginatedClientList(
       /*page*/ currentPage + 1,
       /*size*/ clientsPerPage,
@@ -84,18 +77,18 @@ export const MyClients = () => {
 
   useEffect(() => {
     if (!firstRun.current) {
-      console.log(searchField);
-      if (clientList.length !== 0) {
-        searchField.length !== 0
-          ? searchClient(searchField)
-          : getPaginatedClientList(
-              /*page*/ 1,
-              /*size*/ clientsPerPage,
-              /*sortBy*/ "firstName",
-              /*orderBy*/ "ASC"
-            );
+      if (clientList.length > 0 && searchField.length !== 0) {
+        searchClient(searchField);
         setFilterValue("filterName ASC");
+        return;
       }
+
+      getPaginatedClientList(
+        /*page*/ 1,
+        /*size*/ clientsPerPage,
+        /*sortBy*/ "firstName",
+        /*orderBy*/ "ASC"
+      );
     }
     firstRun.current = false;
   }, [searchField]);

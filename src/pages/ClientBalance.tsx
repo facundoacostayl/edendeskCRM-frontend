@@ -30,7 +30,14 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 }
 
 export const ClientBalance = () => {
-  const { getClientList, clientList, updateClient, searchClient } = useClient();
+  const {
+    getClientList,
+    getPaginatedClientList,
+    clientList,
+    clientsQuantity,
+    updateClient,
+    searchClient,
+  } = useClient();
 
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
@@ -42,17 +49,6 @@ export const ClientBalance = () => {
     apellido: "",
   });
   const firstRun = useRef(true);
-
-  useEffect(() => {
-    getClientList();
-  }, []);
-
-  useEffect(() => {
-    if (!firstRun.current) {
-      searchField.length > 0 ? searchClient(searchField) : getClientList();
-    }
-    firstRun.current = false;
-  }, [searchField]);
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {
@@ -82,47 +78,67 @@ export const ClientBalance = () => {
   const clientsPerPage = 5;
   const pagesVisited = clientsPerPage * currentPage;
   const clients = [...clientList];
-  const clientsDisplayed = clients
-    .slice(pagesVisited, pagesVisited + clientsPerPage)
-    .map((client) => {
-      return (
-        <div
-          key={client.clientId}
-          onClick={() =>
-            setClientToUpdate({
-              id: client.clientId,
-              nombre: client.firstName,
-              apellido: client.lastName,
-            })
-          }
-        >
-          <ClientLi>
-            <p className="mx-auto font-semibold text-gray-800">
-              {client.firstName} {client.lastName}
-            </p>
-            <p className="mx-auto font-semibold text-gray-500">
-              ${client.balance}
-            </p>
-            <div className="mx-auto">
-              <OperatorButtons
-                onOpenModal={toggleModal}
-                onOperate={setIsAdding}
-              />
-            </div>
-          </ClientLi>
-        </div>
-      );
-    });
+  const clientsDisplayed = clients.map((client) => {
+    return (
+      <div
+        key={client.clientId}
+        onClick={() =>
+          setClientToUpdate({
+            id: client.clientId,
+            nombre: client.firstName,
+            apellido: client.lastName,
+          })
+        }
+      >
+        <ClientLi>
+          <p className="mx-auto font-semibold text-gray-800">
+            {client.firstName} {client.lastName}
+          </p>
+          <p className="mx-auto font-semibold text-gray-500">
+            ${client.balance}
+          </p>
+          <div className="mx-auto">
+            <OperatorButtons
+              onOpenModal={toggleModal}
+              onOperate={setIsAdding}
+            />
+          </div>
+        </ClientLi>
+      </div>
+    );
+  });
 
-  const pageCount = Math.ceil(clientList.length / clientsPerPage);
+  const pageCount = Math.ceil(clientsQuantity / clientsPerPage);
 
   const changePage = (selectedItem: { selected: number }) => {
     setCurrentPage(selectedItem.selected);
   };
 
   useEffect(() => {
-    toast.done("Funca");
-  }, []);
+    getPaginatedClientList(
+      /*page*/ currentPage + 1,
+      /*size*/ clientsPerPage,
+      /*sortBy*/ "firstName",
+      /*orderBy*/ "ASC"
+    );
+  }, [currentPage]);
+
+  useEffect(() => {
+    if (!firstRun.current) {
+      if (clientList.length > 0 && searchField.length !== 0) {
+        searchClient(searchField);
+        return;
+      }
+
+      getPaginatedClientList(
+        /*page*/ 1,
+        /*size*/ clientsPerPage,
+        /*sortBy*/ "firstName",
+        /*orderBy*/ "ASC"
+      );
+    }
+    firstRun.current = false;
+  }, [searchField]);
 
   return (
     <div className="md:flex">
