@@ -194,16 +194,16 @@ export const ClientProvider = ({ children }: Props) => {
 
   const orderClients = async (orderType: string) => {
     const id = localStorage.getItem("userId");
-    try {
+    /*try {
       const response = await fetch(
-        `http://localhost:4000/user${id}/clientes/ordenar-por-${orderType}`
+        `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
       );
 
       const parseRes = await response.json();
       setClientList(parseRes);
     } catch (error) {
       error instanceof Error && console.error(error.message);
-    }
+    }*/
   };
 
   const getFullClientBalance = async () => {

@@ -16,6 +16,7 @@ import { Button } from "../ui/controls/button";
 
 //TYPES
 import { Status } from "../types";
+import { PaginationArgs } from "../types/pagination";
 
 //Paginate
 import ReactPaginate from "react-paginate";
@@ -32,9 +33,14 @@ export const MyClients = () => {
     setStatus,
   } = useClient();
   const [searchField, setSearchField] = useState<string>("");
-  const [filterValue, setFilterValue] = useState<string>("");
+  const [filterValue, setFilterValue] = useState<string>("firstName ASC");
   const [currentPage, setCurrentPage] = useState<number>(0);
   const firstRun = useRef(true);
+
+  const splitFilterValue = (value: string) => value.split(" ");
+  const splittedFilterValues = splitFilterValue(filterValue);
+  const sortByValue = splittedFilterValues[0];
+  const orderByValue = splittedFilterValues[1];
 
   const clientsPerPage = 5;
   const pagesVisited = clientsPerPage * currentPage;
@@ -66,26 +72,30 @@ export const MyClients = () => {
   };
 
   useEffect(() => {
+    console.log(`Sort = ${sortByValue} and Order = ${orderByValue}`);
     getPaginatedClientList(
       /*page*/ currentPage + 1,
       /*size*/ clientsPerPage,
-      /*sortBy*/ "firstName",
-      /*orderBy*/ "DESC"
+      /*sortBy*/ sortByValue as PaginationArgs["sortBy"],
+      /*orderBy*/ orderByValue as PaginationArgs["orderBy"]
     );
     setStatus(Status.success);
   }, [currentPage]);
 
   useEffect(() => {
     if (!firstRun.current) {
-      clientList.length > 0
-        ? searchClient(searchField)
-        : getPaginatedClientList(
-            /*page*/ 1,
-            /*size*/ clientsPerPage,
-            /*sortBy*/ "firstName",
-            /*orderBy*/ "DESC"
-          );
-      setFilterValue("");
+      console.log(searchField);
+      if (clientList.length !== 0) {
+        searchField.length !== 0
+          ? searchClient(searchField)
+          : getPaginatedClientList(
+              /*page*/ 1,
+              /*size*/ clientsPerPage,
+              /*sortBy*/ "firstName",
+              /*orderBy*/ "ASC"
+            );
+        setFilterValue("filterName ASC");
+      }
     }
     firstRun.current = false;
   }, [searchField]);
@@ -97,7 +107,10 @@ export const MyClients = () => {
   };
 
   const onFilterItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    orderClients(e.target.value);
+    const splittedEventValue = splitFilterValue(e.target.value);
+    const sortByValue = splittedEventValue[0] as PaginationArgs["sortBy"];
+    const orderByValue = splittedEventValue[1] as PaginationArgs["orderBy"];
+    getPaginatedClientList(1, clientsPerPage, sortByValue, orderByValue);
     setFilterValue(e.target.value);
   };
 
@@ -119,10 +132,10 @@ export const MyClients = () => {
               name="filter"
               id="filter"
             >
-              <option value="nombre-asc">A - Z</option>
-              <option value="nombre-desc">Z - A</option>
-              <option value="saldo-asc">Menor saldo</option>
-              <option value="saldo-desc">Mayor saldo</option>
+              <option value="firstName ASC">A - Z</option>
+              <option value="firstName DESC">Z - A</option>
+              <option value="balance ASC">Menor saldo</option>
+              <option value="balance DESC">Mayor saldo</option>
             </select>
           </div>
           {clientList.length > 0 ? (
