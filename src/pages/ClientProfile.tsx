@@ -51,10 +51,6 @@ export const ClientProfile = () => {
     setIsEditingModalActive(false);
   };
 
-  useEffect(() => {
-    console.log(currentClient.clientId);
-  }, [currentClient]);
-
   return (
     <div className="md:flex">
       {/* DELETING MODAL */}

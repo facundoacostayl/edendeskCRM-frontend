@@ -7,6 +7,7 @@ import { Client } from "./types";
 import { User } from "../authContext/types";
 import { Status } from "../types";
 import { json } from "node:stream/consumers";
+import { PaginationArgs } from "../types/pagination";
 
 export const useClient = () => {
   return useContext(ClientContext);
@@ -31,6 +32,27 @@ export const ClientProvider = ({ children }: Props) => {
       );
       const parseRes = await response.json();
       parseRes && setClientList(parseRes.data);
+    } catch (error) {
+      error instanceof Error && console.error(error.message);
+    }
+  };
+
+  const getPaginatedClientList = async (
+    page: PaginationArgs["page"],
+    size: PaginationArgs["size"],
+    sortBy: PaginationArgs["sortBy"],
+    orderBy: PaginationArgs["orderBy"]
+  ) => {
+    const id = localStorage.getItem("userId");
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
+      );
+      const parseRes = await response.json();
+      if (parseRes) {
+        setClientList(parseRes.data.paginatedValues);
+        setClientsQuantity(parseRes.data.allValues);
+      }
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
@@ -217,6 +239,7 @@ export const ClientProvider = ({ children }: Props) => {
     updateClientInfo,
     deleteClient,
     getClientList,
+    getPaginatedClientList,
     clientList,
     getClient,
     currentClient,

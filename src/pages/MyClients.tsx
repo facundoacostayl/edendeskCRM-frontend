@@ -24,7 +24,8 @@ export const MyClients = () => {
   const { userData } = useAuth();
   const {
     clientList,
-    getClientList,
+    getPaginatedClientList,
+    clientsQuantity,
     searchClient,
     orderClients,
     status,
@@ -39,7 +40,7 @@ export const MyClients = () => {
   const pagesVisited = clientsPerPage * currentPage;
   const clients = [...clientList];
   const clientsDisplayed = clients
-    .slice(pagesVisited, pagesVisited + clientsPerPage)
+    //.slice(pagesVisited, pagesVisited + clientsPerPage)
     .map((client) => {
       return (
         <ClientLi key={client.clientId}>
@@ -58,20 +59,32 @@ export const MyClients = () => {
       );
     });
 
-  const pageCount = Math.ceil(clientList.length / clientsPerPage);
+  const pageCount = Math.ceil(clientsQuantity / clientsPerPage);
 
   const changePage = (selectedItem: { selected: number }) => {
     setCurrentPage(selectedItem.selected);
   };
 
   useEffect(() => {
-    getClientList();
+    getPaginatedClientList(
+      /*page*/ currentPage + 1,
+      /*size*/ clientsPerPage,
+      /*sortBy*/ "firstName",
+      /*orderBy*/ "DESC"
+    );
     setStatus(Status.success);
-  }, []);
+  }, [currentPage]);
 
   useEffect(() => {
     if (!firstRun.current) {
-      clientList.length > 0 ? searchClient(searchField) : getClientList();
+      clientList.length > 0
+        ? searchClient(searchField)
+        : getPaginatedClientList(
+            /*page*/ 1,
+            /*size*/ clientsPerPage,
+            /*sortBy*/ "firstName",
+            /*orderBy*/ "DESC"
+          );
       setFilterValue("");
     }
     firstRun.current = false;

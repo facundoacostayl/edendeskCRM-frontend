@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import { Client } from "./types";
+import { PaginationArgs } from "../types/pagination";
 import { User } from "../authContext/types";
 import { Status } from "../types";
 
@@ -20,6 +21,12 @@ type ClientContextProps = {
     newClientValue: string
   ) => Promise<void>;
   getClientList: VoidFunction;
+  getPaginatedClientList: (
+    page: PaginationArgs["page"],
+    size: PaginationArgs["size"],
+    sortBy: PaginationArgs["sortBy"],
+    orderBy: PaginationArgs["orderBy"]
+  ) => Promise<void>;
   clientList: Client[];
   searchClient: (name: Client["firstName"]) => Promise<void>;
   orderClients: (orderType: string) => Promise<void>;
