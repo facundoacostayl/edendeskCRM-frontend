@@ -138,11 +138,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     isLoggedIn && getUserData();
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    console.log("It should works");
-    console.log(userData);
-  }, [userData]);
-
   const value = {
     isLoggedIn,
     setIsLoggedIn,
