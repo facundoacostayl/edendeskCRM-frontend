@@ -48,23 +48,22 @@ export const ClientProvider = ({ children }: Props) => {
       const response = await fetch(
         `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
       );
-      console.log(
-        `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
-      );
       const parseRes = await response.json();
       if (parseRes) {
         setClientList(parseRes.data.paginatedValues);
         setClientsQuantity(parseRes.data.allValues);
-        console.log(parseRes);
       }
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
   };
 
-  const getClient = async (id: Client["clientId"]) => {
+  const getClient = async (
+    userId: User["id"],
+    clientId: Client["clientId"]
+  ) => {
     const response = await fetch(
-      `http://localhost:4000/api/2.0/client/user${8}/client${id}`
+      `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`
     );
 
     const parseRes = await response.json();
@@ -159,7 +158,7 @@ export const ClientProvider = ({ children }: Props) => {
 
       toast.success("Información actualizada con exito");
     } catch (error) {
-      error instanceof Error && console.log(error.message);
+      error instanceof Error && console.error(error.message);
     }
   };
 

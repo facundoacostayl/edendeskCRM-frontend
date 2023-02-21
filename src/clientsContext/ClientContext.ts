@@ -30,7 +30,10 @@ type ClientContextProps = {
   clientList: Client[];
   searchClient: (name: Client["firstName"]) => Promise<void>;
   orderClients: (orderType: string) => Promise<void>;
-  getClient: (id: Client["clientId"]) => Promise<void>;
+  getClient: (
+    userId: User["id"],
+    clientId: Client["clientId"]
+  ) => Promise<void>;
   currentClient: Client;
   deleteClient: (id: Client["clientId"]) => Promise<void>;
   getFullClientBalance: () => Promise<void>;

@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="App">
-      <ToastContainer/>
+      <ToastContainer />
       <Routes>
         {!isLoggedIn && (
           <>
@@ -42,14 +42,17 @@ function App() {
             <Route path="/nuevo-saldo" element={<ClientBalance />}></Route>
             <Route path="/mis-clientes" element={<MyClients />}></Route>
             <Route
-              path="/mis-clientes/cliente/:id"
+              path="/mis-clientes/user:userId/cliente:clientId"
               element={<ClientProfile />}
             ></Route>
             <Route path="/mi-perfil" element={<MyProfile />}></Route>
           </>
         )}
 
-        <Route path="*" element={isLoggedIn ? <Dashboard /> : <Login/>}></Route>
+        <Route
+          path="*"
+          element={isLoggedIn ? <Dashboard /> : <Login />}
+        ></Route>
       </Routes>
     </div>
   );

@@ -23,7 +23,7 @@ import { Icon, EditIcon, RemoveIcon } from "../ui/icons";
 export const ClientProfile = () => {
   const { currentClient, getClient, deleteClient, updateClientInfo } =
     useClient();
-  const { id } = useParams();
+  const { userId, clientId } = useParams();
   const navigate = useNavigate();
 
   const [isDeletingModalActive, setIsDeletingModalActive] =
@@ -35,7 +35,7 @@ export const ClientProfile = () => {
   const [status, setStatus] = useState<Status>(Status.init);
 
   useEffect(() => {
-    getClient(id ? parseInt(id) : 0);
+    getClient(userId ? parseInt(userId) : 0, clientId ? parseInt(clientId) : 0);
     setStatus(Status.success);
   }, []);
 
