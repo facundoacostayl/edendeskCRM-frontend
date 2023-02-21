@@ -59,13 +59,13 @@ export const Dashboard: React.FC = () => {
   const [clientTotalBalance, setClientTotalBalance] =
     useState<Operation["totalSumOfBalances"]>(0);
 
-  const id = localStorage.getItem("userId");
+  const getUserId = localStorage.getItem("userId");
 
   const getTodayOperationData = async () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${8}/today-operation-data`
+        `http://localhost:4000/api/2.0/operation/user${getUserId}/today-operation-data`
       );
       const parseRes = await response.json();
       setTodayOperationData([parseRes.data]);
@@ -95,7 +95,7 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${8}/total-operation-data`
+        `http://localhost:4000/api/2.0/operation/user${getUserId}/total-operation-data`
       );
 
       const parseRes = await response.json();
@@ -110,7 +110,7 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${8}/user-total-balance`
+        `http://localhost:4000/api/2.0/operation/user${getUserId}/user-total-balance`
       );
 
       const parseRes = await response.json();

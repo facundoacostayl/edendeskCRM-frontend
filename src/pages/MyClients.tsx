@@ -34,7 +34,7 @@ export const MyClients = () => {
   const [filterValue, setFilterValue] = useState<string>("firstName ASC");
   const [currentPage, setCurrentPage] = useState<number>(0);
   const firstRun = useRef(true);
-  const userId = localStorage.getItem("userId");
+  const getUserId = localStorage.getItem("userId");
 
   const splitFilterValue = (value: string) => value.split(" ");
   const splittedFilterValues = splitFilterValue(filterValue);
@@ -52,7 +52,7 @@ export const MyClients = () => {
         </p>
         <p className="mx-auto font-semibold text-gray-500">${client.balance}</p>
         <div className="mx-auto">
-          <Link to={`/mis-clientes/user${userId}/cliente${client.clientId}`}>
+          <Link to={`/mis-clientes/user${getUserId}/cliente${client.clientId}`}>
             <Button colorScheme="primary">Editar</Button>
           </Link>
         </div>

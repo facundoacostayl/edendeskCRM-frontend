@@ -33,6 +33,7 @@ export const ClientProfile = () => {
   const [newValueToEdit, setNewValueToEdit] = useState<string>("");
   const [newEditingValue, setNewEditingValue] = useState<string>("");
   const [status, setStatus] = useState<Status>(Status.init);
+  const getUserId = localStorage.getItem("userId");
 
   useEffect(() => {
     getClient(userId ? parseInt(userId) : 0, clientId ? parseInt(clientId) : 0);
@@ -47,7 +48,12 @@ export const ClientProfile = () => {
 
   const onConfirmEditClient = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateClientInfo(currentClient.clientId, newValueToEdit, newEditingValue);
+    updateClientInfo(
+      getUserId ? parseInt(getUserId) : 0,
+      currentClient.clientId,
+      newValueToEdit,
+      newEditingValue
+    );
     setIsEditingModalActive(false);
   };
 

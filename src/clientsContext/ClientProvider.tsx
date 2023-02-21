@@ -135,7 +135,8 @@ export const ClientProvider = ({ children }: Props) => {
   };
 
   const updateClientInfo = async (
-    id: Client["clientId"],
+    userId: User["id"],
+    clientId: Client["clientId"],
     clientValueToEdit: string,
     newClientValue: string
   ) => {
@@ -143,7 +144,7 @@ export const ClientProvider = ({ children }: Props) => {
       const body = { [clientValueToEdit]: newClientValue };
 
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${8}/client${id}`,
+        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`,
         {
           method: "PUT",
           headers: {

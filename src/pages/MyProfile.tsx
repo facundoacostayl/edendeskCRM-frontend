@@ -27,17 +27,21 @@ export const MyProfile = () => {
   const { userData, setUserData } = useAuth();
   const [status, setStatus] = useState<Status>(Status.init);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const getUserId = localStorage.getItem("userId");
 
   const updateUser = async (newUserData: UserData) => {
     try {
       const body = newUserData;
       const id = userData.id;
 
-      const response = await fetch(`http://localhost:4000/api/2.0/user/${8}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUserData),
-      });
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/user/${getUserId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newUserData),
+        }
+      );
 
       const parseRes = await response.json();
       toast.success("Información actualizada con éxito");

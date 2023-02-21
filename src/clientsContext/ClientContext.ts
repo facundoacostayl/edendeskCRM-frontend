@@ -16,7 +16,8 @@ type ClientContextProps = {
     operation: string
   ) => Promise<void>;
   updateClientInfo: (
-    id: Client["clientId"],
+    userId: User["id"],
+    clientId: Client["clientId"],
     clientValueToEdit: string,
     newClientValue: string
   ) => Promise<void>;
