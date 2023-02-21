@@ -8,14 +8,10 @@ import { PageContent } from "../ui/pageContent";
 import { Card, CardLeftContainer, CardRightContainer } from "../ui/card";
 import { SectionBanner } from "../components/SectionBanner";
 import { BarChart } from "../components/barChart";
-import { ChartDateSelect } from "../components/chartDateSelect";
 
 //TYPES
 import { Status } from "../types";
-import { User } from "../authContext/types";
-import { ChartData } from "chart.js";
 import { Operation } from "../types/operation";
-import { ChartDate } from "../types/chartDate";
 
 const operationDataValues: Operation[] = [
   {
