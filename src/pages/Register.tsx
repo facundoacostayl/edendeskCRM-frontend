@@ -44,6 +44,13 @@ export const Register = () => {
     signUp(user, email, password);
   };
 
+  const checkSpecialChar = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (/^[^\W0-9_][a-zA-Z0-9\s]+$/.test(e.key)) {
+      e.preventDefault();
+      return false;
+    }
+  };
+
   return (
     <>
       <div className="w-[95%] md:min-h-[650px] mx-auto">
@@ -66,11 +73,13 @@ export const Register = () => {
                 </label>
                 <TextField
                   onChange={(e) => onChangeHandler(e)}
+                  onKeyDown={(e) => checkSpecialChar(e)}
                   autoFocus
                   value={userData.userName}
                   type="text"
                   name="userName"
                   id="name"
+                  maxLength={25}
                 />
               </div>
               <div className="my-3">
@@ -83,6 +92,7 @@ export const Register = () => {
                   type="email"
                   name="email"
                   id="register-email"
+                  maxLength={50}
                 />
               </div>
               <div className="my-3">
@@ -98,6 +108,8 @@ export const Register = () => {
                   type="password"
                   name="password"
                   id="register-password"
+                  maxLength={50}
+                  minLength={8}
                 />
               </div>
               <div className="w-full my-3 flex justify-center">

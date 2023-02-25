@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="App">
-      <ToastContainer />
+      <ToastContainer position={"top-center"} />
       <Routes>
         {!isLoggedIn && (
           <>

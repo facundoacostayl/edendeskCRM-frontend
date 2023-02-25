@@ -89,6 +89,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        toast.error("Ocurrió un error inesperado");
       }
     }
   };
@@ -120,6 +121,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
+        toast.error("Ocurrió un error inesperado");
       }
     }
   };
