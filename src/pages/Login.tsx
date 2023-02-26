@@ -24,7 +24,10 @@ export const Login = () => {
   });
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, [e.currentTarget.name]: e.currentTarget.value });
+    setUserData({
+      ...userData,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
   };
 
   const onSubmitHandler = (e: React.FormEvent) => {
@@ -61,6 +64,7 @@ export const Login = () => {
                   type="email"
                   id="login-email"
                   name="loginemail"
+                  maxLength={50}
                 />
               </div>
               <div className="my-2">
@@ -70,6 +74,7 @@ export const Login = () => {
                   type="password"
                   id="login-password"
                   name="password"
+                  minLength={8}
                 />
               </div>
               <div className="my-2 flex justify-center">

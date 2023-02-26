@@ -31,13 +31,6 @@ export const Register = () => {
       newValue = value.replace(/[^a-zA-Z\s]/g, "");
       console.log(`value = ${value} - name = ${name}`);
     }
-    /*if (name === "email") {
-      newValue = value.replace(
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-        ""
-      );
-      console.log(`value = ${value} - name = ${name}`);
-    }*/
 
     if (newValue.length > 0) return newValue;
     return value;
