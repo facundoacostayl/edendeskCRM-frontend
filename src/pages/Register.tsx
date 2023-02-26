@@ -84,7 +84,6 @@ export const Register = () => {
                 </label>
                 <TextField
                   onChange={(e) => onChangeHandler(e)}
-                  //onKeyDown={(e) => blockSpecialCharacters(e)}
                   autoFocus
                   value={userData.userName}
                   type="text"

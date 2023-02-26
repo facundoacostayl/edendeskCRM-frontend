@@ -97,6 +97,7 @@ export const MyClients = () => {
   const sanitizeValue = (value: string) => {
     let newValue = "";
     newValue = value.replace(/[^a-zA-Z\s]/g, "");
+    console.log(newValue);
 
     if (newValue.length > 0) return newValue;
     return value;

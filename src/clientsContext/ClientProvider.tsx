@@ -127,7 +127,7 @@ export const ClientProvider = ({ children }: Props) => {
         }
       );
 
-      getClientList();
+      getPaginatedClientList(1, 5, "firstName", "ASC");
       toast.success("Información actualizada con exito");
     } catch (error) {
       error instanceof Error && console.error(error.message);
