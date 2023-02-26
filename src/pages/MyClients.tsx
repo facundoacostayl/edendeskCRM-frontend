@@ -21,7 +21,7 @@ import { PaginationArgs } from "../types/pagination";
 import ReactPaginate from "react-paginate";
 
 export const MyClients = () => {
-  const { userData } = useAuth();
+  const { checkAuth } = useAuth();
   const {
     clientList,
     getPaginatedClientList,
@@ -94,9 +94,18 @@ export const MyClients = () => {
     firstRun.current = false;
   }, [searchField]);
 
+  const sanitizeValue = (value: string) => {
+    let newValue = "";
+    newValue = value.replace(/[^a-zA-Z\s]/g, "");
+
+    if (newValue.length > 0) return newValue;
+    return value;
+  };
+
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTimeout(() => {
-      setSearchField(e.target.value);
+      const cleanValue = sanitizeValue(e.target.value);
+      setSearchField(cleanValue);
     }, 800);
   };
 

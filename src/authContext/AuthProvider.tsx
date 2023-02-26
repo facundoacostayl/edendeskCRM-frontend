@@ -133,6 +133,10 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   };
 
   useEffect(() => {
+    if (localStorage.getItem("token")) checkAuth();
+  }, []);
+
+  useEffect(() => {
     isLoggedIn && getUserData();
   }, [isLoggedIn]);
 

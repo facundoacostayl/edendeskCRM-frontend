@@ -118,10 +118,6 @@ export const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    checkAuth();
-  }, []);
-
-  useEffect(() => {
     getTodayOperationData();
   }, []);
 
