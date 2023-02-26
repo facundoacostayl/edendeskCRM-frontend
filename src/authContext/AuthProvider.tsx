@@ -3,13 +3,10 @@ import { useContext, useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { User } from "./types";
-import { useRef } from "react";
 
 type Props = {
   children: JSX.Element | JSX.Element[];
 };
-
-const firstRun = useRef(true);
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -134,13 +131,6 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     localStorage.removeItem("userId");
     checkAuth();
   };
-
-  useEffect(() => {
-    if (!firstRun.current) {
-      checkAuth();
-    }
-    firstRun.current = false;
-  }, [isLoggedIn]);
 
   useEffect(() => {
     isLoggedIn && getUserData();
