@@ -1,5 +1,6 @@
 //REACT HOOKS
 import { useClient } from "../clientsContext/ClientProvider";
+import { useState } from "react";
 
 //COMPONENTS
 import { Sidebar } from "../components";
@@ -23,27 +24,58 @@ interface Form extends React.FormEvent<HTMLFormElement> {
 export const NewClient = () => {
   const { addClient } = useClient();
 
+  const [clientData, setClientData] = useState({
+    clientFirstname: "",
+    clientLastname: "",
+    clientTel: "",
+  });
+
+  const sanitizeValue = (value: string, name: string) => {
+    let newValue = "";
+    if (name === "clientFirstname" || name === "clientLastname") {
+      newValue = value.replace(/[^a-zA-Z\s]/g, "");
+      console.log(`value = ${value} - name = ${name}`);
+    }
+
+    if (newValue.length > 0) return newValue;
+    return value;
+  };
+
+  const onGetInputValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const cleanValue = sanitizeValue(
+      e.currentTarget.value,
+      e.currentTarget.name
+    );
+
+    console.log(cleanValue);
+
+    setClientData({
+      ...clientData,
+      [e.currentTarget.name]: cleanValue,
+    });
+  };
+
   const onSubmitHandler = (e: Form) => {
     e.preventDefault();
 
-    const nombre = e.currentTarget.clientFirstname;
-    const apellido = e.currentTarget.clientLastname;
-    const tel = e.currentTarget.clientTel;
+    const firstNameInput = e.currentTarget.clientFirstname;
+    const lastNameInput = e.currentTarget.clientLastname;
+    const telInput = e.currentTarget.clientLastname;
 
-    if (
-      nombre.value.length <= 0 ||
-      apellido.value.length <= 0 ||
-      tel.value.length <= 0
-    ) {
+    const firstName = clientData.clientFirstname;
+    const lastName = clientData.clientLastname;
+    const tel = clientData.clientTel;
+
+    if (firstName.length <= 0 || lastName.length <= 0 || tel.length <= 0) {
       toast.error("Completa todos los campos");
       return;
     }
 
-    addClient(nombre.value, apellido.value, tel.value.toString());
+    addClient(firstName, lastName, tel.toString());
 
-    nombre.value = "";
-    apellido.value = "";
-    tel.value = "";
+    firstNameInput.value = "";
+    lastNameInput.value = "";
+    telInput.value = "";
   };
 
   return (
@@ -63,6 +95,8 @@ export const NewClient = () => {
               Nombre
             </label>
             <TextField
+              onChange={(e) => onGetInputValues(e)}
+              value={clientData.clientFirstname}
               type="text"
               id="new-client-firstname"
               name="clientFirstname"
@@ -77,6 +111,8 @@ export const NewClient = () => {
                 Apellido
               </label>
               <TextField
+                onChange={(e) => onGetInputValues(e)}
+                value={clientData.clientLastname}
                 type="text"
                 id="new-client-lastname"
                 name="clientLastname"
@@ -92,10 +128,13 @@ export const NewClient = () => {
                 Telefono
               </label>
               <TextField
+                onChange={(e) => onGetInputValues(e)}
+                value={clientData.clientTel}
                 type="number"
                 id="new-client-tel"
                 name="clientTel"
                 placeholder="01142567891"
+                minLength={4}
               />
             </div>
             <div className="my-3 mx-auto">

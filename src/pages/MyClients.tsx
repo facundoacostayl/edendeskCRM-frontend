@@ -114,7 +114,12 @@ export const MyClients = () => {
     const splittedEventValue = splitFilterValue(e.target.value);
     const sortByValue = splittedEventValue[0] as PaginationArgs["sortBy"];
     const orderByValue = splittedEventValue[1] as PaginationArgs["orderBy"];
-    getPaginatedClientList(1, clientsPerPage, sortByValue, orderByValue);
+    getPaginatedClientList(
+      currentPage + 1,
+      clientsPerPage,
+      sortByValue,
+      orderByValue
+    );
     setFilterValue(e.target.value);
   };
 
