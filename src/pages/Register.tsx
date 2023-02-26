@@ -25,14 +25,32 @@ export const Register = () => {
 
   const navigate = useNavigate();
 
+  const sanitizeValue = (value: string, name: string) => {
+    let newValue = "";
+    if (name === "userName") {
+      newValue = value.replace(/[^a-zA-Z\s]/g, "");
+      console.log(`value = ${value} - name = ${name}`);
+    }
+    /*if (name === "email") {
+      newValue = value.replace(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+        ""
+      );
+      console.log(`value = ${value} - name = ${name}`);
+    }*/
+
+    if (newValue.length > 0) return newValue;
+    return value;
+  };
+
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const cleanValue = e.currentTarget.value.replace(/[^a-zA-Z\s]/g, "");
+    const cleanValue = sanitizeValue(
+      e.currentTarget.value,
+      e.currentTarget.name
+    );
     setUserData({
       ...userData,
-      [e.currentTarget.name]:
-        e.currentTarget.name === "userName"
-          ? cleanValue
-          : e.currentTarget.value,
+      [e.currentTarget.name]: cleanValue,
     });
   };
 
