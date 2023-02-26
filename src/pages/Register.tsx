@@ -26,7 +26,14 @@ export const Register = () => {
   const navigate = useNavigate();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserData({ ...userData, [e.currentTarget.name]: e.currentTarget.value });
+    const cleanValue = e.currentTarget.value.replace(/[^a-zA-Z\s]/g, "");
+    setUserData({
+      ...userData,
+      [e.currentTarget.name]:
+        e.currentTarget.name === "userName"
+          ? cleanValue
+          : e.currentTarget.value,
+    });
   };
 
   const onSubmitHandler = (e: React.FormEvent) => {
@@ -42,13 +49,6 @@ export const Register = () => {
     }
 
     signUp(user, email, password);
-  };
-
-  const checkSpecialChar = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (/^[^\W0-9_][a-zA-Z0-9\s]+$/.test(e.key)) {
-      e.preventDefault();
-      return false;
-    }
   };
 
   return (
@@ -73,7 +73,7 @@ export const Register = () => {
                 </label>
                 <TextField
                   onChange={(e) => onChangeHandler(e)}
-                  onKeyDown={(e) => checkSpecialChar(e)}
+                  //onKeyDown={(e) => blockSpecialCharacters(e)}
                   autoFocus
                   value={userData.userName}
                   type="text"
