@@ -31,6 +31,7 @@ export const MyClients = () => {
     setStatus,
   } = useClient();
   const [searchField, setSearchField] = useState<string>("");
+  const [cleanSearchField, setCleanSearchField] = useState<string>("");
   const [filterValue, setFilterValue] = useState<string>("firstName ASC");
   const [currentPage, setCurrentPage] = useState<number>(0);
   const firstRun = useRef(true);
@@ -67,6 +68,13 @@ export const MyClients = () => {
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchField(cleanSearchField);
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [cleanSearchField]);
+
+  useEffect(() => {
     getPaginatedClientList(
       /*page*/ currentPage + 1,
       /*size*/ clientsPerPage,
@@ -97,17 +105,14 @@ export const MyClients = () => {
   const sanitizeValue = (value: string) => {
     let newValue = "";
     newValue = value.replace(/[^a-zA-Z\s]/g, "");
-    console.log(newValue);
 
     if (newValue.length > 0) return newValue;
     return value;
   };
 
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      const cleanValue = sanitizeValue(e.target.value);
-      setSearchField(cleanValue);
-    }, 800);
+    const cleanValue = sanitizeValue(e.currentTarget.value);
+    setCleanSearchField(cleanValue);
   };
 
   const onFilterItems = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -129,7 +134,10 @@ export const MyClients = () => {
       <div className="w-full">
         <SectionBanner sectionName="Mis Clientes"></SectionBanner>
         <PageContent status={status} direction="flex-col">
-          <SearchField onSearch={(e) => getClientSearched(e)} />
+          <SearchField
+            value={cleanSearchField}
+            onSearch={(e) => getClientSearched(e)}
+          />
           <div className="w-full flex justify-end mb-2 gap-2">
             <label className="font-light text-gray-600" htmlFor="">
               ordernar por:
