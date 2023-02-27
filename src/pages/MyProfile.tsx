@@ -125,6 +125,7 @@ export const MyProfile = () => {
                 <TextField
                   name="loginEmail"
                   placeholder={userData.loginEmail}
+                  maxLength={50}
                 />
               </div>
 
@@ -136,6 +137,7 @@ export const MyProfile = () => {
                   name="password"
                   type="password"
                   placeholder="*******"
+                  maxLength={30}
                 />
               </div>
               <div className="mb-5">
@@ -144,6 +146,7 @@ export const MyProfile = () => {
                   name="rPassword"
                   type="password"
                   placeholder="*******"
+                  maxLength={30}
                 />
               </div>
               <div className="w-2/4 mx-auto flex justify-center">
