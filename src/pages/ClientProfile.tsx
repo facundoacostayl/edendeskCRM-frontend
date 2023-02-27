@@ -40,6 +40,34 @@ export const ClientProfile = () => {
     setStatus(Status.success);
   }, []);
 
+  useEffect(() => {
+    setNewEditingValue("");
+  }, [newValueToEdit]);
+
+  const sanitizeValue = (value: string) => {
+    let newValue = "";
+
+    newValue = value.replace(/[^a-zA-Z\s]/g, "");
+
+    if (newValue.length > 0) return newValue;
+    return value;
+  };
+
+  const onNewEditingValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const eventValue = e.target.value;
+    let cleanValue = "";
+    if (
+      newValueToEdit !== "tel" &&
+      newValueToEdit !== "lastAddAmount" &&
+      newValueToEdit !== "lastWithdrawAmount"
+    ) {
+      cleanValue = sanitizeValue(eventValue);
+      setNewEditingValue(cleanValue);
+      return;
+    }
+    setNewEditingValue(eventValue);
+  };
+
   const onDeleteClient = () => {
     deleteClient(currentClient.clientId);
     setIsDeletingModalActive(false);
@@ -55,6 +83,7 @@ export const ClientProfile = () => {
       newEditingValue
     );
     setIsEditingModalActive(false);
+    setNewEditingValue("");
   };
 
   return (
@@ -118,7 +147,8 @@ export const ClientProfile = () => {
                 onFocus={() =>
                   newValueToEdit.length === 0 && setNewValueToEdit("firstName")
                 }
-                onChange={(e) => setNewEditingValue(e.target.value)}
+                onChange={(e) => onNewEditingValue(e)}
+                value={newEditingValue}
                 id="new-value-input"
                 name="new-value-input"
               />
