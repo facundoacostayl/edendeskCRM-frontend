@@ -42,6 +42,7 @@ export const ClientBalance = () => {
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
   const [searchField, setSearchField] = useState("");
+  const [cleanSearchField, setCleanSearchField] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [clientToUpdate, setClientToUpdate] = useState({
     id: 0,
@@ -50,10 +51,17 @@ export const ClientBalance = () => {
   });
   const firstRun = useRef(true);
 
+  const sanitizeValue = (value: string) => {
+    let newValue = "";
+    newValue = value.replace(/[^a-zA-Z\s]/g, "");
+
+    if (newValue.length > 0) return newValue;
+    return value;
+  };
+
   const getClientSearched = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
-      setSearchField(e.target.value);
-    }, 800);
+    const cleanValue = sanitizeValue(e.currentTarget.value);
+    setCleanSearchField(cleanValue);
   };
 
   const toggleModal = () => {
@@ -115,6 +123,13 @@ export const ClientBalance = () => {
   };
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchField(cleanSearchField);
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [cleanSearchField]);
+
+  useEffect(() => {
     getPaginatedClientList(
       /*page*/ currentPage + 1,
       /*size*/ clientsPerPage,
@@ -172,7 +187,10 @@ export const ClientBalance = () => {
 
         <SectionBanner sectionName="Nuevo Saldo" />
         <div className="w-[90%] max-w-[1400px] mx-auto">
-          <SearchField onSearch={(e) => getClientSearched(e)} />
+          <SearchField
+            value={cleanSearchField}
+            onSearch={(e) => getClientSearched(e)}
+          />
 
           {clientList.length > 0 ? (
             <ClientList>{clientsDisplayed}</ClientList>
