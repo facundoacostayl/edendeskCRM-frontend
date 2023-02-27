@@ -137,6 +137,7 @@ export const MyProfile = () => {
                   name="password"
                   type="password"
                   placeholder="*******"
+                  minLength={8}
                   maxLength={30}
                 />
               </div>
@@ -146,6 +147,7 @@ export const MyProfile = () => {
                   name="rPassword"
                   type="password"
                   placeholder="*******"
+                  minLength={8}
                   maxLength={30}
                 />
               </div>

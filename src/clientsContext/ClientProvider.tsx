@@ -110,7 +110,8 @@ export const ClientProvider = ({ children }: Props) => {
   const updateClient = async (
     clientId: Client["clientId"],
     amount: number,
-    operation: string
+    operation: string,
+    currentPage: number
   ) => {
     try {
       const body = { amount };
@@ -127,7 +128,7 @@ export const ClientProvider = ({ children }: Props) => {
         }
       );
 
-      getPaginatedClientList(1, 5, "firstName", "ASC");
+      getPaginatedClientList(currentPage, 5, "firstName", "ASC");
       toast.success("Información actualizada con exito");
     } catch (error) {
       error instanceof Error && console.error(error.message);
