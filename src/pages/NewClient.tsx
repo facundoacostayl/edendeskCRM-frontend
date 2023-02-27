@@ -76,6 +76,12 @@ export const NewClient = () => {
     firstNameInput.value = "";
     lastNameInput.value = "";
     telInput.value = "";
+
+    setClientData({
+      clientFirstname: "",
+      clientLastname: "",
+      clientTel: "",
+    });
   };
 
   return (
