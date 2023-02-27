@@ -41,7 +41,7 @@ export const ClientBalance = () => {
 
   const [isAdding, setIsAdding] = useState(Boolean);
   const [isModalActive, setIsModalActive] = useState(false);
-  const [balanceField, setBalanceField] = useState(Number);
+  const [balanceField, setBalanceField] = useState("");
   const [searchField, setSearchField] = useState("");
   const [cleanSearchField, setCleanSearchField] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(0);
@@ -83,6 +83,7 @@ export const ClientBalance = () => {
       );
 
     setIsModalActive(false);
+    setBalanceField("");
   };
 
   const limitInputLength = (e: React.FormEvent<HTMLInputElement>) => {
@@ -92,7 +93,7 @@ export const ClientBalance = () => {
       eventValue = eventValue.slice(0, maxLength);
     }
 
-    setBalanceField(parseInt(eventValue));
+    setBalanceField(eventValue);
   };
 
   const clientsPerPage = 5;
