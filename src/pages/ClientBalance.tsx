@@ -74,6 +74,11 @@ export const ClientBalance = () => {
 
     const inputAmount = e.currentTarget.inputAmount;
 
+    if (inputAmount.value.length <= 0) {
+      toast.error("Completa todos los campos");
+      return;
+    }
+
     clientToUpdate &&
       updateClient(
         clientToUpdate.id,
