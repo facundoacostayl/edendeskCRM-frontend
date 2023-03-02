@@ -32,6 +32,7 @@ export const ClientProfile = () => {
     useState<boolean>(false);
   const [newValueToEdit, setNewValueToEdit] = useState<string>("");
   const [newEditingValue, setNewEditingValue] = useState<string>("");
+  const [inputMaxLength, setInputMaxLength] = useState<number>(8);
   const [status, setStatus] = useState<Status>(Status.init);
   const getUserId = localStorage.getItem("userId");
 
@@ -65,9 +66,11 @@ export const ClientProfile = () => {
     ) {
       cleanValue = sanitizeValue(eventValue);
       setNewEditingValue(cleanValue);
+      setInputMaxLength(25);
       return;
     }
     setNewEditingValue(eventValue);
+    setInputMaxLength(15);
   };
 
   const onDeleteClient = () => {
@@ -153,6 +156,7 @@ export const ClientProfile = () => {
                 value={newEditingValue}
                 id="new-value-input"
                 name="new-value-input"
+                maxLength={inputMaxLength}
               />
             </div>
             <ModalFooter>

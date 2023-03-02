@@ -141,6 +141,7 @@ export const NewClient = () => {
                 name="clientTel"
                 placeholder="01142567891"
                 minLength={4}
+                maxLength={15}
               />
             </div>
             <div className="my-3 mx-auto">
