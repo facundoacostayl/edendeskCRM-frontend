@@ -20,6 +20,9 @@ import { Status } from "../types";
 //ICONS
 import { Icon, EditIcon, RemoveIcon } from "../ui/icons";
 
+//UTILS
+import { toast } from "react-toastify";
+
 export const ClientProfile = () => {
   const { currentClient, getClient, deleteClient, updateClientInfo } =
     useClient();
@@ -57,6 +60,7 @@ export const ClientProfile = () => {
 
   const onNewEditingValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const eventValue = e.target.value;
+
     let cleanValue = "";
     if (
       newValueToEdit !== "tel" &&
@@ -86,6 +90,10 @@ export const ClientProfile = () => {
 
   const onConfirmEditClient = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (newEditingValue.length <= 0) {
+      toast.error("Completa todos los campos");
+      return;
+    }
     updateClientInfo(
       getUserId ? parseInt(getUserId) : 0,
       currentClient.clientId,
