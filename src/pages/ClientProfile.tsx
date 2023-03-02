@@ -42,7 +42,7 @@ export const ClientProfile = () => {
 
   useEffect(() => {
     setNewEditingValue("");
-  }, [newValueToEdit]);
+  }, [newValueToEdit, isEditingModalActive]);
 
   const sanitizeValue = (value: string) => {
     let newValue = "";
@@ -58,7 +58,9 @@ export const ClientProfile = () => {
     let cleanValue = "";
     if (
       newValueToEdit !== "tel" &&
+      newValueToEdit !== "lastAddDate" &&
       newValueToEdit !== "lastAddAmount" &&
+      newValueToEdit !== "lastWithdrawDate" &&
       newValueToEdit !== "lastWithdrawAmount"
     ) {
       cleanValue = sanitizeValue(eventValue);
