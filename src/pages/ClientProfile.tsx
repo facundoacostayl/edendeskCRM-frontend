@@ -32,7 +32,8 @@ export const ClientProfile = () => {
     useState<boolean>(false);
   const [newValueToEdit, setNewValueToEdit] = useState<string>("");
   const [newEditingValue, setNewEditingValue] = useState<string>("");
-  const [inputMaxLength, setInputMaxLength] = useState<number>(8);
+  const [inputMaxLength, setInputMaxLength] = useState<number>(25);
+  const [inputMinLength, setInputMinLength] = useState<number>(8);
   const [status, setStatus] = useState<Status>(Status.init);
   const getUserId = localStorage.getItem("userId");
 
@@ -71,6 +72,10 @@ export const ClientProfile = () => {
     }
     setNewEditingValue(eventValue);
     setInputMaxLength(15);
+    newValueToEdit === "lastAddAmount" ||
+    newValueToEdit === "lastWithdrawAmount"
+      ? setInputMinLength(1)
+      : setInputMinLength(4);
   };
 
   const onDeleteClient = () => {
@@ -157,6 +162,7 @@ export const ClientProfile = () => {
                 id="new-value-input"
                 name="new-value-input"
                 maxLength={inputMaxLength}
+                minLength={inputMinLength}
               />
             </div>
             <ModalFooter>
