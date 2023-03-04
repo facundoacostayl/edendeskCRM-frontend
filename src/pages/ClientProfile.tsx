@@ -13,6 +13,7 @@ import { Button } from "../ui/controls/button";
 import { Modal } from "../ui/modal";
 import { ModalFooter } from "../ui/modal";
 import { TextField } from "../ui/form/textField";
+import { DateField } from "../ui/form/dateField";
 
 //TYPES
 import { Status } from "../types";
@@ -173,6 +174,7 @@ export const ClientProfile = () => {
                 minLength={inputMinLength}
               />
             </div>
+            <DateField></DateField>
             <ModalFooter>
               <Button
                 onClose={() => setIsEditingModalActive(false)}
