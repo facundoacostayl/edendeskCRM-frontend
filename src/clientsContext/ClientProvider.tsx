@@ -96,9 +96,12 @@ export const ClientProvider = ({ children }: Props) => {
       );
 
       const parseRes = await response.json();
-      parseRes && parseRes.data
-        ? toast.success("Cliente añadido con exito")
-        : toast.error("El cliente ya existe");
+
+      if (!parseRes.data) {
+        throw new Error(parseRes.message);
+      }
+
+      toast.success("Cliente añadido con exito");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -128,10 +131,19 @@ export const ClientProvider = ({ children }: Props) => {
         }
       );
 
+      const parseRes = await response.json();
+
+      if (!parseRes.data) {
+        throw new Error(parseRes.message);
+      }
+
       getPaginatedClientList(currentPage, 5, "firstName", "ASC");
-      toast.success("Información actualizada con exito");
+      toast.success(parseRes.message);
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 
@@ -156,11 +168,18 @@ export const ClientProvider = ({ children }: Props) => {
       );
 
       const parseRes = await response.json();
-      setCurrentClient(parseRes.data);
 
-      toast.success("Información actualizada con exito");
+      if (!parseRes.data) {
+        throw new Error(parseRes.message);
+      }
+
+      setCurrentClient(parseRes.data);
+      toast.success(parseRes.message);
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 
@@ -171,15 +190,22 @@ export const ClientProvider = ({ children }: Props) => {
         `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`,
         {
           method: "DELETE",
+          headers: { token: localStorage.token },
         }
       );
 
       const parseRes = await response.json();
-      parseRes && parseRes.responseType === "Success"
-        ? toast.success("Cliente eliminado con exito")
-        : toast.error("Denegado. Contacta a un administrador");
+
+      if (!parseRes.data) {
+        throw new Error(parseRes.message);
+      }
+
+      toast.success(parseRes.message);
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 

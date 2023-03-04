@@ -10,9 +10,7 @@ type Props = {};
 export const DateField = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
 
-  useEffect(() => {
-    console.log(startDate);
-  }, [startDate]);
+  useEffect(() => {}, [startDate]);
 
   return (
     <DatePicker
@@ -20,6 +18,9 @@ export const DateField = () => {
       onChange={(date: Date) => setStartDate(date)}
       locale="es"
       dateFormat="dd-MM-yyyy"
+      value={`${startDate.getDate()}-${
+        startDate.getMonth() + 1
+      }-${startDate.getFullYear()}`}
     />
   );
 };
