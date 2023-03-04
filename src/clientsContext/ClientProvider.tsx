@@ -54,7 +54,10 @@ export const ClientProvider = ({ children }: Props) => {
         setClientsQuantity(parseRes.data.allValues);
       }
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 
@@ -62,13 +65,20 @@ export const ClientProvider = ({ children }: Props) => {
     userId: User["id"],
     clientId: Client["clientId"]
   ) => {
-    const response = await fetch(
-      `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`
-    );
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`
+      );
 
-    const parseRes = await response.json();
+      const parseRes = await response.json();
 
-    setCurrentClient(parseRes.data);
+      setCurrentClient(parseRes.data);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
+    }
   };
 
   const addClient = async (
@@ -219,7 +229,10 @@ export const ClientProvider = ({ children }: Props) => {
       const parseRes = await response.json();
       setClientList(parseRes.data);
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 
@@ -246,7 +259,10 @@ export const ClientProvider = ({ children }: Props) => {
       const parseRes = await response.json();
       setTotalClientBalance(parseRes.data);
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 
@@ -260,7 +276,10 @@ export const ClientProvider = ({ children }: Props) => {
 
       setClientsQuantity(parseRes.data.length);
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 

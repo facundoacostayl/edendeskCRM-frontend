@@ -31,7 +31,10 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       setUserData(parseRes);
     } catch (error) {
-      error instanceof Error && console.error(error.message);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
   };
 
@@ -77,8 +80,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const parseRes = await response.json();
 
       if (!parseRes.data) {
-        toast.error("Ya existe un usuario con ese email");
-        return;
+        throw new Error(parseRes.message);
       }
 
       if (parseRes.token) {
@@ -89,7 +91,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
-        toast.error("Ocurrió un error inesperado");
+        toast.error(error.message);
       }
     }
   };
@@ -109,8 +111,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const parseRes = await response.json();
 
       if (!parseRes.data) {
-        toast.error("No existe el usuario");
-        return;
+        throw new Error(parseRes.message);
       }
 
       if (parseRes.token) {
@@ -121,7 +122,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
-        toast.error("Ocurrió un error inesperado");
+        toast.error(error.message);
       }
     }
   };
