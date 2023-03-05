@@ -50,8 +50,22 @@ export const ClientProfile = () => {
 
   useEffect(() => {
     setNewEditingValue("");
+
     setStartDate(new Date());
   }, [newValueToEdit, isEditingModalActive]);
+
+  useEffect(() => {
+    if (
+      newValueToEdit === "lastAddDate" ||
+      newValueToEdit === "lastWithdrawDate"
+    ) {
+      setNewEditingValue(formatDate);
+    }
+  }, [newValueToEdit]);
+
+  useEffect(() => {
+    setNewValueToEdit("firstName");
+  }, [isEditingModalActive]);
 
   useEffect(() => {
     setFormatDate(
@@ -63,7 +77,7 @@ export const ClientProfile = () => {
   }, [startDate]);
 
   useEffect(() => {
-    console.log(`FormatDate: ${formatDate}`);
+    setNewEditingValue(formatDate);
   }, [formatDate]);
 
   const sanitizeValue = (value: string) => {
@@ -107,7 +121,7 @@ export const ClientProfile = () => {
 
   const onConfirmEditClient = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (newEditingValue.length <= 0) {
+    if (!newEditingValue) {
       toast.error("Completa todos los campos");
       return;
     }
@@ -119,6 +133,7 @@ export const ClientProfile = () => {
     );
     setIsEditingModalActive(false);
     setNewEditingValue("");
+    setNewValueToEdit("firstName");
   };
 
   const onChangeDate = (date: Date) => {
@@ -182,22 +197,86 @@ export const ClientProfile = () => {
             </select>
             <div className="p-2 my-2">
               <label htmlFor="new-value-input">Nuevo valor</label>
-              <TextField
-                onFocus={() =>
-                  newValueToEdit.length === 0 && setNewValueToEdit("firstName")
-                }
-                onChange={(e) => onNewEditingValue(e)}
-                value={newEditingValue}
-                id="new-value-input"
-                name="new-value-input"
-                maxLength={inputMaxLength}
-                minLength={inputMinLength}
-              />
-              <DateField
-                selected={startDate}
-                onChange={(date: Date) => onChangeDate(date)}
-                value={formatDate}
-              ></DateField>
+              {newValueToEdit === "firstName" ||
+              newValueToEdit === "lastName" ? (
+                <TextField
+                  onFocus={() =>
+                    newValueToEdit.length === 0 &&
+                    setNewValueToEdit("firstName")
+                  }
+                  onChange={(e) => onNewEditingValue(e)}
+                  value={newEditingValue}
+                  id="new-value-input"
+                  name="new-value-input"
+                  maxLength={inputMaxLength}
+                  minLength={inputMinLength}
+                  type="text"
+                />
+              ) : (
+                ""
+              )}
+              {newValueToEdit === "tel" ||
+              newValueToEdit === "lastAddAmount" ||
+              newValueToEdit === "lastWithdrawAmount" ? (
+                <TextField
+                  onFocus={() =>
+                    newValueToEdit.length === 0 &&
+                    setNewValueToEdit("firstName")
+                  }
+                  onChange={(e) => onNewEditingValue(e)}
+                  value={newEditingValue}
+                  id="new-value-input"
+                  name="new-value-input"
+                  maxLength={inputMaxLength}
+                  minLength={inputMinLength}
+                  type="number"
+                />
+              ) : (
+                ""
+              )}
+
+              {newValueToEdit === "lastAddDate" ||
+              newValueToEdit === "lastWithdrawDate" ? (
+                <DateField
+                  selected={startDate}
+                  onChange={(date: Date) => onChangeDate(date)}
+                  value={formatDate}
+                ></DateField>
+              ) : (
+                ""
+              )}
+
+              {newValueToEdit === "addType" ? (
+                <select
+                  onChange={(e) => setNewEditingValue(e.currentTarget.value)}
+                  id="edit-select"
+                  name="edit-select"
+                  className="w-full border border-gray-500 rounded-md font-semibold xl:text-xl xl:p-2"
+                >
+                  <option value="">--Seleccione una opción--</option>
+                  <option value="Notificacion">Notificacion</option>
+                  <option value="Diario">Diario</option>
+                  <option value="Presencial">Presencial</option>
+                </select>
+              ) : (
+                ""
+              )}
+
+              {newValueToEdit === "branch" ? (
+                <select
+                  onChange={(e) => setNewEditingValue(e.currentTarget.value)}
+                  id="edit-select"
+                  name="edit-select"
+                  className="w-full border border-gray-500 rounded-md font-semibold xl:text-xl xl:p-2"
+                >
+                  <option value="">--Seleccione una opción--</option>
+                  <option value="Maipu 867">Maipu 867</option>
+                  <option value="Maipu 384">Maipu 384</option>
+                  <option value="Araoz 2797">Araoz 2797</option>
+                </select>
+              ) : (
+                ""
+              )}
             </div>
 
             <ModalFooter>

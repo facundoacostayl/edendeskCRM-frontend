@@ -19,7 +19,9 @@ export const DateField = ({ selected, onChange, value }: Props) => {
       locale="es"
       dateFormat="dd-MM-yyyy"
       value={value}
-      className={"border-2 rounded-md p-2 w-full font-semibold text-indigo-700"}
+      className={
+        "w-full py-2 px-2 md:py-4 md:px-4 md:text-lg text-indigo-500 font-semibold border border-gray-200 rounded-md shadow-sm focus:border-none focus:outline-indigo-500 focus:ring-1 focus:ring-indigo-500"
+      }
       maxDate={new Date()}
     />
   );
