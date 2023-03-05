@@ -36,6 +36,8 @@ export const ClientProfile = () => {
     useState<boolean>(false);
   const [newValueToEdit, setNewValueToEdit] = useState<string>("");
   const [newEditingValue, setNewEditingValue] = useState<string>("");
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [formatDate, setFormatDate] = useState<string>("");
   const [inputMaxLength, setInputMaxLength] = useState<number>(25);
   const [inputMinLength, setInputMinLength] = useState<number>(8);
   const [status, setStatus] = useState<Status>(Status.init);
@@ -48,7 +50,21 @@ export const ClientProfile = () => {
 
   useEffect(() => {
     setNewEditingValue("");
+    setStartDate(new Date());
   }, [newValueToEdit, isEditingModalActive]);
+
+  useEffect(() => {
+    setFormatDate(
+      `${startDate.getDate()}-${
+        startDate.getMonth() + 1
+      }-${startDate.getFullYear()}`
+    );
+    console.log(`startDate: ${startDate}`);
+  }, [startDate]);
+
+  useEffect(() => {
+    console.log(`FormatDate: ${formatDate}`);
+  }, [formatDate]);
 
   const sanitizeValue = (value: string) => {
     let newValue = "";
@@ -103,6 +119,10 @@ export const ClientProfile = () => {
     );
     setIsEditingModalActive(false);
     setNewEditingValue("");
+  };
+
+  const onChangeDate = (date: Date) => {
+    setStartDate(date);
   };
 
   return (
@@ -174,7 +194,11 @@ export const ClientProfile = () => {
                 minLength={inputMinLength}
               />
             </div>
-            <DateField></DateField>
+            <DateField
+              selected={startDate}
+              onChange={(date: Date) => onChangeDate(date)}
+              value={formatDate}
+            ></DateField>
             <ModalFooter>
               <Button
                 onClose={() => setIsEditingModalActive(false)}

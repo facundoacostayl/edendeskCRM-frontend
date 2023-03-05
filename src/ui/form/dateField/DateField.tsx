@@ -5,22 +5,20 @@ registerLocale("es", es);
 
 import "react-datepicker/dist/react-datepicker.css";
 
-type Props = {};
+type Props = {
+  selected: Date;
+  onChange: (date: Date) => void;
+  value: string;
+};
 
-export const DateField = () => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
-
-  useEffect(() => {}, [startDate]);
-
+export const DateField = ({ selected, onChange, value }: Props) => {
   return (
     <DatePicker
-      selected={startDate}
-      onChange={(date: Date) => setStartDate(date)}
+      selected={selected}
+      onChange={onChange}
       locale="es"
       dateFormat="dd-MM-yyyy"
-      value={`${startDate.getDate()}-${
-        startDate.getMonth() + 1
-      }-${startDate.getFullYear()}`}
+      value={value}
     />
   );
 };
