@@ -193,12 +193,13 @@ export const ClientProfile = () => {
                 maxLength={inputMaxLength}
                 minLength={inputMinLength}
               />
+              <DateField
+                selected={startDate}
+                onChange={(date: Date) => onChangeDate(date)}
+                value={formatDate}
+              ></DateField>
             </div>
-            <DateField
-              selected={startDate}
-              onChange={(date: Date) => onChangeDate(date)}
-              value={formatDate}
-            ></DateField>
+
             <ModalFooter>
               <Button
                 onClose={() => setIsEditingModalActive(false)}
