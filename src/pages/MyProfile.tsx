@@ -26,29 +26,47 @@ type UserData = {
 export const MyProfile = () => {
   const { userData, setUserData } = useAuth();
   const [status, setStatus] = useState<Status>(Status.init);
+  const [editUserData, setEditUserData] = useState({
+    loginEmail: "",
+    password: "",
+    rPassword: "",
+  });
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const getUserId = localStorage.getItem("userId");
 
   const updateUser = async (newUserData: UserData) => {
     try {
       const body = newUserData;
-      const id = userData.id;
 
       const response = await fetch(
         `http://localhost:4000/api/2.0/user/${getUserId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newUserData),
+          body: JSON.stringify(body),
         }
       );
 
       const parseRes = await response.json();
-      toast.success("Información actualizada con éxito");
+
+      if (!parseRes.data) {
+        throw new Error(parseRes.message);
+      }
+
+      toast.success(parseRes.message);
     } catch (error) {
-      toast.error("Ha habido un error");
-      error instanceof Error && console.error(error);
+      if (error instanceof Error) {
+        console.error(error.message);
+        toast.error(error.message);
+      }
     }
+  };
+
+  const onChangeUserEditValues = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditUserData({
+      ...editUserData,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
   };
 
   const onUpdateValue = (e: Form) => {
@@ -58,44 +76,47 @@ export const MyProfile = () => {
       return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(loginEmail);
     };
 
-    const email = e.currentTarget.loginEmail;
-    const password = e.currentTarget.password;
-    const rPassword = e.currentTarget.rPassword;
+    const email = editUserData.loginEmail;
+    const password = editUserData.password;
+    const rPassword = editUserData.rPassword;
 
-    if (!email.value && !password.value) {
+    if (!email && !password) {
       toast.error("No hay datos a editar");
       return;
     }
 
-    if (email.value && !password.value) {
-      if (!validEmail(email.value)) {
+    if (email && !password) {
+      if (!validEmail(email)) {
         toast.error("Escriba un email valido");
         return;
       }
-      updateUser({ loginEmail: email.value });
-      setUserData({ ...userData, loginEmail: email.value });
+      updateUser({ loginEmail: email });
+      setUserData({ ...userData, loginEmail: email });
+      setEditUserData({ ...editUserData, loginEmail: "" });
     }
 
-    if (password.value && !email.value) {
-      if (password.value !== rPassword.value) {
+    if (password && !email) {
+      if (password !== rPassword) {
         toast.error("Las contraseñas no coinciden");
         return;
       }
-      updateUser({ password: password.value });
+      updateUser({ password: password });
+      setEditUserData({ ...editUserData, password: "", rPassword: "" });
     }
 
-    if (email.value && password.value && password.value === rPassword.value) {
-      if (!validEmail(email.value)) {
+    if (email && password && password === rPassword) {
+      if (!validEmail(email)) {
         toast.error("Escriba un email valido");
         return;
       }
-      if (password.value !== rPassword.value) {
+      if (password !== rPassword) {
         toast.error("Las contraseñas no coinciden");
         return;
       }
 
-      updateUser({ loginEmail: email.value, password: password.value });
-      setUserData({ ...userData, loginEmail: email.value });
+      updateUser({ loginEmail: email, password: password });
+      setUserData({ ...userData, loginEmail: email });
+      setEditUserData({ loginEmail: "", password: "", rPassword: "" });
     }
   };
 
@@ -126,6 +147,8 @@ export const MyProfile = () => {
                   name="loginEmail"
                   placeholder={userData.loginEmail}
                   maxLength={50}
+                  onChange={(e) => onChangeUserEditValues(e)}
+                  value={editUserData.loginEmail}
                 />
               </div>
 
@@ -139,6 +162,8 @@ export const MyProfile = () => {
                   placeholder="*******"
                   minLength={8}
                   maxLength={30}
+                  onChange={(e) => onChangeUserEditValues(e)}
+                  value={editUserData.password}
                 />
               </div>
               <div className="mb-5">
@@ -149,6 +174,8 @@ export const MyProfile = () => {
                   placeholder="*******"
                   minLength={8}
                   maxLength={30}
+                  onChange={(e) => onChangeUserEditValues(e)}
+                  value={editUserData.rPassword}
                 />
               </div>
               <div className="w-2/4 mx-auto flex justify-center">
