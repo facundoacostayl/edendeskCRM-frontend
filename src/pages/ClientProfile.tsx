@@ -333,14 +333,27 @@ export const ClientProfile = () => {
               <InfoLi color="secondary">{currentClient.firstName}</InfoLi>
               <InfoLi color="secondary">{currentClient.lastName}</InfoLi>
               <InfoLi color="secondary">{currentClient.tel}</InfoLi>
-              <InfoLi color="secondary">{currentClient.balance}</InfoLi>
+              <InfoLi color="secondary">
+                {new Intl.NumberFormat("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                }).format(currentClient.balance)}
+              </InfoLi>
               <InfoLi color="secondary">{currentClient.lastAddDate}</InfoLi>
-              <InfoLi color="secondary">{currentClient.lastAddAmount}</InfoLi>
+              <InfoLi color="secondary">
+                {new Intl.NumberFormat("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                }).format(currentClient.lastAddAmount)}
+              </InfoLi>
               <InfoLi color="secondary">
                 {currentClient.lastWithdrawDate}
               </InfoLi>
               <InfoLi color="secondary">
-                {currentClient.lastWithdrawAmount}
+                {new Intl.NumberFormat("es-AR", {
+                  style: "currency",
+                  currency: "ARS",
+                }).format(currentClient.lastWithdrawAmount)}
               </InfoLi>
               <InfoLi color="secondary">{currentClient.addType}</InfoLi>
               <InfoLi color="secondary">{currentClient.branch}</InfoLi>
