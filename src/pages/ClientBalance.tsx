@@ -121,7 +121,10 @@ export const ClientBalance = () => {
             {client.firstName} {client.lastName}
           </p>
           <p className="mx-auto font-semibold text-gray-500">
-            ${client.balance}
+            {new Intl.NumberFormat("es-AR", {
+              style: "currency",
+              currency: "ARS",
+            }).format(client.balance)}
           </p>
           <div className="mx-auto">
             <OperatorButtons
