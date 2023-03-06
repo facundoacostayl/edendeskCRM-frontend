@@ -51,7 +51,12 @@ export const MyClients = () => {
         <p className="mx-auto font-semibold text-gray-800">
           {client.firstName} {client.lastName}
         </p>
-        <p className="mx-auto font-semibold text-gray-500">${client.balance}</p>
+        <p className="mx-auto font-semibold text-gray-500">
+          {new Intl.NumberFormat("es-AR", {
+            style: "currency",
+            currency: "ARS",
+          }).format(client.balance)}
+        </p>
         <div className="mx-auto">
           <Link to={`/mis-clientes/user${getUserId}/cliente${client.clientId}`}>
             <Button colorScheme="primary">Editar</Button>
