@@ -162,17 +162,21 @@ export const Dashboard: React.FC = () => {
               <CardRightContainer>
                 <p className="md:text-xl">Ingresos:</p>
                 <span className="font-semibold md:text-xl">
-                  $
                   {todayOperationData[0].userEarnings
-                    ? todayOperationData[0].userEarnings
-                    : 0}
+                    ? new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(todayOperationData[0].userEarnings)
+                    : "$0"}
                 </span>
                 <p className="md:text-xl">Consumos:</p>
                 <span className="font-semibold md:text-xl">
-                  $
                   {todayOperationData[0].userLosses
-                    ? todayOperationData[0].userLosses
-                    : 0}
+                    ? new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(todayOperationData[0].userLosses)
+                    : "$0"}
                 </span>
               </CardRightContainer>
             </Card>
@@ -182,7 +186,12 @@ export const Dashboard: React.FC = () => {
                   Saldo total
                 </h3>
                 <p className="text-center font-bold text-indigo-500 text-4xl md:text-6xl">
-                  ${clientTotalBalance ? clientTotalBalance : 0}
+                  {clientTotalBalance
+                    ? new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS",
+                      }).format(clientTotalBalance)
+                    : 0}
                 </p>
               </CardLeftContainer>
               <CardRightContainer>
