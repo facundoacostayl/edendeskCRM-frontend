@@ -39,7 +39,7 @@ export const ClientProfile = () => {
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [formatDate, setFormatDate] = useState<string>("");
   const [inputMaxLength, setInputMaxLength] = useState<number>(25);
-  const [inputMinLength, setInputMinLength] = useState<number>(8);
+  const [inputMinLength, setInputMinLength] = useState<number>(1);
   const [status, setStatus] = useState<Status>(Status.init);
   const getUserId = localStorage.getItem("userId");
 
