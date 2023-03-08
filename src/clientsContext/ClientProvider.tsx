@@ -9,6 +9,9 @@ import { Status } from "../types";
 import { json } from "node:stream/consumers";
 import { PaginationArgs } from "../types/pagination";
 
+//UTILS
+import { currentUrl } from "../utils/apiUrl";
+
 export const useClient = () => {
   return useContext(ClientContext);
 };
@@ -28,7 +31,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${id}/all-clients`
+        `${currentUrl}/api/2.0/client/user${id}/all-clients`
       );
       const parseRes = await response.json();
       parseRes && setClientList(parseRes.data);
@@ -46,7 +49,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
+        `${currentUrl}/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
       );
       const parseRes = await response.json();
       if (parseRes) {
@@ -67,7 +70,7 @@ export const ClientProvider = ({ children }: Props) => {
   ) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`
+        `${currentUrl}/api/2.0/client/user${userId}/client${clientId}`
       );
 
       const parseRes = await response.json();
@@ -95,7 +98,7 @@ export const ClientProvider = ({ children }: Props) => {
 
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${id}/new-client`,
+        `${currentUrl}/api/2.0/client/user${id}/new-client`,
         {
           method: "POST",
           headers: {
@@ -131,7 +134,7 @@ export const ClientProvider = ({ children }: Props) => {
       const userId = localStorage.getItem("userId");
 
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}/${operation}`,
+        `${currentUrl}/api/2.0/client/user${userId}/client${clientId}/${operation}`,
         {
           method: "PUT",
           headers: {
@@ -167,7 +170,7 @@ export const ClientProvider = ({ children }: Props) => {
       const body = { [clientValueToEdit]: newClientValue };
 
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`,
+        `${currentUrl}/api/2.0/client/user${userId}/client${clientId}`,
         {
           method: "PUT",
           headers: {
@@ -197,7 +200,7 @@ export const ClientProvider = ({ children }: Props) => {
     const userId = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${userId}/client${clientId}`,
+        `${currentUrl}/api/2.0/client/user${userId}/client${clientId}`,
         {
           method: "DELETE",
           headers: { token: localStorage.token },
@@ -223,7 +226,7 @@ export const ClientProvider = ({ children }: Props) => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${id}/search-client/?nameSearch=${name}`
+        `${currentUrl}/api/2.0/client/user${id}/search-client/?nameSearch=${name}`
       );
 
       const parseRes = await response.json();
@@ -236,25 +239,11 @@ export const ClientProvider = ({ children }: Props) => {
     }
   };
 
-  const orderClients = async (orderType: string) => {
-    const id = localStorage.getItem("userId");
-    /*try {
-      const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${id}/listed-clients/?page=${page}&size=${size}&sortBy=${sortBy}&orderBy=${orderBy}`
-      );
-
-      const parseRes = await response.json();
-      setClientList(parseRes);
-    } catch (error) {
-      error instanceof Error && console.error(error.message);
-    }*/
-  };
-
   const getFullClientBalance = async () => {
     const id = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${id}/user-total-balance`
+        `${currentUrl}/api/2.0/operation/user${id}/user-total-balance`
       );
       const parseRes = await response.json();
       setTotalClientBalance(parseRes.data);
@@ -270,7 +259,7 @@ export const ClientProvider = ({ children }: Props) => {
     const userId = localStorage.getItem("userId");
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/client/user${userId}/all-clients`
+        `${currentUrl}/api/2.0/client/user${userId}/all-clients`
       );
       const parseRes = await response.json();
 
@@ -294,7 +283,6 @@ export const ClientProvider = ({ children }: Props) => {
     getClient,
     currentClient,
     searchClient,
-    orderClients,
     getFullClientBalance,
     totalClientBalance,
     getClientsQuantity,

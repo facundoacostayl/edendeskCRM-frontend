@@ -13,6 +13,9 @@ import { BarChart } from "../components/barChart";
 import { Status } from "../types";
 import { Operation } from "../types/operation";
 
+//UTILS
+import { currentUrl } from "../utils/apiUrl";
+
 const operationDataValues: Operation[] = [
   {
     operationId: 0,
@@ -61,7 +64,7 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${getUserId}/today-operation-data`
+        `${currentUrl}/api/2.0/operation/user${getUserId}/today-operation-data`
       );
       const parseRes = await response.json();
       setTodayOperationData([parseRes.data]);
@@ -70,14 +73,14 @@ export const Dashboard: React.FC = () => {
     }
   };
 
-  const getMonthOperationData = async () => {
+  /*const getMonthOperationData = async () => {
     const body = {
       month: new Date().getMonth() + 1,
       year: new Date().getFullYear(),
     };
     try {
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/month${body.month}/year${body.year}/month-operation`
+        `${currentUrl}/api/2.0/operation/month${body.month}/year${body.year}/month-operation`
       );
 
       const parseRes = await response.json();
@@ -85,13 +88,13 @@ export const Dashboard: React.FC = () => {
     } catch (error) {
       error instanceof Error && console.error(error.message);
     }
-  };
+  };*/
 
   const getFullOperationData = async () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${getUserId}/total-operation-data`
+        `${currentUrl}/api/2.0/operation/user${getUserId}/total-operation-data`
       );
 
       const parseRes = await response.json();
@@ -106,7 +109,7 @@ export const Dashboard: React.FC = () => {
     try {
       if (!userData) return;
       const response = await fetch(
-        `http://localhost:4000/api/2.0/operation/user${getUserId}/user-total-balance`
+        `${currentUrl}/api/2.0/operation/user${getUserId}/user-total-balance`
       );
 
       const parseRes = await response.json();

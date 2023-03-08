@@ -28,7 +28,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const getUserData = async () => {
     const id = localStorage.getItem("userId");
     try {
-      const response = await fetch(`http://localhost:4000/api/2.0/user/${id}`);
+      const response = await fetch(`${currentUrl}/api/2.0/user/${id}`);
 
       const parseRes: User = await response.json();
 
@@ -43,13 +43,10 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
   const checkAuth = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:4000/api/2.0/user/verify",
-        {
-          method: "GET",
-          headers: { token: localStorage.token },
-        }
-      );
+      const response = await fetch(`${currentUrl}/api/2.0/user/verify`, {
+        method: "GET",
+        headers: { token: localStorage.token },
+      });
 
       const parseRes = await response.json();
 
@@ -69,16 +66,13 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const body = { firstName, loginEmail, password };
 
     try {
-      const response = await fetch(
-        "http://localhost:4000/api/2.0/user/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
+      const response = await fetch(`${currentUrl}/api/2.0/user/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
 
       const parseRes = await response.json();
 
@@ -103,7 +97,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     const body = { loginEmail, password };
 
     try {
-      const response = await fetch("http://localhost:4000/api/2.0/user/login", {
+      const response = await fetch(`${currentUrl}/api/2.0/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

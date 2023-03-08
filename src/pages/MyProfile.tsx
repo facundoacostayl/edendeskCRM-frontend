@@ -13,6 +13,9 @@ import { Status } from "../types";
 import { User } from "../authContext/types";
 import { toast } from "react-toastify";
 
+//UTILS
+import { currentUrl } from "../utils/apiUrl";
+
 interface Form extends React.FormEvent<HTMLFormElement> {
   loginemail: HTMLInputElement;
   password: HTMLInputElement;
@@ -38,14 +41,11 @@ export const MyProfile = () => {
     try {
       const body = newUserData;
 
-      const response = await fetch(
-        `http://localhost:4000/api/2.0/user/${getUserId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        }
-      );
+      const response = await fetch(`${currentUrl}/api/2.0/user/${getUserId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
 
       const parseRes = await response.json();
 

@@ -31,7 +31,6 @@ type ClientContextProps = {
   ) => Promise<void>;
   clientList: Client[];
   searchClient: (name: Client["firstName"]) => Promise<void>;
-  orderClients: (orderType: string) => Promise<void>;
   getClient: (
     userId: User["id"],
     clientId: Client["clientId"]
