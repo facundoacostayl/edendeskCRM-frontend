@@ -35,7 +35,7 @@ const monthOperationDataValues = {
 //GET FULL OPERATION DATA <-----------
 
 export const Dashboard: React.FC = () => {
-  const { userData, checkAuth } = useAuth();
+  const { userData, checkAuth, userStateUnknown } = useAuth();
   const {
     getFullClientBalance,
     status,

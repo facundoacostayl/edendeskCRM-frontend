@@ -1,6 +1,7 @@
 import { AuthContext } from "./AuthContext";
 import { useContext, useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { User } from "./types";
 
@@ -23,7 +24,10 @@ export const useToken = () => {
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   //State for checking if the user is authenticated
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userStateUnknown, setUserStateUnknown] = useState(false);
   const [userData, setUserData] = useState<User>({} as User);
+
+  const navigate = useNavigate();
 
   const getUserData = async () => {
     const id = localStorage.getItem("userId");
@@ -32,7 +36,9 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
 
       const parseRes: User = await response.json();
 
-      setUserData(parseRes);
+      if (parseRes) {
+        setUserData(parseRes);
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -51,6 +57,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const parseRes = await response.json();
 
       parseRes === true ? setIsLoggedIn(true) : setIsLoggedIn(false);
+      parseRes === true ? navigate("/dashboard") : navigate("/login");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -128,6 +135,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     checkAuth();
+    setUserStateUnknown(false);
   };
 
   useEffect(() => {
@@ -141,6 +149,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
   const value = {
     isLoggedIn,
     setIsLoggedIn,
+    userStateUnknown,
     signUp,
     signIn,
     checkAuth,

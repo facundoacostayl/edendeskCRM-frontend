@@ -16,7 +16,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const Login = () => {
-  const { signIn, isLoggedIn, setIsLoggedIn, checkAuth } = useAuth();
+  const { signIn, isLoggedIn, setIsLoggedIn, checkAuth, userStateUnknown } =
+    useAuth();
   const navigate = useNavigate();
   const [userData, setUserData] = useState({
     loginemail: "",
@@ -62,6 +63,8 @@ export const Login = () => {
 
     signIn(email, password);
   };
+
+  if (userStateUnknown) return null;
 
   return (
     <>
