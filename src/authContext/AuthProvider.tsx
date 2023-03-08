@@ -4,6 +4,9 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { User } from "./types";
 
+//UTILS
+import { currentUrl } from "../utils/apiUrl";
+
 type Props = {
   children: JSX.Element | JSX.Element[];
 };
