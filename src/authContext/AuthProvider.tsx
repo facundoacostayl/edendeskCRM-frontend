@@ -57,7 +57,8 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
       const parseRes = await response.json();
 
       parseRes === true ? setIsLoggedIn(true) : setIsLoggedIn(false);
-      parseRes === true ? navigate("/dashboard") : navigate("/login");
+      parseRes === false && localStorage.removeItem("token");
+      return parseRes;
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -135,11 +136,16 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     checkAuth();
-    setUserStateUnknown(false);
+    setUserStateUnknown(true);
+    navigate("/login");
   };
 
   useEffect(() => {
-    if (localStorage.getItem("token")) checkAuth();
+    (async () => {
+      const response = await checkAuth();
+      response === false && setUserStateUnknown(true);
+      console.log(response);
+    })();
   }, []);
 
   useEffect(() => {

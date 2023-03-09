@@ -15,7 +15,8 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export const Login = () => {
-  const { signIn, userStateUnknown, setUserStateUnknown } = useAuth();
+  const { signIn, userStateUnknown, setUserStateUnknown, isLoggedIn } =
+    useAuth();
   const [userData, setUserData] = useState({
     loginemail: "",
     password: "",
@@ -60,10 +61,6 @@ export const Login = () => {
 
     signIn(email, password);
   };
-
-  useEffect(() => {
-    !localStorage.getItem("token") && setUserStateUnknown(true);
-  }, []);
 
   if (!userStateUnknown) return null;
 
