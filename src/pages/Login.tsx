@@ -8,17 +8,14 @@ import { Footer } from "../ui/footer";
 
 //Hooks
 import { useAuth } from "../authContext/AuthProvider";
-import { useToken } from "../authContext/AuthProvider";
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Utils
 import { toast } from "react-toastify";
 
 export const Login = () => {
-  const { signIn, isLoggedIn, setIsLoggedIn, checkAuth, userStateUnknown } =
-    useAuth();
-  const navigate = useNavigate();
+  const { signIn, userStateUnknown, setUserStateUnknown } = useAuth();
   const [userData, setUserData] = useState({
     loginemail: "",
     password: "",
@@ -64,7 +61,11 @@ export const Login = () => {
     signIn(email, password);
   };
 
-  if (userStateUnknown) return null;
+  useEffect(() => {
+    !localStorage.getItem("token") && setUserStateUnknown(true);
+  }, []);
+
+  if (!userStateUnknown) return null;
 
   return (
     <>

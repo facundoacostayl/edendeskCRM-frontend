@@ -150,6 +150,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
     isLoggedIn,
     setIsLoggedIn,
     userStateUnknown,
+    setUserStateUnknown,
     signUp,
     signIn,
     checkAuth,

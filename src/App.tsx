@@ -14,7 +14,6 @@ import { MyProfile } from "./pages/MyProfile";
 
 //ROUTER
 import { Routes, Route } from "react-router-dom";
-import { PrivateLoggedRoutes, PrivateNotLoggedRoutes } from "./privateRoutes";
 
 //TOAST NOTIFICATIONS
 import { ToastContainer } from "react-toastify";
@@ -27,14 +26,6 @@ function App() {
     <div className="App">
       <ToastContainer position={"top-center"} />
       <Routes>
-        {!isLoggedIn && (
-          <>
-            <Route path="/" element={<Home />}></Route>
-            <Route path="/registro" element={<Register />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-          </>
-        )}
-
         {isLoggedIn && (
           <>
             <Route path="/dashboard" element={<Dashboard />}></Route>
@@ -46,6 +37,14 @@ function App() {
               element={<ClientProfile />}
             ></Route>
             <Route path="/mi-perfil" element={<MyProfile />}></Route>
+          </>
+        )}
+
+        {!isLoggedIn && (
+          <>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/registro" element={<Register />}></Route>
+            <Route path="/login" element={<Login />}></Route>
           </>
         )}
 

@@ -15,15 +15,13 @@ import { Footer } from "../ui/footer";
 import { toast } from "react-toastify";
 
 export const Register = () => {
-  const { isLoggedIn, setIsLoggedIn, signUp, checkAuth } = useAuth();
+  const { isLoggedIn, signUp } = useAuth();
 
   const [userData, setUserData] = useState({
     userName: "",
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const sanitizeValue = (value: string, name: string) => {
     let newValue = "";
