@@ -1,11 +1,11 @@
 const apiUrl = {
   DEV: {
     url: "http://localhost:4000",
-    active: true,
+    active: false,
   },
   PROD: {
     url: "https://edendeskcrm-backend-production.up.railway.app",
-    active: false,
+    active: true,
   },
 };
 
