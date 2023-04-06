@@ -4,7 +4,7 @@ const apiUrl = {
     active: false,
   },
   PROD: {
-    url: "edendeskcrm-backend-production-c8b5.up.railway.app",
+    url: "https://edendeskcrm-backend-production-c8b5.up.railway.app",
     active: true,
   },
 };
