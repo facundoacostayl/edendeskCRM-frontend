@@ -4,7 +4,7 @@ const apiUrl = {
     active: false,
   },
   PROD: {
-    url: "https://edendesk-crm-backend.vercel.app/",
+    url: "https://edendesk-crm-backend.onrender.com",
     active: true,
   },
 };
